@@ -550,3 +550,81 @@ a:hover { color: var(--gold); border-color: var(--gold); }
         width: 100%;
     }
 }
+/* --- 1. ЗАГОЛОВОК РАЗДЕЛА "ПОКОЛЕННАЯ РОСПИСЬ" --- */
+.section-title-wrapper {
+    text-align: center;
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
+.section-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--ink);
+    border-bottom: 2px solid var(--gold);
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.section-subtitle {
+    font-size: 0.9rem;
+    color: var(--slate-light);
+    font-style: italic;
+}
+
+/* --- 2. ОТСТУПЫ МЕЖДУ РАЗВОРОТАМИ --- */
+.book-spread {
+    margin-bottom: 100px; /* Большой отступ между поколениями */
+}
+/* Убираем отступ у последнего, чтобы не висел лишний воздух перед подвалом */
+.book-spread:last-of-type {
+    margin-bottom: 0;
+}
+
+/* --- 3. НУМЕРАЦИЯ СТРАНИЦ --- */
+.page-number {
+    position: absolute;
+    bottom: 25px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: var(--slate-light);
+    font-weight: bold;
+    opacity: 0.7;
+}
+/* Номер на левой странице - слева */
+.page-left .page-number { left: 30px; }
+/* Номер на правой странице - справа */
+.page-right .page-number { right: 30px; }
+
+
+/* --- 4. АККУРАТНЫЙ (МАЛЕНЬКИЙ) БЛОК ПОДДЕРЖКИ --- */
+.support-section-clean {
+    background-color: #FAFAFA; /* Очень светлый серый, почти белый */
+    padding: 60px 20px; /* Уменьшили вертикальные отступы */
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.support-section-clean h2 {
+    font-size: 1.5rem; /* Заголовок меньше */
+    margin-bottom: 20px;
+}
+
+.support-text p {
+    font-size: 0.9rem; /* Текст меньше и аккуратнее */
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.support-label {
+    font-size: 0.75rem;
+    margin: 30px 0 15px 0;
+    opacity: 0.6;
+}
+
+/* Уменьшенные кнопки */
+.btn-clean-dark {
+    padding: 12px 25px; /* Меньше воздуха в кнопках */
+    font-size: 0.8rem;
+    min-width: 200px; /* Кнопки уже */
+}

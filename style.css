@@ -361,3 +361,252 @@ p { margin-bottom: 25px; color: var(--ink); }
     .sticky-nav { padding: 0 20px; }
     .nav-links a { margin-left: 15px; font-size: 0.7rem; }
 }
+/* =========================================
+   КНИЖНЫЙ РАЗВОРОТ (BOOK SPREAD)
+   ========================================= */
+.book-spread {
+    display: flex;
+    justify-content: center;
+    gap: 0; /* Страницы склеены */
+    margin: 50px auto;
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2); /* Тень всей книги */
+}
+
+.book-page {
+    flex: 1; /* Равные половинки */
+    background-color: #F9F7F1; /* Цвет бумаги */
+    padding: 60px 40px;
+    position: relative;
+    border: 1px solid #E0DCC8;
+    min-height: 800px; /* Фиксированная высота как у книги */
+}
+
+.page-left {
+    border-right: 1px solid #D0C8B0; /* Сгиб книги слева */
+    background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); /* Тень сгиба */
+}
+
+.page-right {
+    border-left: none;
+    background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); /* Тень сгиба */
+}
+
+/* --- РАМКА "МЕАНДР" (УГОЛКИ) --- */
+/* Простой способ имитации греческой рамки через border-double и уголки */
+.book-page::before {
+    content: "";
+    position: absolute;
+    top: 20px; left: 20px; right: 20px; bottom: 20px;
+    border: 4px double var(--ink); /* Двойная рамка */
+    pointer-events: none;
+}
+
+/* Здесь можно добавить SVG меандра в уголки, если нужно, 
+   пока используем просто квадраты для стиля */
+.corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    background: var(--ink);
+    z-index: 2;
+}
+.list-tl { top: 20px; left: 20px; }
+.list-tr { top: 20px; right: 20px; }
+.list-bl { bottom: 20px; left: 20px; }
+.list-br { bottom: 20px; right: 20px; }
+
+
+/* =========================================
+   ЛЕВАЯ СТРАНИЦА: ГРАФИЧЕСКОЕ ДРЕВО
+   ========================================= */
+.genealogy-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.page-title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 20px;
+}
+
+/* УЗЛЫ (Nodes) */
+.g-node {
+    border: 2px solid var(--ink);
+    border-radius: 6px; /* Скругление как в Figma */
+    padding: 10px 20px;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    position: relative;
+    background: #fff;
+    z-index: 2;
+    min-width: 100px;
+}
+
+/* Стиль родителей (Зеленые, как в Figma) */
+.parent-node {
+    background: #D4E0D6; /* Светло-зеленый оттенок */
+    font-weight: bold;
+}
+
+/* Стиль детей (Белые) */
+.child-node {
+    background: #fff;
+}
+
+/* Активный предок */
+.active-ancestor {
+    border-color: var(--gold);
+    border-width: 3px;
+    font-weight: bold;
+}
+
+/* --- ЛИНИИ (CSS DRAWING) --- */
+.level-parents {
+    display: flex;
+    gap: 40px;
+    position: relative;
+}
+/* Линия между родителями */
+.level-parents::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translateX(-50%);
+    width: 40px; height: 2px;
+    background: var(--ink);
+    z-index: 1;
+}
+
+/* Вертикальная палка вниз от родителей */
+.lines-connector-vertical {
+    width: 2px;
+    height: 30px;
+    background: var(--ink);
+    margin-bottom: 0;
+}
+
+/* Горизонтальная палка над детьми */
+.lines-connector-horizontal {
+    width: 80%; /* Ширина охвата детей */
+    height: 2px;
+    background: var(--ink);
+    margin-bottom: 0;
+}
+
+/* Сетка детей */
+.level-children {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+.level-children-row-2 {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px; /* Отступ для второго ряда */
+}
+
+.child-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Вертикальные линии к детям */
+.lines-child-up {
+    width: 2px;
+    height: 20px;
+    background: var(--ink);
+}
+/* Длинные линии для второго ряда (визуальный трюк) */
+.lines-child-up-long {
+    width: 2px;
+    height: 40px; /* Длиннее, чтобы "достать" до верхней линии */
+    background: var(--ink);
+    margin-top: -20px; /* Подтягиваем вверх */
+    position: relative;
+    z-index: 0;
+}
+
+/* =========================================
+   ПРАВАЯ СТРАНИЦА: ТЕКСТ
+   ========================================= */
+.bio-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.bio-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: var(--ink);
+    text-transform: uppercase;
+}
+.dates {
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.children-list-text {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    border-left: 2px solid #D4E0D6; /* Зеленая линия слева */
+}
+.children-list-text ul {
+    list-style: none;
+    padding-left: 0;
+}
+.children-list-text li {
+    margin-bottom: 5px;
+}
+
+.history-note {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+.note-img {
+    width: 120px;
+    height: auto;
+    border: 1px solid var(--ink);
+    padding: 3px;
+    background: #fff;
+    float: left; /* Обтекание как в газете */
+    margin-right: 15px;
+    margin-bottom: 5px;
+}
+
+/* =========================================
+   АДАПТИВНОСТЬ (MOBILE)
+   ========================================= */
+@media (max-width: 900px) {
+    .book-spread {
+        flex-direction: column;
+        box-shadow: none;
+    }
+    .book-page {
+        width: 100%;
+        min-height: auto;
+        border: none;
+        border-bottom: 10px solid #eee; /* Разделитель страниц на мобильном */
+        box-sizing: border-box;
+    }
+    .page-left, .page-right {
+        background: var(--paper); /* Убираем градиент сгиба */
+    }
+    .genealogy-chart {
+        transform: scale(0.9); /* Чуть уменьшаем древо чтобы влезало */
+    }
+}

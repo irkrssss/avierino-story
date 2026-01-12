@@ -46,18 +46,59 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 /* =========================================
    2. ОБЛОЖКА
    ========================================= */
+/* =========================================
+   2. ОБЛОЖКА (В ЦВЕТЕ #3d5369)
+   ========================================= */
 .hero-section {
     height: 100vh;
-    /* Наложение темно-синего градиента */
-    background: linear-gradient(rgba(21, 32, 43, 0.6), rgba(21, 32, 43, 0.8)), 
+    background-color: #3d5369; /* Цвет, если картинка не прогрузится */
+    
+    /* Мы накладываем ваш цвет #3d5369 поверх картины Айвазовского.
+       Используем RGBA (61, 83, 105), что соответствует #3d5369, 
+       с прозрачностью 0.85, чтобы цвет был доминирующим.
+    */
+    background: linear-gradient(rgba(61, 83, 105, 0.85), rgba(61, 83, 105, 0.95)), 
                 url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    
+    /* Убираем сепию, чтобы цвет был чистым синим */
+    filter: none; 
 }
-.hero-title { font-size: 5rem; color: var(--paper); text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 15px; }
-.hero-subtitle { font-size: 1.5rem; color: var(--gold); font-style: italic; letter-spacing: 1px; }
-.scroll-indicator { position: absolute; bottom: 40px; color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; animation: bounce 2s infinite; }
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
+.hero-title {
+    font-size: 5rem;
+    color: var(--paper); /* Светлый текст (бумага) */
+    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--gold); /* Золотой подзаголовок */
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(10px); } 
+}
 /* =========================================
    3. НАВИГАЦИЯ
    ========================================= */

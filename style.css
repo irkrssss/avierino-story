@@ -9,88 +9,184 @@ body {
     background-color: var(--paper-color);
     color: var(--ink-color);
     font-family: 'Lato', sans-serif;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Важно для горизонтального скролла */
 }
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    margin: 0;
 }
 
 section {
     min-height: 100vh;
+    position: relative;
+}
+
+/* 0. HERO */
+.hero-section {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    box-sizing: border-box;
+    text-align: center;
+    background: radial-gradient(circle, var(--paper-color) 0%, #d8cfb8 100%);
+}
+.hero-title { font-size: 4rem; margin: 0; }
+.hero-subtitle { font-size: 1.5rem; font-style: italic; }
+.scroll-indicator { margin-top: 50px; opacity: 0.6; animation: bounce 2s infinite; }
+
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+/* 1. MAP SECTION */
+.map-wrapper {
+    display: flex;
+    /* Высота секции определяет, как долго мы скроллим карту */
+    height: 400vh; 
+}
+
+.map-sticky {
+    position: sticky; /* Липкое позиционирование */
+    top: 0;
+    width: 50%;
+    height: 100vh;
+    background: #111; /* Цвет моря */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.map-visual {
+    width: 100%;
+    height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center;
+    background-size: cover;
     position: relative;
 }
 
-.hero-section {
-    text-align: center;
-    /* Используем прямую ссылку на картинку для примера. Потом заменим на локальную */
-    background: linear-gradient(rgba(26, 43, 73, 0.7), rgba(26, 43, 73, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    color: var(--paper-color);
+.route-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
 }
 
-.hero-title {
-    font-size: 5rem;
-    line-height: 1;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(50px);
+.map-content {
+    width: 50%;
+    background: var(--paper-color);
 }
 
-.hero-subtitle {
-    font-size: 1.5rem;
-    font-style: italic;
-    opacity: 0;
+.step {
+    height: 100vh; /* Каждый шаг занимает один экран высоты скролла */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    box-sizing: border-box;
+    border-left: 1px solid rgba(0,0,0,0.1);
 }
 
-.chapter-one {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
+/* 2. CONTEXT */
+.context-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
 }
 
-.chapter-num {
-    color: var(--gold-accent);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-    display: block;
+.context-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover;
+    z-index: 1;
 }
 
-.drop-cap {
-    float: left;
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    line-height: 0.8;
-    padding-right: 10px;
-    padding-top: 10px;
-    color: var(--gold-accent);
-}
-
-p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 20px;
-}
-
-.gallery-section {
-    background-color: var(--ink-color);
-    color: var(--paper-color);
-}
-
-.card {
-    border: 1px solid var(--gold-accent);
-    padding: 40px;
-    margin: 20px;
+.context-text {
+    position: relative;
+    z-index: 2;
+    background: rgba(26, 43, 73, 0.8);
+    padding: 60px;
     max-width: 600px;
-    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--gold-accent);
 }
+
+/* 3. TREE */
+.tree-section {
+    min-height: 150vh;
+    background: var(--ink-color);
+    color: var(--paper-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    position: relative;
+}
+
+.tree-visual {
+    width: 80%;
+    height: 800px;
+    position: relative;
+    margin-top: 50px;
+    border: 1px dashed rgba(255,255,255,0.1); /* Границы древа */
+}
+
+.node {
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.my-node {
+    width: 20px; height: 20px;
+    background: var(--gold-accent);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-node span {
+    position: absolute; left: 30px; white-space: nowrap;
+    font-size: 14px; opacity: 0; transition: opacity 0.5s;
+}
+.my-branch:hover span { opacity: 1; } /* Временно, потом скриптом */
+
+.branch-line {
+    position: absolute;
+    top: 10%; left: 50%;
+    width: 2px; height: 85%;
+    background: var(--gold-accent);
+    transform: translateX(-50%);
+    opacity: 0.3;
+}
+
+/* 4. GALLERY (Horizontal) */
+.gallery-wrapper {
+    height: 100vh;
+    overflow: hidden; /* Скрываем то, что вылезает за экран */
+    background: var(--paper-color);
+}
+
+.gallery-container {
+    display: flex; /* Выстраиваем в ряд */
+    height: 100%;
+    width: 300%; /* Ширина = 100% * количество экранов ширины */
+}
+
+.gallery-intro, .gallery-item {
+    width: 100vw; /* Каждый элемент на ширину экрана */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-right: 1px solid #ddd;
+}
+.gallery-item img {
+    max-height: 80vh;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
+}
+.footer { height: 200px; background: #000; color: #fff; display: flex; align-items: center; justify-content: center;}

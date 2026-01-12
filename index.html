@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Династия Авьерино | История в лицах</title>
+    <title>Династия Авьерино | Прототип</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -18,26 +17,84 @@
 
     <section class="hero-section">
         <h1 class="hero-title">Династия<br>Авьерино</h1>
-        <p class="hero-subtitle">От берегов Хиоса к пристаням Таганрога</p>
+        <p class="hero-subtitle">Интерактивная история рода</p>
+        <div class="scroll-indicator">Листайте вниз ↓</div>
     </section>
 
-    <section class="chapter-one">
-        <div>
-            <span class="chapter-num">Глава I</span>
-            <h2>Ветер перемен</h2>
-            <br>
-            <p><span class="drop-cap">К</span>огда в 18XX году бриг «Святой Николай» покинул гавань Хиоса, никто из семьи Авьерино не оборачивался назад. Море было неспокойным, как и само время. Греческая революция, пожары и надежда на новую жизнь в Российской Империи гнали их на север.</p>
-            <p>Таганрог встретил их не ласковым средиземноморским солнцем, а пронзительным ветром с Азовского моря. Но именно здесь, в городе, который называли «Русскими Афинами», суждено было расцвести их торговому дому.</p>
+    <section class="map-wrapper" id="map-section">
+        <div class="map-sticky">
+            <div class="map-visual">
+                <svg viewBox="0 0 800 600" class="route-svg">
+                    <path id="route-line" d="M 700 500 Q 600 550 500 450 T 300 300 T 100 100" fill="none" stroke="#C5A059" stroke-width="3" stroke-dasharray="1000" stroke-dashoffset="1000" />
+                    <circle cx="700" cy="500" r="5" fill="#C5A059" /> <circle cx="100" cy="100" r="8" fill="#C5A059" /> </svg>
+                <h2 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255,255,255,0.1);">КАРТА (ФОН)</h2>
+            </div>
+        </div>
+        
+        <div class="map-content">
+            <div class="step step-1">
+                <h3>1. Остров Хиос</h3>
+                <p>Начало пути. Жизнь до катастрофы 1822 года...</p>
+            </div>
+            <div class="step step-2">
+                <h3>2. Константинополь</h3>
+                <p>Временная остановка. Торговые связи и первые потери...</p>
+            </div>
+            <div class="step step-3">
+                <h3>3. Одесса</h3>
+                <p>Карантин и получение российских документов...</p>
+            </div>
+            <div class="step step-4">
+                <h3>4. Таганрог</h3>
+                <p>Финал пути. "Русские Афины" и основание торгового дома.</p>
+            </div>
         </div>
     </section>
 
-    <section class="gallery-section">
-        <div class="card" id="card-anim">
-            <h3>Семейное предание</h3>
-            <p>«Мы привезли с собой только иконы и умение торговать зерном. Всё остальное мы построили заново на этой земле...»</p>
-            <br>
-            <small>— Из писем Ивана Авьерино</small>
+    <section class="context-section">
+        <div class="context-bg"></div>
+        <div class="context-text">
+            <h2>Новая Родина</h2>
+            <p>Таганрог XIX века был уникальным местом. Здесь звучала итальянская и греческая речь, а зерно текло рекой в Европу. Авьерино нашли здесь идеальную почву для своих амбиций.</p>
         </div>
+    </section>
+
+    <section class="tree-section">
+        <div class="tree-header">
+            <h2>Корни и Ветви</h2>
+            <p>Среди сотен имен выделяется одна линия...</p>
+        </div>
+        
+        <div class="tree-visual">
+            <div class="node other-node" style="top: 10%; left: 20%;"></div>
+            <div class="node other-node" style="top: 15%; left: 80%;"></div>
+            <div class="node other-node" style="top: 80%; left: 10%;"></div>
+            <div class="node other-node" style="top: 70%; left: 85%;"></div>
+            <div class="my-branch">
+                <div class="branch-line"></div>
+                <div class="node my-node" style="top: 10%; left: 50%;"><span>Пра-пра...</span></div>
+                <div class="node my-node" style="top: 40%; left: 50%;"><span>Дед</span></div>
+                <div class="node my-node" style="top: 70%; left: 50%;"><span>Отец</span></div>
+                <div class="node my-node" style="top: 95%; left: 50%; background: #C5A059;"><span>Я</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-wrapper">
+        <div class="gallery-container">
+            <div class="gallery-intro">
+                <h2>Архив</h2>
+                <p>Листайте дальше →</p>
+            </div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x300/1A2B49/C5A059?text=Документ+1" alt=""></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x500/1A2B49/C5A059?text=Портрет" alt=""></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/400x300/1A2B49/C5A059?text=Письмо" alt=""></div>
+            <div class="gallery-item"><img src="https://via.placeholder.com/600x400/1A2B49/C5A059?text=Дом+Авьерино" alt=""></div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <p>2025. История семьи Авьерино.</p>
     </section>
 
     <script src="script.js"></script>

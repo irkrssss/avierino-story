@@ -374,3 +374,86 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     .couple-grid { flex-direction: column; gap: 10px; }
     .col-husband, .col-wife { width: 100%; }
 }
+/* =========================================
+   7. МЕТОДОЛОГИЯ И ИСТОЧНИКИ (GRID)
+   ========================================= */
+.sources-section {
+    background-color: #fff;
+    padding: 80px 20px;
+    color: var(--ink);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.sources-container {
+    max-width: 1000px; /* Чуть шире для двух колонок */
+    margin: 0 auto;
+}
+
+/* СЕТКА */
+.sources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две равные колонки */
+    gap: 60px;
+    text-align: left; /* Текст выравниваем по левому краю */
+}
+
+.col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    display: block;
+}
+
+/* СПИСОК МЕТОДОЛОГИИ (ШАГИ) */
+.methodology-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.methodology-list li {
+    margin-bottom: 25px;
+}
+
+.methodology-list strong {
+    display: block;
+    color: var(--gold);
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.methodology-list p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* СПИСОК ИСТОЧНИКОВ (ПРОСТОЙ) */
+.sources-list-clean {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink);
+}
+
+.sources-list-clean li {
+    margin-bottom: 12px;
+    border-bottom: 1px dashed rgba(61, 83, 105, 0.1);
+    padding-bottom: 5px;
+}
+.sources-list-clean li:last-child { border: none; }
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+    .sources-grid {
+        grid-template-columns: 1fr; /* Одна колонка на телефоне */
+        gap: 40px;
+    }
+}

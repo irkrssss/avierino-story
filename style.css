@@ -90,3 +90,16 @@ p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
 .btn-small { color: var(--ink); background: var(--gold); padding: 10px 20px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 10px; }
 
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+/* Дополнительные стили для списка детей */
+.child-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* Легкая линия разделитель */
+    font-size: 1.1rem;
+}
+.child-item:last-child {
+    border-bottom: none;
+}
+.ancestor-highlight {
+    transform: scale(1.02); /* Чуть увеличивает карточку предка */
+    margin: 10px 0;
+}

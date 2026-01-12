@@ -1,224 +1,92 @@
 :root {
-    /* ПАЛИТРА: БУМАГА И ЧЕРНИЛА (Вернули как было) */
-    --paper-color: #F4ECD8;     /* Цвет старой бумаги */
-    --ink-color: #1A2B49;       /* Темно-синий чернильный (вместо черного) */
-    --gold-accent: #C5A059;     /* Золото */
-    --dark-sea: #051626;        /* Очень темный цвет для первой страницы */
+    --paper: #F9F7F1;
+    --ink: #1A2B49;
+    --gold: #C5A059;
+    --dark-bg: #051626; /* Цвет обложки и подвала */
 }
+
+html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
-    background-color: var(--paper-color);
-    color: var(--ink-color);
+    background-color: var(--paper);
+    color: var(--ink);
     font-family: 'Lato', sans-serif;
-    overflow-x: hidden;
 }
 
-h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    margin: 0;
-}
+h1, h2, h3 { font-family: 'Playfair Display', serif; margin: 0; }
 
-section {
-    min-height: 100vh;
+/* --- 1. HERO (ТЕМНАЯ) --- */
+.hero-section {
+    height: 100vh;
+    background: linear-gradient(rgba(5,22,38,0.6), rgba(5,22,38,0.8)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-/* 0. HERO (ОБЛОЖКА) - ТЕМНАЯ НОЧЬ */
-.hero-section {
-    background-color: var(--dark-sea); /* Темная подложка */
-    /* Затемненная картинка Айвазовского */
-    background: linear-gradient(rgba(5, 22, 38, 0.7), rgba(5, 22, 38, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    color: var(--paper-color); /* Светлый текст на темном */
+    color: var(--paper);
     text-align: center;
 }
+.hero-title { font-size: 5rem; text-shadow: 0 0 30px rgba(0,0,0,0.5); }
+.hero-subtitle { font-size: 1.5rem; color: var(--gold); margin-top: 10px; font-style: italic; }
+.scroll-indicator { margin-top: 40px; font-size: 0.9rem; opacity: 0.7; animation: bounce 2s infinite; }
 
-.hero-title {
-    font-size: 5rem;
-    line-height: 1;
-    margin-bottom: 20px;
-    color: var(--paper-color);
-    text-shadow: 0 0 20px rgba(0,0,0,0.5);
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    font-style: italic;
-    color: var(--gold-accent);
-}
-
-.scroll-indicator {
-    margin-top: 50px;
-    color: rgba(255,255,255,0.5);
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-
-/* 1. MAP SECTION */
-.map-wrapper {
-    display: flex;
-    /* Убрали padding у section, чтобы карта была на весь экран */
-    padding: 0 !important; 
-    height: 400vh; 
-}
-
-.map-sticky {
+/* --- НАВИГАЦИЯ --- */
+.sticky-nav {
     position: sticky;
     top: 0;
-    width: 50%;
-    height: 100vh;
-    background: var(--dark-sea); /* Карта на темном фоне */
+    background: var(--paper);
+    padding: 15px 40px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    z-index: 100;
 }
+.nav-logo { font-family: 'Playfair Display'; font-weight: bold; font-size: 1.2rem; color: var(--ink); }
+.nav-links a { text-decoration: none; color: var(--ink); margin-left: 20px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+.nav-links a:hover { color: var(--gold); }
 
-.map-visual {
-    width: 100%;
-    height: 100%;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center;
-    background-size: cover;
-    position: relative;
-    opacity: 0.7;
-}
-
-.route-svg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; left: 0;
-}
-
-.map-content {
-    width: 50%;
-    background: var(--paper-color); /* Текст на бумаге */
-}
-
-.step {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px;
-    box-sizing: border-box;
-    border-left: 1px solid rgba(0,0,0,0.1);
-}
-.step h3 { color: var(--ink-color); }
-
-/* 2. CONTEXT (Parallax) */
-.context-section {
-    padding: 0 !important;
-    overflow: hidden;
-}
-.context-bg {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover;
-    z-index: 1;
-}
-.context-text {
-    position: relative;
-    z-index: 2;
-    background: rgba(255, 248, 230, 0.9); /* Светлая плашка на темном фоне */
-    padding: 60px;
-    max-width: 600px;
-    border: 1px solid var(--gold-accent);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-/* 3. TREE (ДРЕВО) */
-.tree-section {
-    background: var(--ink-color); /* Темный фон для древа */
-    color: var(--paper-color);
-}
-.tree-header h2 { color: var(--gold-accent); }
-
-.tree-visual {
-    width: 80%;
-    height: 800px;
-    position: relative;
-    margin-top: 50px;
-}
-
-.node {
-    width: 10px; height: 10px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    position: absolute;
-}
-
-.my-node {
-    /* Карточки предков */
-    width: auto; height: auto;
-    padding: 5px 15px;
-    background: transparent;
-    border: 1px solid var(--gold-accent); /* Золотая рамка */
-    color: var(--paper-color);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lato', sans-serif;
-    background: var(--ink-color);
-    transform: translateX(-50%);
-    white-space: nowrap;
-}
-/* Подсветка для Вас */
-.my-node:last-child {
-    background: var(--gold-accent);
-    color: var(--ink-color);
-    border: none;
-    font-weight: bold;
-}
-
-.branch-line {
-    position: absolute;
-    top: 5%; left: 50%;
-    width: 1px; height: 90%;
-    background: var(--gold-accent);
-    transform: translateX(-50%);
-    opacity: 0.4;
-}
-
-/* 4. GALLERY */
-.gallery-wrapper {
-    background: var(--paper-color);
-    padding: 0 !important;
-}
-
-.gallery-container {
-    display: flex;
-    height: 100%;
-    width: 300%; 
-}
-
-.gallery-intro, .gallery-item {
-    width: 100vw;
-    height: 100%;
+/* --- 2. TEXT BLOCKS (BOOK STYLE) --- */
+.book-page, .sources-section {
+    padding: 100px 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    border-right: 1px solid #ddd;
 }
-.gallery-intro h2 { color: var(--ink-color); }
+.content-block { max-width: 700px; width: 100%; }
+.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-size: 0.8rem; }
+.drop-cap { float: left; font-size: 4rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--gold); padding: 5px 10px 0 0; }
+p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
 
-.footer { 
-    height: 150px; 
-    background: var(--ink-color); 
-    color: var(--paper-color); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
+/* --- 3. MAP (SCROLLY) --- */
+.map-wrapper { display: flex; height: 300vh; background: #eee; }
+.map-sticky { width: 50%; height: 100vh; position: sticky; top: 0; background: var(--dark-bg); color: #fff; display: flex; align-items: center; justify-content: center; }
+.map-content { width: 50%; background: var(--paper); }
+.step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; border-bottom: 1px solid #ddd; }
+
+/* --- 4. HISTORY & ROSPIS --- */
+.history-section { padding: 80px 20px; background: #fff; display: flex; flex-direction: column; align-items: center; }
+.rospis-card {
+    border-left: 3px solid var(--gold);
+    padding-left: 30px;
+    margin: 40px 0;
 }
+.generation-tag { background: var(--ink); color: #fff; display: inline-block; padding: 2px 8px; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; }
+.historical-note { font-size: 0.95rem; background: rgba(197, 160, 89, 0.1); padding: 15px; border-radius: 4px; color: #555; }
+.fact-box { border: 1px solid var(--gold); padding: 30px; text-align: center; margin: 40px 0; background: var(--paper); }
+
+/* --- 5. TREE --- */
+.tree-section { background: var(--ink); color: var(--paper); padding: 100px 0; text-align: center; position: relative; }
+.tree-visual { height: 600px; position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
+.node { position: absolute; left: 50%; transform: translateX(-50%); padding: 5px 15px; border: 1px solid var(--gold); background: var(--dark-bg); font-size: 0.9rem; }
+.branch-line { position: absolute; left: 50%; top: 10%; bottom: 10%; width: 1px; background: var(--gold); opacity: 0.3; }
+.btn-download { display: inline-block; margin-top: 30px; padding: 15px 30px; background: var(--gold); color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.3s; }
+.btn-download:hover { background: #fff; color: var(--ink); }
+
+/* --- 7. FOOTER --- */
+.site-footer { background: var(--dark-bg); color: rgba(255,255,255,0.6); padding: 80px 20px; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+.footer-col { max-width: 300px; }
+.footer-col h3 { color: #fff; margin-bottom: 20px; }
+.btn-small { color: var(--ink); background: var(--gold); padding: 10px 20px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 10px; }
+
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }

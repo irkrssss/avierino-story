@@ -90,3 +90,47 @@ gsap.to(galleryContainer, {
         end: () => "+=" + galleryContainer.offsetWidth // Длина скролла равна ширине галереи
     }
 });
+// Регистрируем плагин ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+// --- АНИМАЦИЯ КАРТЫ ---
+// 1. Рисуем путь от Хиоса до Константинополя (Шаг 1)
+gsap.to(".path-1", {
+    scrollTrigger: {
+        trigger: ".step-1",
+        start: "top center", // Когда верх 1-го шага доходит до центра экрана
+        end: "bottom center",
+        scrub: 1 // Плавная привязка к скроллу (1 сек задержка)
+    },
+    strokeDashoffset: 0, // Линия рисуется полностью
+    onStart: () => {
+        gsap.to(".city-dot[data-city='chios']", {opacity: 1, duration: 0.5});
+        gsap.to(".city-label", {opacity: 1, duration: 0.5, stagger: 0.1}); // Показываем подписи
+    }
+});
+
+// 2. Рисуем ветки (Шаг 2 - Разветвление)
+// Сразу обе ветки начинают расти, когда читаем второй текст
+gsap.to([".path-2a", ".path-2b"], {
+    scrollTrigger: {
+        trigger: ".step-2",
+        start: "top center",
+        end: "bottom center",
+        scrub: 1
+    },
+    strokeDashoffset: 0,
+    onStart: () => {
+        gsap.to(".city-dot[data-city='istanbul']", {opacity: 1, scale: 1.5, duration: 0.3});
+    }
+});
+
+// 3. Финальные точки (Шаг 3)
+// Просто подсвечиваем конечные города, когда доскроллили до конца
+ScrollTrigger.create({
+    trigger: ".step-3",
+    start: "top center",
+    onEnter: () => {
+        gsap.to(".city-dot[data-city='odessa'], .city-dot[data-city='kerch'], .city-dot[data-city='mariupol'], .city-dot[data-city='taganrog']", 
+        {opacity: 1, scale: 1.2, duration: 0.5, stagger: 0.1});
+    }
+});

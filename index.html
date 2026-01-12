@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -54,112 +55,114 @@
 
     <section class="history-section" id="history">
         
-        <div class="split-chapter-container">
-            <div class="chapter-sidebar">
-                <div class="sticky-tree-visual">
-                    <div class="tree-label">Поколение I</div>
-                    <div class="mini-tree">
-                        <div class="node-couple highlight-box">
-                            <span class="tree-name">Заннис</span><span class="tree-symbol">&</span><span class="tree-name">Мина</span>
-                        </div>
-                        <div class="tree-line-vertical faded"></div>
-                        <div class="tree-children-grid faded"><div class="tree-child">Дети...</div></div>
-                    </div>
-                </div>
-            </div>
-            <div class="chapter-content">
-                <span class="chapter-label">Глава I</span>
-                <h2>Основание династии</h2>
-                <div class="bio-text">
-                    <p><strong>ЗАННИС АВЬЕРИНО</strong> (1660 — ?) и <strong>МИНА СКАРАМАНГА</strong> — начало истории. Мина происходила из древнего рода, известного на Хиосе ещё с XV века.</p>
-                </div>
-                <div class="context-box">
-                    <h4>Контекст: XVII век</h4>
-                    <p>Хиос имел особый статус. Семья жила в достатке благодаря торговле мастикой и не платила тяжелых налогов.</p>
-                </div>
-            </div>
-        </div>
+        <div class="book-spread">
+            
+            <div class="book-page page-left">
+                <div class="corner list-tl"></div><div class="corner list-tr"></div>
+                <div class="corner list-bl"></div><div class="corner list-br"></div>
+                
+                <h3 class="page-title">ПОКОЛЕНИЕ I:</h3>
 
-        <div class="split-chapter-container">
-            <div class="chapter-sidebar">
-                <div class="sticky-tree-visual">
-                    <div class="tree-label">Поколение II</div>
-                    <div class="mini-tree">
-                        <div class="node-couple faded"><span class="tree-name">Заннис & Мина</span></div>
-                        <div class="tree-line-vertical"></div>
-                        <div class="tree-children-grid highlight-text">
-                            <div class="tree-child">1. Заннис</div>
-                            <div class="tree-child">2. Маноли</div>
-                            <div class="tree-child">3. Димитрий</div>
-                            <div class="tree-child">4. Панделий</div>
-                            <div class="tree-child active-ancestor">★ Александер</div>
-                            <div class="tree-child">6. Стамати</div>
-                            <div class="tree-child">7. Георгиус</div>
+                <div class="genealogy-chart">
+                    <div class="level-parents">
+                        <div class="g-node parent-node">
+                            <span>Заннис<br>Авьерино</span>
+                        </div>
+                        <div class="g-node parent-node">
+                            <span>Мина<br>Скараманга</span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="chapter-content">
-                <h2>Семь сыновей</h2>
-                <div class="bio-text">
-                    <p>У пары родилось семеро детей. Все они разлетелись по Средиземноморью.</p>
-                    <ul class="clean-list">
-                        <li><strong>Александер (1703)</strong> — остался на Хиосе. Ваша прямая линия.</li>
-                        <li><strong>Георгиус (1710)</strong> — перебрался в Стамбул (Куручешме).</li>
-                        <li><strong>Стамати (1705)</strong> — породнился с фанариотами.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                    
+                    <div class="lines-connector-vertical"></div>
+                    <div class="lines-connector-horizontal"></div>
 
-        <div class="split-chapter-container">
-            <div class="chapter-sidebar">
-                <div class="sticky-tree-visual">
-                    <div class="tree-label">Поколение X</div>
-                    <div class="mini-tree">
-                        <div class="faded" style="text-align:center; font-size:0.8rem; margin-bottom:10px;">...пропуск поколений...</div>
-                        <div class="tree-line-vertical"></div>
-                        <div class="node-couple highlight-box">
-                            <span class="tree-name">Михаил</span><span class="tree-symbol">&</span><span class="tree-name">Леони</span>
+                    <div class="level-children">
+                        <div class="child-wrapper">
+                            <div class="lines-child-up"></div>
+                            <div class="g-node child-node">Заннис</div>
                         </div>
-                        <div class="tree-line-vertical"></div>
-                        <div class="tree-children-grid">
-                            <div class="tree-child highlight-text">Константин (1903)</div>
+                        <div class="child-wrapper">
+                            <div class="lines-child-up"></div>
+                            <div class="g-node child-node">Маноли</div>
+                        </div>
+                        <div class="child-wrapper">
+                            <div class="lines-child-up"></div>
+                            <div class="g-node child-node">Димитрий</div>
+                        </div>
+                         <div class="child-wrapper">
+                            <div class="lines-child-up"></div>
+                            <div class="g-node child-node">Панделий</div>
+                        </div>
+                    </div>
+                    
+                    <div class="level-children-row-2">
+                         <div class="child-wrapper">
+                            <div class="lines-child-up-long"></div>
+                            <div class="g-node child-node active-ancestor">Александер</div>
+                        </div>
+                        <div class="child-wrapper">
+                            <div class="lines-child-up-long"></div>
+                            <div class="g-node child-node">Стамати</div>
+                        </div>
+                        <div class="child-wrapper">
+                            <div class="lines-child-up-long"></div>
+                            <div class="g-node child-node">Георгиус</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="chapter-content">
-                <span class="chapter-label">Глава III</span>
-                <h2>Варшавский роман</h2>
-                <div class="bio-text">
-                    <p><strong>МИХАИЛ АВЬЕРИНО (1877)</strong> работал в Варшаве в чайной фирме «Губкин-Кузнецов». Там он встретил <strong>ЛЕОНИ ДЮТЛИ</strong>, дочь эльзасского булочника.</p>
-                    <p>Они обвенчались 6 ноября 1902 года в православной церкви Святой Троицы на Подвале.</p>
-                </div>
-                <div class="context-box">
-                    <h4>Возвращение</h4>
-                    <p>В 1905 году семья вернулась в Ростов-на-Дону, где родился сын Константин. В 30-х годах они переехали в Ленинград.</p>
+
+            <div class="book-page page-right">
+                <div class="corner list-tl"></div><div class="corner list-tr"></div>
+                <div class="corner list-bl"></div><div class="corner list-br"></div>
+
+                <div class="page-content">
+                    <div class="bio-header">
+                        <h2>ЗАННИС АВЬЕРИНО</h2>
+                        <p class="dates">* 1660, Хиос, Греция — ✝ не изв.</p>
+                        
+                        <h2>МИНА СКАРАМАНГА</h2>
+                        <p class="dates">* ?, Хиос, Греция — ✝ не изв.</p>
+                    </div>
+
+                    <div class="children-list-text">
+                        <p><strong>Дети Занниса Авьерино и Мины Скараманга:</strong></p>
+                        <ul>
+                            <li>Заннис Авьерино (1660 — не изв.)</li>
+                            <li>Маноли Авьерино (1668 — не изв.)</li>
+                            <li>Димитрий Авьерино (1699 — не изв.)</li>
+                            <li>Панделий Авьерино (1701 — не изв.)</li>
+                            <li><strong>Александер Авьерино (1703 — 1760)</strong></li>
+                            <li>Стамати Авьерино (1705 — 1760)</li>
+                            <li>Георгиус Авьерино (1710 — не изв.)</li>
+                        </ul>
+                    </div>
+
+                    <div class="history-note">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png" class="note-img" alt="Карта Хиоса">
+                        <p>Заннис и Мина родились на острове Хиос. Род Мины уходит в древность, её пра(5)дед упоминается как поселенец на Хиосе в XV веке под властью генуэзцев[cite: 8].</p>
+                        <p>В XVII в. остров Хиос находился под властью Османской империи, но сохранял самоуправление. Основой богатства была <strong>смола мастикового дерева</strong>[cite: 12].</p>
+                    </div>
                 </div>
             </div>
         </div>
-
     </section>
 
     <section class="sources-section" id="sources">
         <div class="content-block">
             <h2>Источники</h2>
-            <ul class="sources-list">
-                <li>Метрические книги Хиоса (XVII в.)</li>
-                <li>Документы консульства в Смирне</li>
-                <li>Записи церкви Св. Троицы (Варшава, 1902)</li>
+            <ul class="sources-list" style="list-style: none; padding: 0;">
+                <li>[1] Поколенная роспись фамилии Авьерино</li>
+                <li>[1-6] Метрические книги Хиоса (XVII в.)</li>
+                <li>[9] Исторические справки об Османской империи</li>
             </ul>
         </div>
     </section>
 
     <footer class="site-footer">
         <div class="footer-col">
-            <h3>Контакты</h3>
-            <p>Напишите нам, если нашли своих предков:</p>
+            <h3>Связаться с нами</h3>
+            <p>Если вы нашли родственника в этом списке, напишите:</p>
             <p>email@example.com</p>
         </div>
     </footer>

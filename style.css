@@ -239,3 +239,160 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     .c-label-col, .c-list-col { width: 100%; text-align: left; border-left: none; padding: 0; }
     .children-split-layout { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
+/* =========================================
+   НОВЫЙ БЛОК ПОДДЕРЖКИ (CLEAN LOOK)
+   ========================================= */
+.support-section-clean {
+    background-color: #fff; /* Чистый белый фон */
+    padding: 100px 20px;
+    color: var(--ink);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.support-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.support-section-clean h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 30px;
+}
+
+.support-text p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.support-label {
+    margin: 40px 0 20px 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: var(--slate-light);
+}
+
+.support-buttons-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Темные кнопки (как на референсе) */
+.btn-clean-dark {
+    background-color: var(--ink); /* Ваш синий грифельный */
+    color: #fff;
+    padding: 18px 35px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 280px; /* Широкие кнопки */
+    box-shadow: 0 10px 20px rgba(61, 83, 105, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-clean-dark:hover {
+    background-color: var(--dark-bg); /* При наведении темнее */
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* =========================================
+   НОВЫЙ ПОДВАЛ (CLEAN FOOTER)
+   ========================================= */
+.site-footer-clean {
+    background-color: var(--dark-bg); /* Глубокий темный фон #15202B */
+    color: rgba(255,255,255,0.7);
+    padding: 80px 40px 30px 40px;
+    font-size: 0.95rem;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две равные колонки */
+    gap: 80px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.site-footer-clean h3 {
+    color: #fff;
+    font-family: 'Lato', sans-serif; /* Санс-сериф для заголовков в подвале выглядит современно */
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.site-footer-clean p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.location-tag {
+    margin-top: 30px;
+    color: var(--gold);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Кнопка "Написать письмо" */
+.btn-gold-action {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: 0.3s;
+}
+
+.btn-gold-action:hover {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark-bg); /* Текст становится темным на золотом */
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 0.8rem;
+    opacity: 0.4;
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 768px) {
+    .support-buttons-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-clean-dark {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr; /* Одна колонка на телефоне */
+        gap: 50px;
+    }
+    .site-footer-clean {
+        padding: 60px 20px 30px 20px;
+    }
+}

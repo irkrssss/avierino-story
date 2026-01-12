@@ -1,69 +1,65 @@
 :root {
-    /* ПАЛИТРА: ГРЕЧЕСКИЕ ЦВЕТА */
-    --paper-color: #F9F7F1;     /* Светлый песочный (вместо белого) */
-    --main-blue: #0057B7;       /* Яркий греческий синий (цвет флага) */
-    --deep-sea: #0A2342;        /* Темно-синий (вместо черного) */
-    --gold-accent: #D4AF37;     /* Золото для важных дат */
-    
-    --text-color: #0A2342;      /* Текст теперь темно-синий, не черный */
+    /* ПАЛИТРА: БУМАГА И ЧЕРНИЛА (Вернули как было) */
+    --paper-color: #F4ECD8;     /* Цвет старой бумаги */
+    --ink-color: #1A2B49;       /* Темно-синий чернильный (вместо черного) */
+    --gold-accent: #C5A059;     /* Золото */
+    --dark-sea: #051626;        /* Очень темный цвет для первой страницы */
 }
 
 body {
     margin: 0;
     background-color: var(--paper-color);
-    color: var(--text-color);
+    color: var(--ink-color);
     font-family: 'Lato', sans-serif;
     overflow-x: hidden;
 }
 
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
-    color: var(--main-blue); /* Заголовки ярко-синие */
+    font-weight: 700;
+    margin: 0;
 }
-
-a { color: var(--main-blue); }
 
 section {
     min-height: 100vh;
-    position: relative;
-}
-
-/* 0. HERO (ОБЛОЖКА) - ЯРКАЯ И СИНЯЯ */
-.hero-section {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* 0. HERO (ОБЛОЖКА) - ТЕМНАЯ НОЧЬ */
+.hero-section {
+    background-color: var(--dark-sea); /* Темная подложка */
+    /* Затемненная картинка Айвазовского */
+    background: linear-gradient(rgba(5, 22, 38, 0.7), rgba(5, 22, 38, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--paper-color); /* Светлый текст на темном */
     text-align: center;
-    color: white; /* Текст на синем фоне белый */
-    
-    /* Градиент морской воды + легкая текстура шума (опционально) */
-    background: linear-gradient(135deg, var(--main-blue) 0%, var(--deep-sea) 100%);
 }
 
-.hero-title { 
-    font-size: 5rem; 
-    margin: 0; 
-    color: white; /* Заголовок белый на синем */
-    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+.hero-title {
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 20px;
+    color: var(--paper-color);
+    text-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.hero-subtitle { 
-    font-size: 1.5rem; 
-    font-style: italic; 
-    margin-top: 20px;
-    color: var(--gold-accent); /* Золотой подзаголовок */
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--gold-accent);
 }
 
-.scroll-indicator { 
-    margin-top: 50px; 
-    opacity: 0.8; 
-    color: white;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    animation: bounce 2s infinite; 
+.scroll-indicator {
+    margin-top: 50px;
+    color: rgba(255,255,255,0.5);
+    animation: bounce 2s infinite;
 }
 
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
@@ -71,6 +67,8 @@ section {
 /* 1. MAP SECTION */
 .map-wrapper {
     display: flex;
+    /* Убрали padding у section, чтобы карта была на весь экран */
+    padding: 0 !important; 
     height: 400vh; 
 }
 
@@ -79,13 +77,11 @@ section {
     top: 0;
     width: 50%;
     height: 100vh;
-    /* УБРАЛИ ЧЕРНЫЙ ФОН, ТЕПЕРЬ ТЕМНО-СИНЕЕ МОРЕ */
-    background: var(--deep-sea); 
+    background: var(--dark-sea); /* Карта на темном фоне */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border-right: 5px solid var(--gold-accent); /* Золотой разделитель */
 }
 
 .map-visual {
@@ -93,9 +89,8 @@ section {
     height: 100%;
     background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center;
     background-size: cover;
-    opacity: 0.6; /* Карта чуть темнее, чтобы сливалась с морем */
     position: relative;
-    mix-blend-mode: luminosity; /* Делает карту стильной черно-бело-синей */
+    opacity: 0.7;
 }
 
 .route-svg {
@@ -103,88 +98,62 @@ section {
     height: 100%;
     position: absolute;
     top: 0; left: 0;
-    z-index: 2;
 }
 
 .map-content {
     width: 50%;
-    background: var(--paper-color);
+    background: var(--paper-color); /* Текст на бумаге */
 }
 
 .step {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 60px;
     box-sizing: border-box;
+    border-left: 1px solid rgba(0,0,0,0.1);
 }
-
-.step h3 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--gold-accent);
-    display: inline-block;
-    padding-bottom: 10px;
-}
+.step h3 { color: var(--ink-color); }
 
 /* 2. CONTEXT (Parallax) */
 .context-section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    padding: 0 !important;
     overflow: hidden;
-    color: white;
 }
-
 .context-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Айвазовский идеально подходит под синюю тему */
     background: url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover;
     z-index: 1;
 }
-
 .context-text {
     position: relative;
     z-index: 2;
-    /* Полупрозрачный темно-синий блок вместо черного */
-    background: rgba(10, 35, 66, 0.85); 
+    background: rgba(255, 248, 230, 0.9); /* Светлая плашка на темном фоне */
     padding: 60px;
     max-width: 600px;
     border: 1px solid var(--gold-accent);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
-
-.context-text h2 { color: white; }
 
 /* 3. TREE (ДРЕВО) */
 .tree-section {
-    min-height: 150vh;
-    /* Темно-синий фон для контраста с золотом */
-    background: var(--deep-sea); 
+    background: var(--ink-color); /* Темный фон для древа */
     color: var(--paper-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
-    position: relative;
 }
-
 .tree-header h2 { color: var(--gold-accent); }
 
 .tree-visual {
     width: 80%;
-    height: 900px;
+    height: 800px;
     position: relative;
     margin-top: 50px;
 }
 
 .node {
     width: 10px; height: 10px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.2);
     border-radius: 50%;
     position: absolute;
 }
@@ -192,34 +161,40 @@ section {
 .my-node {
     /* Карточки предков */
     width: auto; height: auto;
-    padding: 10px 20px;
+    padding: 5px 15px;
     background: transparent;
-    border: 1px solid var(--gold-accent);
-    color: var(--gold-accent);
+    border: 1px solid var(--gold-accent); /* Золотая рамка */
+    color: var(--paper-color);
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Playfair Display', serif;
-    background: rgba(10, 35, 66, 0.9); /* Темно-синяя подложка */
-    transform: translateX(-50%); /* Центровка */
+    font-family: 'Lato', sans-serif;
+    background: var(--ink-color);
+    transform: translateX(-50%);
     white-space: nowrap;
+}
+/* Подсветка для Вас */
+.my-node:last-child {
+    background: var(--gold-accent);
+    color: var(--ink-color);
+    border: none;
+    font-weight: bold;
 }
 
 .branch-line {
     position: absolute;
     top: 5%; left: 50%;
-    width: 2px; height: 90%;
-    background: linear-gradient(to bottom, transparent, var(--gold-accent), var(--gold-accent), transparent);
+    width: 1px; height: 90%;
+    background: var(--gold-accent);
     transform: translateX(-50%);
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 /* 4. GALLERY */
 .gallery-wrapper {
-    height: 100vh;
-    overflow: hidden;
-    background: var(--paper-color); /* Светлый фон */
+    background: var(--paper-color);
+    padding: 0 !important;
 }
 
 .gallery-container {
@@ -235,26 +210,15 @@ section {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    border-right: 1px solid rgba(0,87,183, 0.2); /* Еле заметный синий разделитель */
+    border-right: 1px solid #ddd;
 }
-
-.gallery-intro {
-    background: var(--main-blue);
-    color: white;
-}
-.gallery-intro h2 { color: white; }
-.gallery-intro p { color: var(--gold-accent); }
-
-.gallery-item img {
-    box-shadow: 20px 20px 0px rgba(0, 76, 152, 0.1); /* Синяя тень вместо черной */
-}
+.gallery-intro h2 { color: var(--ink-color); }
 
 .footer { 
-    height: 100px; 
-    background: var(--deep-sea); /* Темно-синий подвал */
-    color: rgba(255,255,255,0.5); 
+    height: 150px; 
+    background: var(--ink-color); 
+    color: var(--paper-color); 
     display: flex; 
     align-items: center; 
     justify-content: center;
-    font-size: 0.8rem;
 }

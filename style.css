@@ -1,19 +1,26 @@
 /* =========================================
-   1. ДИЗАЙН-СИСТЕМА
+   1. ДИЗАЙН-СИСТЕМА (АРХИВНАЯ ПАЛИТРА)
    ========================================= */
 :root {
+    /* ФОН: Теплый алебастр */
     --paper: #F7F5F0; 
-    --ink: #0F2537;   
-    --blue-fresh: #28668E; 
+    
+    /* ТЕКСТ: Угольный (Charcoal) - ВМЕСТО СИНЕГО */
+    --ink: #222222;   
+    
+    /* АКЦЕНТ: Античное Золото */
     --gold: #C0A062;
-    --dark-bg: #0B1C2A; 
+    
+    /* ВТОРИЧНЫЙ: Серый грифель (для линий и деталей) */
+    --slate: #4A4A4A;
+    
+    /* ТЕМНЫЙ ФОН: Глубокий черный/серый */
+    --dark-bg: #1A1A1A; 
+
     --nav-height: 60px;
 }
 
-/* !!! ВАЖНОЕ ИСПРАВЛЕНИЕ ДЛЯ ШИРИНЫ !!! */
-* {
-    box-sizing: border-box; /* Теперь padding не ломает ширину блоков */
-}
+* { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 
@@ -30,10 +37,10 @@ h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
     margin: 0;
     font-weight: 700;
-    color: var(--blue-fresh);
+    color: var(--ink); /* Заголовки теперь угольно-черные */
 }
 
-a { text-decoration: none; color: var(--blue-fresh); transition: 0.3s; }
+a { text-decoration: none; color: var(--slate); transition: 0.3s; }
 a:hover { color: var(--gold); }
 
 /* =========================================
@@ -41,29 +48,15 @@ a:hover { color: var(--gold); }
    ========================================= */
 .hero-section {
     height: 100vh;
-    background: linear-gradient(rgba(11, 28, 42, 0.6), rgba(11, 28, 42, 0.8)), 
+    /* Затемнение теперь нейтрально-черное */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
                 url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;
+    filter: sepia(30%); /* Легкий эффект старины на фото */
 }
-
-.hero-title {
-    font-size: 5rem;
-    color: var(--paper);
-    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    margin-bottom: 15px;
-}
+.hero-title { font-size: 5rem; color: var(--paper); text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 15px; }
 .hero-subtitle { font-size: 1.5rem; color: var(--gold); font-style: italic; letter-spacing: 1px; }
-
-.scroll-indicator {
-    position: absolute; bottom: 40px; color: rgba(255,255,255,0.6);
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px;
-    animation: bounce 2s infinite;
-}
+.scroll-indicator { position: absolute; bottom: 40px; color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; animation: bounce 2s infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
 /* =========================================
@@ -71,298 +64,159 @@ a:hover { color: var(--gold); }
    ========================================= */
 .sticky-nav {
     position: sticky; top: 0;
-    background: rgba(247, 245, 240, 0.95);
-    height: var(--nav-height);
-    padding: 0 40px;
+    background: rgba(247, 245, 240, 0.98);
+    height: var(--nav-height); padding: 0 40px;
     display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid rgba(40, 102, 142, 0.1);
-    z-index: 1000; backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    z-index: 1000;
 }
-.nav-logo { font-family: 'Playfair Display'; font-weight: bold; font-size: 1.4rem; color: var(--ink); }
-.nav-links a { color: var(--ink); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-left: 25px; }
-.nav-links a:hover { color: var(--blue-fresh); }
+.nav-logo { font-family: 'Playfair Display'; font-weight: bold; font-size: 1.2rem; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; }
+.nav-links a { color: var(--ink); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-left: 25px; }
 
 /* =========================================
-   4. ТЕКСТОВЫЕ БЛОКИ
+   4. КНИЖНЫЙ РАЗВОРОТ (ОБЩИЙ)
    ========================================= */
-.book-page, .sources-section { padding: 100px 20px; display: flex; justify-content: center; }
-.content-block { max-width: 700px; width: 100%; }
+.book-spread-section, .history-section { padding: 50px 20px; display: flex; justify-content: center; }
+.book-spread {
+    display: flex; justify-content: center; gap: 0;
+    margin: 20px auto; max-width: 1200px; width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15); /* Мягкая тень */
+}
+.book-page {
+    flex: 0 0 50%; width: 50%; max-width: 50%;
+    background-color: #F9F7F1;
+    padding: 60px 50px; position: relative;
+    border: 1px solid #E0DCC8; min-height: 800px;
+}
+.page-left { border-right: 1px solid #D0C8B0; background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); }
+.page-right { border-left: none; background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); }
+
+/* Рамки и уголки */
+.book-page::before { content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 3px double var(--ink); pointer-events: none; opacity: 0.8; }
+.corner { position: absolute; width: 15px; height: 15px; background: var(--ink); z-index: 2; }
+.list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
+.list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
+
+/* --- ПРЕДИСЛОВИЕ (ГРАВЮРА) --- */
+.engraving-placeholder {
+    width: 100%; height: 100%;
+    border: 1px dashed var(--slate);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--slate); font-style: italic; opacity: 0.5;
+    background: rgba(0,0,0,0.02);
+}
+.center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
 .chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
-.drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--blue-fresh); padding: 8px 10px 0 0; }
-p { margin-bottom: 25px; color: var(--ink); }
+.drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 8px 10px 0 0; }
 
 /* =========================================
    5. КАРТА
    ========================================= */
-.map-wrapper { display: flex; height: 300vh; background: #000; }
+.map-wrapper { display: flex; height: 300vh; background: #111; }
 .map-sticky { width: 50%; height: 100vh; position: sticky; top: 0; background: var(--dark-bg); color: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.map-visual { width: 100%; height: 100%; background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center; background-size: cover; opacity: 0.5; filter: sepia(20%) hue-rotate(180deg) saturate(80%); }
-.map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(11, 28, 42, 0.7); }
+.map-visual { width: 100%; height: 100%; background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center; background-size: cover; opacity: 0.4; filter: sepia(100%) grayscale(100%); /* Черно-белая карта */ }
+.map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(0,0,0,0.8); }
 .map-content { width: 50%; background: var(--paper); z-index: 2; }
 .step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
 /* =========================================
-   6. КНИЖНЫЙ РАЗВОРОТ (FIXED WIDTH)
+   6. ДРЕВО И ИСТОРИЯ
    ========================================= */
-.history-section {
-    padding: 0 20px;
-    background: var(--paper);
-    display: flex; flex-direction: column; align-items: center;
-}
-
-.book-spread {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin: 50px auto;
-    max-width: 1200px;
-    width: 100%;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
-
-.book-page {
-    /* !!! ФИКСАЦИЯ ШИРИНЫ !!! */
-    flex: 0 0 50%; /* Жестко 50%, не сжиматься и не расширяться */
-    width: 50%;
-    max-width: 50%;
-    
-    background-color: #F9F7F1;
-    padding: 60px 40px;
-    position: relative;
-    border: 1px solid #E0DCC8;
-    min-height: 800px;
-}
-
-.page-left { border-right: 1px solid #D0C8B0; background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); }
-.page-right { border-left: none; background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); }
-
-/* Рамка */
-.book-page::before { content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 4px double var(--ink); pointer-events: none; }
-.corner { position: absolute; width: 20px; height: 20px; background: var(--ink); z-index: 2; }
-.list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
-.list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
-
-/* ДРЕВО (СЛЕВА) */
+/* Древо */
+.page-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: var(--slate); margin-bottom: 20px; }
 .genealogy-chart { display: flex; flex-direction: column; align-items: center; margin-top: 40px; width: 100%; }
-.page-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: var(--ink); margin-bottom: 20px; }
-
-.g-node { border: 2px solid var(--ink); border-radius: 6px; padding: 10px 15px; text-align: center; font-size: 0.85rem; position: relative; background: #fff; z-index: 2; min-width: 90px; }
-.parent-node { background: #D4E0D6; font-weight: bold; }
-.child-node { background: #fff; }
+.g-node { border: 2px solid var(--ink); border-radius: 4px; padding: 10px 15px; text-align: center; font-size: 0.85rem; position: relative; background: #fff; z-index: 2; min-width: 90px; font-family: 'Playfair Display'; }
+.parent-node { background: #E5E5E5; font-weight: bold; /* Серый вместо зеленого */ } 
 .active-ancestor { border-color: var(--gold); border-width: 3px; font-weight: bold; }
 
-/* Линии */
 .level-parents { display: flex; gap: 30px; position: relative; }
 .level-parents::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translateX(-50%); width: 30px; height: 2px; background: var(--ink); z-index: 1; }
 .lines-connector-vertical { width: 2px; height: 30px; background: var(--ink); }
 .lines-connector-horizontal { width: 90%; height: 2px; background: var(--ink); }
-
 .level-children, .level-children-row-2 { display: flex; justify-content: center; gap: 5px; width: 100%; flex-wrap: wrap; }
-.level-children-row-2 { margin-top: 0; }
 .child-wrapper { display: flex; flex-direction: column; align-items: center; margin: 0 2px; }
 .lines-child-up { width: 2px; height: 20px; background: var(--ink); }
 .lines-child-up-long { width: 2px; height: 50px; background: var(--ink); margin-top: -20px; position: relative; z-index: 0; }
 
-/* ТЕКСТ (СПРАВА) */
-.bio-header { text-align: center; margin-bottom: 30px; }
-.bio-header h2 { font-size: 1.4rem; margin-bottom: 5px; color: var(--ink); text-transform: uppercase; }
-.dates { font-style: italic; font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; }
-.children-list-text { font-size: 0.95rem; margin-bottom: 30px; padding-left: 20px; border-left: 2px solid #D4E0D6; }
-.children-list-text ul { list-style: none; padding-left: 0; }
-.children-list-text li { margin-bottom: 5px; }
-.history-note { display: flex; gap: 20px; align-items: flex-start; font-size: 0.9rem; line-height: 1.5; }
-.note-img { width: 120px; height: auto; border: 1px solid var(--ink); padding: 3px; background: #fff; float: left; margin-right: 15px; margin-bottom: 5px; }
+/* Компактный текст справа */
+.compact-mode .page-content { font-size: 0.9rem; }
+.bio-header { margin-bottom: 20px; text-align: center; }
+.bio-header h2 { font-size: 1.2rem; margin-bottom: 2px; }
+.dates { font-size: 0.8rem; margin-bottom: 10px; font-style: italic; color: var(--slate); }
+
+.children-split-layout { display: flex; align-items: center; margin: 20px 0; gap: 0; }
+.c-label-col { width: 40%; text-align: right; padding-right: 20px; font-family: 'Playfair Display'; font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+.c-list-col { width: 60%; padding-left: 20px; border-left: 2px solid var(--ink); font-family: 'Playfair Display'; font-style: italic; font-size: 0.9rem; line-height: 1.4; color: var(--ink); }
+.c-list-col ul { list-style: none; padding: 0; margin: 0; }
+
+.history-block-compact { font-size: 0.85rem; line-height: 1.5; text-align: justify; color: #333; }
+.history-block-compact p { margin-bottom: 10px; text-indent: 20px; }
+.map-float-wrapper { float: left; margin: 5px 20px 10px 0; width: 40%; max-width: 180px; text-align: center; }
+.note-img-compact { width: 100%; height: auto; border: 1px solid var(--ink); padding: 3px; background: #fff; }
+.img-caption { display: block; font-size: 0.7rem; font-style: italic; margin-top: 5px; color: var(--slate); }
 
 /* =========================================
-   7. ПОДВАЛ
+   7. ПОДДЕРЖКА (НОВЫЙ БЛОК)
    ========================================= */
-.site-footer { background: var(--dark-bg); color: rgba(255,255,255,0.5); padding: 100px 20px; text-align: center; }
-.footer-col h3 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; }
-
-/* =========================================
-   8. МОБИЛЬНАЯ ВЕРСИЯ
-   ========================================= */
-@media (max-width: 900px) {
-    .hero-title { font-size: 3rem; }
-    .map-wrapper { flex-direction: column; height: auto; }
-    .map-sticky, .map-content { width: 100%; }
-    .map-sticky { height: 50vh; position: relative; }
-    
-    .book-spread { flex-direction: column; box-shadow: none; margin-top: 0; }
-    .book-page { 
-        width: 100%; max-width: 100%; flex: auto; /* Сбрасываем 50% на мобильном */
-        min-height: auto; border: none; border-bottom: 10px solid #eee; 
-    }
-    .page-left, .page-right { background: var(--paper); }
-    .genealogy-chart { transform: scale(0.9); }
-    
-    .sticky-nav { padding: 0 20px; }
-    .nav-links a { margin-left: 15px; font-size: 0.7rem; }
-}
-/* =========================================
-   СТИЛЬ СПИСКА ДЕТЕЙ (КАК НА МАКЕТЕ)
-   ========================================= */
-.children-split-layout {
-    display: flex;
-    align-items: center; /* Центрируем вертикально */
-    margin: 40px 0;
-    gap: 0; /* Убираем отступы, чтобы линия была четко посередине */
-}
-
-/* Левая часть (Заголовок) */
-.c-label-col {
-    width: 40%; /* Занимает 40% ширины */
-    text-align: right;
-    padding-right: 25px; /* Отступ до линии */
-    
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: var(--ink);
-    font-size: 1.1rem;
-    line-height: 1.3;
-}
-
-/* Правая часть (Список имен) */
-.c-list-col {
-    width: 60%; /* Остальное место */
-    padding-left: 25px; /* Отступ от линии */
-    border-left: 2px solid var(--ink); /* ТА САМАЯ ЛИНИЯ */
-    
-    font-family: 'Playfair Display', serif; /* Шрифт с засечками как на фото */
-    font-style: italic;
-    font-size: 1.1rem;
-    color: rgba(15, 37, 55, 0.85); /* Чуть мягче черного */
-    line-height: 1.6;
-}
-
-.c-list-col ul {
-    list-style: none; /* Убираем точки */
-    padding: 0;
-    margin: 0;
-}
-
-.c-list-col li {
-    margin-bottom: 5px;
-}
-
-/* Выделение предка в тексте (опционально) */
-.ancestor-text {
-    font-weight: bold;
-    color: var(--blue-fresh); /* Или оставить черным, если хочется строгости */
-    position: relative;
-}
-/* Если хочется подчеркнуть предка галочкой или точкой слева */
-.ancestor-text::before {
-    content: "•";
-    position: absolute;
-    left: -15px;
-    color: var(--gold);
-    font-style: normal;
-}
-
-/* АДАПТИВНОСТЬ */
-@media (max-width: 600px) {
-    .children-split-layout {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .c-label-col {
-        width: 100%;
-        text-align: left;
-        padding-right: 0;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--ink); /* На телефоне линия станет горизонтальной */
-    }
-    .c-list-col {
-        width: 100%;
-        padding-left: 0;
-        border-left: none;
-    }
-}
-/* =========================================
-   КОМПАКТНАЯ ВЕРСТКА (ДЛЯ НАСЫЩЕННОЙ СТРАНИЦЫ)
-   ========================================= */
-
-/* Уменьшаем шрифты внутри правой страницы */
-.compact-mode .page-content {
-    font-size: 0.9rem; /* Базовый шрифт меньше */
-}
-
-/* Сжимаем заголовок */
-.compact-mode .bio-header {
-    margin-bottom: 20px;
-}
-.compact-mode .bio-header h2 {
-    font-size: 1.2rem; /* Имена родителей чуть меньше */
-    margin-bottom: 2px;
-}
-.compact-mode .dates {
-    font-size: 0.8rem;
-    margin-bottom: 10px; /* Меньше отступа между родителями */
-}
-
-/* Сжимаем список детей */
-.compact-mode .children-split-layout {
-    margin: 20px 0; /* Отступ сверху и снизу блока детей */
-}
-.compact-mode .c-label-col {
-    font-size: 0.95rem;
-    line-height: 1.2;
-}
-.compact-mode .c-list-col {
-    font-size: 0.9rem; /* Список детей компактнее */
-    line-height: 1.4;
-}
-
-/* --- БЛОК ИСТОРИИ С ОБТЕКАНИЕМ --- */
-.history-block-compact {
-    font-size: 0.85rem; /* Текст истории самый мелкий, но читаемый */
-    line-height: 1.5;
-    text-align: justify; /* Выравнивание по ширине (как в книгах) */
-    color: rgba(15, 37, 55, 0.95);
-}
-
-.history-block-compact p {
-    margin-bottom: 10px; /* Маленький отступ между абзацами */
-    text-indent: 20px;   /* Красная строка */
-}
-
-/* Плавающая карта */
-.map-float-wrapper {
-    float: left; /* Прижимаем влево, текст обтекает справа */
-    margin: 5px 20px 10px 0; /* Отступы вокруг картинки */
-    width: 45%; /* Картинка занимает 45% ширины колонки */
-    max-width: 200px;
+.support-section {
+    background: var(--dark-bg);
+    color: var(--paper);
+    padding: 100px 20px;
     text-align: center;
 }
+.support-container { max-width: 700px; margin: 0 auto; }
+.support-section h2 { color: #fff; font-size: 2.5rem; margin-bottom: 30px; }
+.support-section p { color: rgba(255,255,255,0.7); font-size: 1.1rem; }
 
-.note-img-compact {
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--ink);
-    padding: 3px;
-    background: #fff;
-    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+.support-buttons { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+.btn-support {
+    padding: 15px 30px;
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+.btn-support:hover { background: #fff; transform: translateY(-2px); }
 
-.img-caption {
-    display: block;
-    font-size: 0.7rem;
-    font-style: italic;
-    margin-top: 5px;
-    color: var(--gold);
+/* =========================================
+   8. ПОДВАЛ / КОНТАКТЫ
+   ========================================= */
+.site-footer {
+    background: #111; /* Еще темнее */
+    color: rgba(255,255,255,0.5);
+    padding: 80px 40px;
+    font-size: 0.9rem;
 }
+.footer-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
+    max-width: 1000px; margin: 0 auto 50px auto;
+}
+.footer-col h3 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--slate); padding-bottom: 10px; display: inline-block; }
+.footer-col p { margin-bottom: 10px; }
+.footer-col strong { color: var(--gold); }
 
-/* Адаптив для мобильных (отключаем обтекание) */
-@media (max-width: 600px) {
-    .map-float-wrapper {
-        float: none;
-        width: 100%;
-        max-width: 100%;
-        margin: 0 0 20px 0;
-    }
-    .compact-mode .page-content {
-        font-size: 1rem; /* На телефоне шрифт возвращаем к норме */
-    }
+.btn-contact {
+    display: inline-block; margin-top: 20px;
+    color: #fff; border: 1px solid var(--slate);
+    padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase;
+}
+.btn-contact:hover { border-color: var(--gold); color: var(--gold); }
+
+.copyright { text-align: center; border-top: 1px solid #222; padding-top: 20px; opacity: 0.3; font-size: 0.8rem; }
+
+/* =========================================
+   MOBILE
+   ========================================= */
+@media (max-width: 900px) {
+    .book-spread { flex-direction: column; box-shadow: none; margin-top: 0; }
+    .book-page { width: 100%; max-width: 100%; flex: auto; min-height: auto; border: none; border-bottom: 10px solid #eee; }
+    .page-left, .page-right { background: var(--paper); }
+    .map-wrapper { flex-direction: column; height: auto; }
+    .map-sticky, .map-content { width: 100%; } .map-sticky { height: 50vh; position: relative; }
+    .map-float-wrapper { float: none; width: 100%; margin: 0 0 20px 0; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .c-label-col, .c-list-col { width: 100%; text-align: left; border-left: none; padding: 0; }
+    .children-split-layout { flex-direction: column; align-items: flex-start; gap: 10px; }
 }

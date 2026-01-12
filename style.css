@@ -280,3 +280,89 @@ p { margin-bottom: 25px; color: var(--ink); }
         border-left: none;
     }
 }
+/* =========================================
+   КОМПАКТНАЯ ВЕРСТКА (ДЛЯ НАСЫЩЕННОЙ СТРАНИЦЫ)
+   ========================================= */
+
+/* Уменьшаем шрифты внутри правой страницы */
+.compact-mode .page-content {
+    font-size: 0.9rem; /* Базовый шрифт меньше */
+}
+
+/* Сжимаем заголовок */
+.compact-mode .bio-header {
+    margin-bottom: 20px;
+}
+.compact-mode .bio-header h2 {
+    font-size: 1.2rem; /* Имена родителей чуть меньше */
+    margin-bottom: 2px;
+}
+.compact-mode .dates {
+    font-size: 0.8rem;
+    margin-bottom: 10px; /* Меньше отступа между родителями */
+}
+
+/* Сжимаем список детей */
+.compact-mode .children-split-layout {
+    margin: 20px 0; /* Отступ сверху и снизу блока детей */
+}
+.compact-mode .c-label-col {
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+.compact-mode .c-list-col {
+    font-size: 0.9rem; /* Список детей компактнее */
+    line-height: 1.4;
+}
+
+/* --- БЛОК ИСТОРИИ С ОБТЕКАНИЕМ --- */
+.history-block-compact {
+    font-size: 0.85rem; /* Текст истории самый мелкий, но читаемый */
+    line-height: 1.5;
+    text-align: justify; /* Выравнивание по ширине (как в книгах) */
+    color: rgba(15, 37, 55, 0.95);
+}
+
+.history-block-compact p {
+    margin-bottom: 10px; /* Маленький отступ между абзацами */
+    text-indent: 20px;   /* Красная строка */
+}
+
+/* Плавающая карта */
+.map-float-wrapper {
+    float: left; /* Прижимаем влево, текст обтекает справа */
+    margin: 5px 20px 10px 0; /* Отступы вокруг картинки */
+    width: 45%; /* Картинка занимает 45% ширины колонки */
+    max-width: 200px;
+    text-align: center;
+}
+
+.note-img-compact {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ink);
+    padding: 3px;
+    background: #fff;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+}
+
+.img-caption {
+    display: block;
+    font-size: 0.7rem;
+    font-style: italic;
+    margin-top: 5px;
+    color: var(--gold);
+}
+
+/* Адаптив для мобильных (отключаем обтекание) */
+@media (max-width: 600px) {
+    .map-float-wrapper {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 20px 0;
+    }
+    .compact-mode .page-content {
+        font-size: 1rem; /* На телефоне шрифт возвращаем к норме */
+    }
+}

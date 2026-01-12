@@ -1,136 +1,91 @@
+// 1. Регистрируем плагин
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. АНИМАЦИЯ КАРТЫ (Рисуем линию)
-// Находим длину пути
-const path = document.querySelector("#route-line");
-const pathLength = path.getTotalLength();
-
-// Скрываем линию изначально
-gsap.set(path, {
-    strokeDasharray: pathLength,
-    strokeDashoffset: pathLength
-});
-
-gsap.to(path, {
-    strokeDashoffset: 0, // Рисуем до конца
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".map-wrapper",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1 // Привязываем к скроллу
-    }
-});
-
-// Анимация текста шагов (появление)
-const steps = document.querySelectorAll(".step");
-steps.forEach(step => {
-    gsap.from(step, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        scrollTrigger: {
-            trigger: step,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse"
-        }
+// ==============================================
+// НАСТРОЙКА ЛИНИЙ (Чтобы они рисовались честно)
+// ==============================================
+function setupPath(selector) {
+    const paths = document.querySelectorAll(selector);
+    paths.forEach(path => {
+        const length = path.getTotalLength();
+        // Скрываем линию: отступ равен длине линии
+        gsap.set(path, {
+            strokeDasharray: length,
+            strokeDashoffset: length
+        });
     });
-});
+}
 
-// 2. ПАРАЛЛАКС ФОНА (Контекст)
-gsap.to(".context-bg", {
-    yPercent: 30, // Фон движется медленнее скролла
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".context-section",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-    }
-});
+// Подготавливаем все наши маршруты перед стартом
+setupPath(".route-path");
 
-// 3. ДРЕВО (Фокус)
-// Скрываем "чужие" ноды, когда доходим до древа
-gsap.to(".other-node", {
-    opacity: 0,
-    duration: 1,
-    scrollTrigger: {
-        trigger: ".tree-section",
-        start: "top center",
-        toggleActions: "play none none reverse"
-    }
-});
 
-// Показываем подписи к "моей" ветке по очереди
-const myNodes = document.querySelectorAll(".my-node span");
-gsap.to(myNodes, {
-    opacity: 1,
-    stagger: 0.5, // С задержкой
-    scrollTrigger: {
-        trigger: ".tree-section",
-        start: "top center",
-        end: "bottom center",
-        scrub: 1
-    }
-});
+// ==============================================
+// АНИМАЦИЯ КАРТЫ (ПО ШАГАМ)
+// ==============================================
 
-// 4. ГАЛЕРЕЯ (Горизонтальный скролл)
-// Мы перехватываем вертикальный скролл и двигаем контейнер влево
-const galleryContainer = document.querySelector(".gallery-container");
-
-gsap.to(galleryContainer, {
-    xPercent: -100 * (galleryContainer.offsetWidth / window.innerWidth - 1), // Вычисляем, насколько двигать
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".gallery-wrapper",
-        pin: true, // Закрепляем секцию на экране
-        scrub: 1, // Привязываем к колесику мыши
-        // snap: 1 / 4, // (Опционально) Доводка до слайдов
-        end: () => "+=" + galleryContainer.offsetWidth // Длина скролла равна ширине галереи
-    }
-});
-// Регистрируем плагин ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
-// --- АНИМАЦИЯ КАРТЫ ---
-// 1. Рисуем путь от Хиоса до Константинополя (Шаг 1)
+// ШАГ 1: Хиос -> Константинополь
+// Когда скроллим первый текстовый блок (.step-1)
 gsap.to(".path-1", {
+    strokeDashoffset: 0, // Рисуем линию до конца
+    ease: "none",
     scrollTrigger: {
         trigger: ".step-1",
-        start: "top center", // Когда верх 1-го шага доходит до центра экрана
-        end: "bottom center",
-        scrub: 1 // Плавная привязка к скроллу (1 сек задержка)
+        start: "top center",   // Начинаем, когда текст доехал до центра
+        end: "bottom center",  // Заканчиваем, когда текст уехал
+        scrub: 1               // Плавная привязка к скроллу
     },
-    strokeDashoffset: 0, // Линия рисуется полностью
     onStart: () => {
-        gsap.to(".city-dot[data-city='chios']", {opacity: 1, duration: 0.5});
-        gsap.to(".city-label", {opacity: 1, duration: 0.5, stagger: 0.1}); // Показываем подписи
+        // Показываем точку Хиоса и подписи при старте
+        gsap.to(".city-dot[data-city='chios']", { opacity: 1, duration: 0.5 });
+        gsap.to(".city-label", { opacity: 1, duration: 0.5, stagger: 0.1 });
     }
 });
 
-// 2. Рисуем ветки (Шаг 2 - Разветвление)
-// Сразу обе ветки начинают расти, когда читаем второй текст
+// ШАГ 2: Разветвление (Ветки на Одессу и Керчь)
+// Когда скроллим второй текстовый блок (.step-2)
 gsap.to([".path-2a", ".path-2b"], {
+    strokeDashoffset: 0,
+    ease: "none",
     scrollTrigger: {
         trigger: ".step-2",
         start: "top center",
         end: "bottom center",
         scrub: 1
     },
-    strokeDashoffset: 0,
     onStart: () => {
-        gsap.to(".city-dot[data-city='istanbul']", {opacity: 1, scale: 1.5, duration: 0.3});
+        // Подсвечиваем Константинополь, когда дошли до него
+        gsap.to(".city-dot[data-city='istanbul']", { opacity: 1, scale: 1.5, duration: 0.3 });
     }
 });
 
-// 3. Финальные точки (Шаг 3)
-// Просто подсвечиваем конечные города, когда доскроллили до конца
+// ШАГ 3: Финал (Таганрог и Мариуполь)
+// Когда доходим до третьего блока
 ScrollTrigger.create({
     trigger: ".step-3",
     start: "top center",
     onEnter: () => {
+        // Зажигаем финальные города
         gsap.to(".city-dot[data-city='odessa'], .city-dot[data-city='kerch'], .city-dot[data-city='mariupol'], .city-dot[data-city='taganrog']", 
-        {opacity: 1, scale: 1.2, duration: 0.5, stagger: 0.1});
+        { opacity: 1, scale: 1.2, duration: 0.5, stagger: 0.1 });
     }
+});
+
+
+// ==============================================
+// ДОПОЛНИТЕЛЬНО: Плавное появление книг
+// ==============================================
+const books = document.querySelectorAll(".book-spread");
+
+books.forEach(book => {
+    gsap.from(book, {
+        opacity: 0,
+        y: 50, // Книга выезжает снизу
+        duration: 1,
+        scrollTrigger: {
+            trigger: book,
+            start: "top 85%", // Анимация начнется, когда верх книги появится внизу экрана
+            toggleActions: "play none none reverse" // Появляется один раз (или исчезает при скролле вверх)
+        }
+    });
 });

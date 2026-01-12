@@ -1,0 +1,96 @@
+:root {
+    --paper-color: #F4ECD8;
+    --ink-color: #1A2B49;
+    --gold-accent: #C5A059;
+}
+
+body {
+    margin: 0;
+    background-color: var(--paper-color);
+    color: var(--ink-color);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.hero-section {
+    text-align: center;
+    /* Используем прямую ссылку на картинку для примера. Потом заменим на локальную */
+    background: linear-gradient(rgba(26, 43, 73, 0.7), rgba(26, 43, 73, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--paper-color);
+}
+
+.hero-title {
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-style: italic;
+    opacity: 0;
+}
+
+.chapter-one {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.chapter-num {
+    color: var(--gold-accent);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.drop-cap {
+    float: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 0.8;
+    padding-right: 10px;
+    padding-top: 10px;
+    color: var(--gold-accent);
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.gallery-section {
+    background-color: var(--ink-color);
+    color: var(--paper-color);
+}
+
+.card {
+    border: 1px solid var(--gold-accent);
+    padding: 40px;
+    margin: 20px;
+    max-width: 600px;
+    background: rgba(255,255,255,0.05);
+}

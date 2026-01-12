@@ -1,21 +1,21 @@
 /* =========================================
-   1. ДИЗАЙН-СИСТЕМА (АРХИВНАЯ ПАЛИТРА)
+   1. ДИЗАЙН-СИСТЕМА (Slate Blue & Gold)
    ========================================= */
 :root {
     /* ФОН: Теплый алебастр */
     --paper: #F7F5F0; 
     
-    /* ТЕКСТ: Угольный (Charcoal) - ВМЕСТО СИНЕГО */
-    --ink: #222222;   
+    /* ТЕКСТ: Ваш Грифельный Синий */
+    --ink: #3d5369;   
     
     /* АКЦЕНТ: Античное Золото */
     --gold: #C0A062;
     
-    /* ВТОРИЧНЫЙ: Серый грифель (для линий и деталей) */
-    --slate: #4A4A4A;
+    /* ВТОРИЧНЫЙ: Светлый серо-синий (для тонких линий) */
+    --slate-light: #6B7F91;
     
-    /* ТЕМНЫЙ ФОН: Глубокий черный/серый */
-    --dark-bg: #1A1A1A; 
+    /* ТЕМНЫЙ ФОН: Глубокая ночь (для обложки и подвала) */
+    --dark-bg: #15202B; 
 
     --nav-height: 60px;
 }
@@ -37,22 +37,21 @@ h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
     margin: 0;
     font-weight: 700;
-    color: var(--ink); /* Заголовки теперь угольно-черные */
+    color: var(--ink); /* Заголовки грифельно-синие */
 }
 
-a { text-decoration: none; color: var(--slate); transition: 0.3s; }
-a:hover { color: var(--gold); }
+a { text-decoration: none; color: var(--ink); transition: 0.3s; border-bottom: 1px solid transparent; }
+a:hover { color: var(--gold); border-color: var(--gold); }
 
 /* =========================================
    2. ОБЛОЖКА
    ========================================= */
 .hero-section {
     height: 100vh;
-    /* Затемнение теперь нейтрально-черное */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+    /* Наложение темно-синего градиента */
+    background: linear-gradient(rgba(21, 32, 43, 0.6), rgba(21, 32, 43, 0.8)), 
                 url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative;
-    filter: sepia(30%); /* Легкий эффект старины на фото */
 }
 .hero-title { font-size: 5rem; color: var(--paper); text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 15px; }
 .hero-subtitle { font-size: 1.5rem; color: var(--gold); font-style: italic; letter-spacing: 1px; }
@@ -67,43 +66,47 @@ a:hover { color: var(--gold); }
     background: rgba(247, 245, 240, 0.98);
     height: var(--nav-height); padding: 0 40px;
     display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(61, 83, 105, 0.1); /* Прозрачная синяя линия */
     z-index: 1000;
 }
 .nav-logo { font-family: 'Playfair Display'; font-weight: bold; font-size: 1.2rem; color: var(--ink); text-transform: uppercase; letter-spacing: 2px; }
-.nav-links a { color: var(--ink); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-left: 25px; }
+.nav-links a { color: var(--ink); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-left: 25px; border: none; }
 
 /* =========================================
-   4. КНИЖНЫЙ РАЗВОРОТ (ОБЩИЙ)
+   4. КНИЖНЫЙ РАЗВОРОТ
    ========================================= */
-.book-spread-section, .history-section { padding: 50px 20px; display: flex; justify-content: center; }
+.book-spread-section, .history-section { padding: 60px 20px; display: flex; justify-content: center; }
 .book-spread {
     display: flex; justify-content: center; gap: 0;
     margin: 20px auto; max-width: 1200px; width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15); /* Мягкая тень */
+    box-shadow: 0 20px 60px rgba(61, 83, 105, 0.15); /* Тень с оттенком синего */
 }
 .book-page {
     flex: 0 0 50%; width: 50%; max-width: 50%;
     background-color: #F9F7F1;
     padding: 60px 50px; position: relative;
-    border: 1px solid #E0DCC8; min-height: 800px;
+    border: 1px solid #D8D4C5; min-height: 800px;
 }
-.page-left { border-right: 1px solid #D0C8B0; background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); }
+.page-left { border-right: 1px solid #C8C4B5; background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); }
 .page-right { border-left: none; background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); }
 
-/* Рамки и уголки */
-.book-page::before { content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; border: 3px double var(--ink); pointer-events: none; opacity: 0.8; }
+/* Рамки в стиле книги */
+.book-page::before { 
+    content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; 
+    border: 3px double var(--ink); /* Двойная синяя рамка */
+    pointer-events: none; opacity: 0.6; 
+}
 .corner { position: absolute; width: 15px; height: 15px; background: var(--ink); z-index: 2; }
 .list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
 .list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
 
-/* --- ПРЕДИСЛОВИЕ (ГРАВЮРА) --- */
+/* Предисловие */
 .engraving-placeholder {
     width: 100%; height: 100%;
-    border: 1px dashed var(--slate);
+    border: 1px dashed var(--slate-light);
     display: flex; align-items: center; justify-content: center;
-    color: var(--slate); font-style: italic; opacity: 0.5;
-    background: rgba(0,0,0,0.02);
+    color: var(--slate-light); font-style: italic; opacity: 0.7;
+    background: rgba(61, 83, 105, 0.03);
 }
 .center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
 .chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
@@ -112,51 +115,68 @@ a:hover { color: var(--gold); }
 /* =========================================
    5. КАРТА
    ========================================= */
-.map-wrapper { display: flex; height: 300vh; background: #111; }
+.map-wrapper { display: flex; height: 300vh; background: #0b1116; }
 .map-sticky { width: 50%; height: 100vh; position: sticky; top: 0; background: var(--dark-bg); color: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.map-visual { width: 100%; height: 100%; background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center; background-size: cover; opacity: 0.4; filter: sepia(100%) grayscale(100%); /* Черно-белая карта */ }
-.map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(0,0,0,0.8); }
+.map-visual { 
+    width: 100%; height: 100%; 
+    background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center; 
+    background-size: cover; 
+    opacity: 0.6; 
+    /* Тонируем карту в наш синий цвет */
+    filter: sepia(20%) hue-rotate(170deg) saturate(30%) contrast(1.1); 
+}
+.map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(21, 32, 43, 0.8); }
 .map-content { width: 50%; background: var(--paper); z-index: 2; }
 .step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; border-bottom: 1px solid rgba(0,0,0,0.05); }
 
 /* =========================================
-   6. ДРЕВО И ИСТОРИЯ
+   6. ДРЕВО И ТЕКСТ (Синие акценты)
    ========================================= */
-/* Древо */
-.page-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: var(--slate); margin-bottom: 20px; }
+.page-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: var(--ink); margin-bottom: 20px; font-weight: 700; opacity: 0.7; }
 .genealogy-chart { display: flex; flex-direction: column; align-items: center; margin-top: 40px; width: 100%; }
-.g-node { border: 2px solid var(--ink); border-radius: 4px; padding: 10px 15px; text-align: center; font-size: 0.85rem; position: relative; background: #fff; z-index: 2; min-width: 90px; font-family: 'Playfair Display'; }
-.parent-node { background: #E5E5E5; font-weight: bold; /* Серый вместо зеленого */ } 
-.active-ancestor { border-color: var(--gold); border-width: 3px; font-weight: bold; }
+
+.g-node { 
+    border: 2px solid var(--ink); border-radius: 4px; 
+    padding: 10px 15px; text-align: center; font-size: 0.85rem; 
+    position: relative; background: #fff; z-index: 2; min-width: 90px; 
+    font-family: 'Playfair Display'; color: var(--ink);
+}
+.parent-node { 
+    background: #E8EDF2; /* Очень светлый серо-синий фон */
+    font-weight: bold; 
+} 
+.active-ancestor { border-color: var(--gold); border-width: 3px; font-weight: bold; background: #fff; }
 
 .level-parents { display: flex; gap: 30px; position: relative; }
 .level-parents::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translateX(-50%); width: 30px; height: 2px; background: var(--ink); z-index: 1; }
-.lines-connector-vertical { width: 2px; height: 30px; background: var(--ink); }
-.lines-connector-horizontal { width: 90%; height: 2px; background: var(--ink); }
+.lines-connector-vertical, .lines-connector-horizontal, .lines-child-up, .lines-child-up-long { background: var(--ink); } /* Линии синие */
+.lines-connector-vertical { width: 2px; height: 30px; }
+.lines-connector-horizontal { width: 90%; height: 2px; }
+.lines-child-up { width: 2px; height: 20px; }
+.lines-child-up-long { width: 2px; height: 50px; margin-top: -20px; position: relative; z-index: 0; }
 .level-children, .level-children-row-2 { display: flex; justify-content: center; gap: 5px; width: 100%; flex-wrap: wrap; }
 .child-wrapper { display: flex; flex-direction: column; align-items: center; margin: 0 2px; }
-.lines-child-up { width: 2px; height: 20px; background: var(--ink); }
-.lines-child-up-long { width: 2px; height: 50px; background: var(--ink); margin-top: -20px; position: relative; z-index: 0; }
 
-/* Компактный текст справа */
+/* Компактный контент справа */
 .compact-mode .page-content { font-size: 0.9rem; }
 .bio-header { margin-bottom: 20px; text-align: center; }
 .bio-header h2 { font-size: 1.2rem; margin-bottom: 2px; }
-.dates { font-size: 0.8rem; margin-bottom: 10px; font-style: italic; color: var(--slate); }
+.dates { font-size: 0.8rem; margin-bottom: 10px; font-style: italic; color: var(--slate-light); }
 
 .children-split-layout { display: flex; align-items: center; margin: 20px 0; gap: 0; }
-.c-label-col { width: 40%; text-align: right; padding-right: 20px; font-family: 'Playfair Display'; font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+.c-label-col { width: 40%; text-align: right; padding-right: 20px; font-family: 'Playfair Display'; font-weight: 700; font-size: 0.95rem; line-height: 1.2; color: var(--ink); }
 .c-list-col { width: 60%; padding-left: 20px; border-left: 2px solid var(--ink); font-family: 'Playfair Display'; font-style: italic; font-size: 0.9rem; line-height: 1.4; color: var(--ink); }
 .c-list-col ul { list-style: none; padding: 0; margin: 0; }
+.ancestor-text { font-weight: bold; color: var(--gold) !important; position: relative; } /* Предок выделен золотом */
 
-.history-block-compact { font-size: 0.85rem; line-height: 1.5; text-align: justify; color: #333; }
+.history-block-compact { font-size: 0.85rem; line-height: 1.5; text-align: justify; color: var(--ink); }
 .history-block-compact p { margin-bottom: 10px; text-indent: 20px; }
 .map-float-wrapper { float: left; margin: 5px 20px 10px 0; width: 40%; max-width: 180px; text-align: center; }
 .note-img-compact { width: 100%; height: auto; border: 1px solid var(--ink); padding: 3px; background: #fff; }
-.img-caption { display: block; font-size: 0.7rem; font-style: italic; margin-top: 5px; color: var(--slate); }
+.img-caption { display: block; font-size: 0.7rem; font-style: italic; margin-top: 5px; color: var(--slate-light); }
 
 /* =========================================
-   7. ПОДДЕРЖКА (НОВЫЙ БЛОК)
+   7. ПОДДЕРЖКА
    ========================================= */
 .support-section {
     background: var(--dark-bg);
@@ -172,7 +192,7 @@ a:hover { color: var(--gold); }
 .btn-support {
     padding: 15px 30px;
     background: var(--gold);
-    color: var(--ink);
+    color: var(--dark-bg); /* Текст кнопки темный */
     font-weight: bold;
     border-radius: 4px;
     text-transform: uppercase;
@@ -181,10 +201,10 @@ a:hover { color: var(--gold); }
 .btn-support:hover { background: #fff; transform: translateY(-2px); }
 
 /* =========================================
-   8. ПОДВАЛ / КОНТАКТЫ
+   8. ПОДВАЛ
    ========================================= */
 .site-footer {
-    background: #111; /* Еще темнее */
+    background: #0d141b; /* Очень темный синий */
     color: rgba(255,255,255,0.5);
     padding: 80px 40px;
     font-size: 0.9rem;
@@ -193,18 +213,17 @@ a:hover { color: var(--gold); }
     display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
     max-width: 1000px; margin: 0 auto 50px auto;
 }
-.footer-col h3 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--slate); padding-bottom: 10px; display: inline-block; }
+.footer-col h3 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--slate-light); padding-bottom: 10px; display: inline-block; }
 .footer-col p { margin-bottom: 10px; }
 .footer-col strong { color: var(--gold); }
 
 .btn-contact {
     display: inline-block; margin-top: 20px;
-    color: #fff; border: 1px solid var(--slate);
+    color: #fff; border: 1px solid var(--slate-light);
     padding: 10px 20px; font-size: 0.8rem; text-transform: uppercase;
 }
 .btn-contact:hover { border-color: var(--gold); color: var(--gold); }
-
-.copyright { text-align: center; border-top: 1px solid #222; padding-top: 20px; opacity: 0.3; font-size: 0.8rem; }
+.copyright { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; opacity: 0.3; font-size: 0.8rem; }
 
 /* =========================================
    MOBILE

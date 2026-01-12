@@ -199,3 +199,84 @@ p { margin-bottom: 25px; color: var(--ink); }
     .sticky-nav { padding: 0 20px; }
     .nav-links a { margin-left: 15px; font-size: 0.7rem; }
 }
+/* =========================================
+   СТИЛЬ СПИСКА ДЕТЕЙ (КАК НА МАКЕТЕ)
+   ========================================= */
+.children-split-layout {
+    display: flex;
+    align-items: center; /* Центрируем вертикально */
+    margin: 40px 0;
+    gap: 0; /* Убираем отступы, чтобы линия была четко посередине */
+}
+
+/* Левая часть (Заголовок) */
+.c-label-col {
+    width: 40%; /* Занимает 40% ширины */
+    text-align: right;
+    padding-right: 25px; /* Отступ до линии */
+    
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+/* Правая часть (Список имен) */
+.c-list-col {
+    width: 60%; /* Остальное место */
+    padding-left: 25px; /* Отступ от линии */
+    border-left: 2px solid var(--ink); /* ТА САМАЯ ЛИНИЯ */
+    
+    font-family: 'Playfair Display', serif; /* Шрифт с засечками как на фото */
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(15, 37, 55, 0.85); /* Чуть мягче черного */
+    line-height: 1.6;
+}
+
+.c-list-col ul {
+    list-style: none; /* Убираем точки */
+    padding: 0;
+    margin: 0;
+}
+
+.c-list-col li {
+    margin-bottom: 5px;
+}
+
+/* Выделение предка в тексте (опционально) */
+.ancestor-text {
+    font-weight: bold;
+    color: var(--blue-fresh); /* Или оставить черным, если хочется строгости */
+    position: relative;
+}
+/* Если хочется подчеркнуть предка галочкой или точкой слева */
+.ancestor-text::before {
+    content: "•";
+    position: absolute;
+    left: -15px;
+    color: var(--gold);
+    font-style: normal;
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 600px) {
+    .children-split-layout {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .c-label-col {
+        width: 100%;
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--ink); /* На телефоне линия станет горизонтальной */
+    }
+    .c-list-col {
+        width: 100%;
+        padding-left: 0;
+        border-left: none;
+    }
+}

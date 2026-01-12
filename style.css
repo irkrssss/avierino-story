@@ -437,3 +437,82 @@ a:hover { color: var(--gold); border-color: var(--gold); }
         padding: 60px 20px 30px 20px;
     }
 }
+/* =========================================
+   СТИЛИ ДЛЯ ПОКОЛЕНИЯ II (СПИСКИ БИОГРАФИЙ)
+   ========================================= */
+
+.gen-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.gen-item {
+    margin-bottom: 25px; /* Отступ между братьями */
+    border-bottom: 1px dashed rgba(61, 83, 105, 0.1); /* Легкий разделитель */
+    padding-bottom: 15px;
+}
+.gen-item:last-child { border-bottom: none; }
+
+/* Сетка "Муж - Жена" */
+.couple-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.col-husband {
+    width: 48%;
+    /* border-right: 1px solid rgba(0,0,0,0.1); */ /* Можно включить разделитель, если нужно */
+}
+
+.col-wife {
+    width: 48%;
+    color: var(--slate-light); /* Жена чуть светлее или другим оттенком */
+}
+
+/* Биографическая заметка снизу */
+.bio-note {
+    font-family: 'Playfair Display', serif; /* Красивый шрифт с засечками */
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink);
+    opacity: 0.8;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: justify;
+}
+
+/* Спец-выделение для блока предка */
+.ancestor-highlight-box {
+    background: rgba(192, 160, 98, 0.05); /* Еле заметный золотой фон */
+    padding: 15px;
+    border: 1px solid rgba(192, 160, 98, 0.3);
+    border-radius: 4px;
+}
+
+/* Стили для древа на левой странице */
+.faded-level .g-node {
+    opacity: 0.5; /* Родители чуть бледнее */
+    background: #f4f4f4;
+    border-color: #ccc;
+}
+.highlight-node {
+    background: #fff;
+    border-width: 2px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 600px) {
+    .couple-grid {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .col-husband, .col-wife {
+        width: 100%;
+    }
+}

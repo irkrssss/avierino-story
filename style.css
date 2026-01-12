@@ -1,105 +1,431 @@
+/* =========================================
+   1. НАСТРОЙКИ И ПЕРЕМЕННЫЕ
+   ========================================= */
 :root {
-    --paper: #F9F7F1;
-    --ink: #1A2B49;
-    --gold: #C5A059;
-    --dark-bg: #051626; /* Цвет обложки и подвала */
+    /* Палитра */
+    --paper: #F9F7F1;       /* Цвет старой бумаги (основной фон) */
+    --ink: #1A2B49;         /* Темно-синий (основной текст) */
+    --gold: #C5A059;        /* Золото (акценты, линии) */
+    --dark-bg: #051626;     /* Глубокий черный/синий (Обложка, Подвал, Древо) */
+    
+    /* Размеры */
+    --nav-height: 60px;
 }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
     background-color: var(--paper);
     color: var(--ink);
     font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-h1, h2, h3 { font-family: 'Playfair Display', serif; margin: 0; }
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    font-weight: 700;
+}
 
-/* --- 1. HERO (ТЕМНАЯ) --- */
+a {
+    text-decoration: none;
+    color: var(--ink);
+    transition: 0.3s;
+}
+
+/* =========================================
+   2. ОБЛОЖКА (HERO SECTION)
+   ========================================= */
 .hero-section {
     height: 100vh;
-    background: linear-gradient(rgba(5,22,38,0.6), rgba(5,22,38,0.8)), url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
+    background: linear-gradient(rgba(5,22,38,0.6), rgba(5,22,38,0.8)), 
+                url('https://upload.wikimedia.org/wikipedia/commons/e/e6/Aivazovsky_Moonlit_Seascape_with_Shipwreck.jpg') center/cover fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: var(--paper);
     text-align: center;
+    position: relative;
 }
-.hero-title { font-size: 5rem; text-shadow: 0 0 30px rgba(0,0,0,0.5); }
-.hero-subtitle { font-size: 1.5rem; color: var(--gold); margin-top: 10px; font-style: italic; }
-.scroll-indicator { margin-top: 40px; font-size: 0.9rem; opacity: 0.7; animation: bounce 2s infinite; }
 
-/* --- НАВИГАЦИЯ --- */
+.hero-title {
+    font-size: 5rem;
+    line-height: 1.1;
+    text-shadow: 0 0 30px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--gold);
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* =========================================
+   3. НАВИГАЦИЯ (MENU)
+   ========================================= */
 .sticky-nav {
     position: sticky;
     top: 0;
     background: var(--paper);
-    padding: 15px 40px;
+    height: var(--nav-height);
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    z-index: 100;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.nav-logo { font-family: 'Playfair Display'; font-weight: bold; font-size: 1.2rem; color: var(--ink); }
-.nav-links a { text-decoration: none; color: var(--ink); margin-left: 20px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-.nav-links a:hover { color: var(--gold); }
 
-/* --- 2. TEXT BLOCKS (BOOK STYLE) --- */
+.nav-logo {
+    font-family: 'Playfair Display';
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: var(--ink);
+}
+
+.nav-links a {
+    margin-left: 25px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+}
+
+/* =========================================
+   4. ТИПОГРАФИКА КНИГИ (ОБЩИЕ СТИЛИ)
+   ========================================= */
 .book-page, .sources-section {
-    padding: 100px 20px;
+    padding: 80px 20px;
     display: flex;
     justify-content: center;
 }
-.content-block { max-width: 700px; width: 100%; }
-.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; font-size: 0.8rem; }
-.drop-cap { float: left; font-size: 4rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--gold); padding: 5px 10px 0 0; }
-p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
 
-/* --- 3. MAP (SCROLLY) --- */
-.map-wrapper { display: flex; height: 300vh; background: #eee; }
-.map-sticky { width: 50%; height: 100vh; position: sticky; top: 0; background: var(--dark-bg); color: #fff; display: flex; align-items: center; justify-content: center; }
-.map-content { width: 50%; background: var(--paper); }
-.step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; border-bottom: 1px solid #ddd; }
-
-/* --- 4. HISTORY & ROSPIS --- */
-.history-section { padding: 80px 20px; background: #fff; display: flex; flex-direction: column; align-items: center; }
-.rospis-card {
-    border-left: 3px solid var(--gold);
-    padding-left: 30px;
-    margin: 40px 0;
+.content-block {
+    max-width: 700px;
+    width: 100%;
 }
-.generation-tag { background: var(--ink); color: #fff; display: inline-block; padding: 2px 8px; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 10px; }
-.historical-note { font-size: 0.95rem; background: rgba(197, 160, 89, 0.1); padding: 15px; border-radius: 4px; color: #555; }
-.fact-box { border: 1px solid var(--gold); padding: 30px; text-align: center; margin: 40px 0; background: var(--paper); }
 
-/* --- 5. TREE --- */
-.tree-section { background: var(--ink); color: var(--paper); padding: 100px 0; text-align: center; position: relative; }
-.tree-visual { height: 600px; position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
-.node { position: absolute; left: 50%; transform: translateX(-50%); padding: 5px 15px; border: 1px solid var(--gold); background: var(--dark-bg); font-size: 0.9rem; }
-.branch-line { position: absolute; left: 50%; top: 10%; bottom: 10%; width: 1px; background: var(--gold); opacity: 0.3; }
-.btn-download { display: inline-block; margin-top: 30px; padding: 15px 30px; background: var(--gold); color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px; transition: 0.3s; }
-.btn-download:hover { background: #fff; color: var(--ink); }
+.chapter-label {
+    display: block;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-/* --- 7. FOOTER --- */
-.site-footer { background: var(--dark-bg); color: rgba(255,255,255,0.6); padding: 80px 20px; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
-.footer-col { max-width: 300px; }
-.footer-col h3 { color: #fff; margin-bottom: 20px; }
-.btn-small { color: var(--ink); background: var(--gold); padding: 10px 20px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 10px; }
+.drop-cap {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    font-family: 'Playfair Display';
+    color: var(--gold);
+    padding: 5px 10px 0 0;
+}
 
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-/* Дополнительные стили для списка детей */
-.child-item {
-    padding: 10px 15px;
-    border-bottom: 1px solid rgba(0,0,0,0.05); /* Легкая линия разделитель */
+p {
+    margin-bottom: 20px;
     font-size: 1.1rem;
+    color: rgba(26, 43, 73, 0.9); /* Чуть мягче черного */
 }
-.child-item:last-child {
+
+/* =========================================
+   5. КАРТА (SCROLLYTELLING)
+   ========================================= */
+.map-wrapper {
+    display: flex;
+    height: 300vh; /* Высота скролла */
+    position: relative;
+    background: #111;
+}
+
+.map-sticky {
+    width: 50%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background: var(--dark-bg);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.map-visual {
+    width: 100%;
+    height: 100%;
+    /* Заглушка карты, замените URL на свою карту при наличии */
+    background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-overlay-text {
+    font-family: 'Playfair Display';
+    font-size: 2rem;
+    letter-spacing: 5px;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border: 1px solid var(--gold);
+}
+
+.map-content {
+    width: 50%;
+    background: var(--paper);
+    z-index: 2;
+}
+
+.step {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.step h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--ink);
+}
+
+/* =========================================
+   6. ИСТОРИЯ (SPLIT VIEW - ДВУХКОЛОНОЧНЫЙ ВИД)
+   ========================================= */
+.history-section {
+    padding: 0 20px;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.split-chapter-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    margin: 80px 0;
+    padding-bottom: 80px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 1100px;
+}
+.split-chapter-container:last-child {
     border-bottom: none;
 }
-.ancestor-highlight {
-    transform: scale(1.02); /* Чуть увеличивает карточку предка */
-    margin: 10px 0;
+
+/* --- ЛЕВАЯ КОЛОНКА (ДРЕВО) --- */
+.chapter-sidebar {
+    width: 35%;
+    position: sticky;
+    top: 100px; /* Отступ от верха (учитывая меню) */
+}
+
+.sticky-tree-visual {
+    background: var(--dark-bg);
+    color: var(--paper);
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 15px 15px 0 rgba(197, 160, 89, 0.2); /* Тень золотого оттенка */
+    border: 1px solid var(--ink);
+}
+
+.tree-label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.mini-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.node-couple {
+    font-family: 'Playfair Display';
+    padding: 8px 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.tree-symbol { color: var(--gold); font-style: italic; margin: 0 8px; }
+
+.tree-line-vertical {
+    width: 1px;
+    height: 20px;
+    background: var(--gold);
+    margin: 0 auto 10px auto;
+}
+
+.tree-children-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding-left: 15px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+.tree-child {
+    font-size: 0.85rem;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+/* --- СТИЛИ ПОДСВЕТКИ (HIGHLIGHTS) --- */
+.highlight-box {
+    border: 2px solid var(--gold);
+    background: rgba(197, 160, 89, 0.15);
+    color: var(--gold);
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.highlight-text .tree-child {
+    color: #fff;
+    opacity: 1;
+}
+
+.active-ancestor {
+    color: var(--gold) !important;
+    font-weight: 900;
+    background: rgba(197, 160, 89, 0.1);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+.faded {
+    opacity: 0.3;
+    transform: scale(0.98);
+}
+
+/* --- ПРАВАЯ КОЛОНКА (ТЕКСТ) --- */
+.chapter-content {
+    width: 65%;
+}
+
+.bio-text {
+    margin-top: 20px;
+}
+
+.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+.clean-list li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+    border-bottom: 1px dashed rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+.clean-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.8rem;
+}
+
+.context-box {
+    background: #EFE8D5; /* Более темный бежевый для врезок */
+    padding: 30px;
+    margin-top: 40px;
+    border-left: 4px solid var(--ink);
+    font-size: 0.95rem;
+}
+.context-box h4 {
+    margin-bottom: 10px;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================================
+   7. ПОДВАЛ (FOOTER)
+   ========================================= */
+.site-footer {
+    background: var(--dark-bg);
+    color: rgba(255,255,255,0.6);
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.footer-col h3 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   8. АДАПТИВНОСТЬ (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    .hero-title { font-size: 3rem; }
+    
+    .map-wrapper { flex-direction: column; height: auto; }
+    .map-sticky, .map-content { width: 100%; }
+    .map-sticky { height: 50vh; position: relative; } /* Карта сверху, не липнет */
+    
+    .split-chapter-container {
+        flex-direction: column;
+    }
+    .chapter-sidebar, .chapter-content {
+        width: 100%;
+        position: static;
+    }
+    .sticky-tree-visual {
+        margin-bottom: 30px;
+    }
+    
+    .sticky-nav { padding: 0 20px; }
+    .nav-links a { margin-left: 10px; font-size: 0.7rem; }
 }

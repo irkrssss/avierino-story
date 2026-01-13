@@ -443,42 +443,80 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .registry-row:hover { background-color: #F9F7F1; padding-left: 25px; }
 .registry-row span { align-self: center; }
 
-/* --- МОДАЛЬНОЕ ОКНО (КАРТОЧКА) --- */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(21, 32, 43, 0.9); z-index: 2000;
-    display: none; justify-content: center; align-items: center;
-    backdrop-filter: blur(5px);
-}
-.modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
-
-.modal-card {
-    background: var(--paper); width: 90%; max-width: 700px;
-    max-height: 90vh; overflow-y: auto;
-    position: relative; padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid var(--gold);
-}
-.close-modal {
-    position: absolute; top: 15px; right: 20px;
-    font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--ink);
+/* --- НОВЫЙ СТИЛЬ КАРТОЧКИ (GRID) --- */
+.person-layout-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Левая колонка 250px, правая - остальное */
+    gap: 40px;
 }
 
-/* Сетка внутри карточки */
-.person-layout {
-    display: grid; grid-template-columns: 1fr; gap: 30px;
+.person-left-col {
+    /* Левая колонка: Фото и Родственники */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-/* Если есть фото, делаем 2 колонки */
-.person-layout.has-photo { grid-template-columns: 1fr 2fr; }
 
-.person-img { width: 100%; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-.person-name { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 5px; color: var(--ink); line-height: 1.2; }
-.person-dates { color: var(--gold); font-weight: bold; margin-bottom: 20px; display: block; }
-.person-bio-label { font-weight: bold; text-transform: uppercase; font-size: 0.75rem; color: var(--slate-light); margin-top: 20px; display: block; }
+.person-right-col {
+    /* Правая колонка: Имя, Даты, Био */
+}
 
+/* Стили элементов */
+.person-img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.relatives-box {
+    background: rgba(61, 83, 105, 0.05); /* Легкий фон */
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    border-left: 2px solid var(--gold);
+}
+
+.person-full-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 15px;
+}
+
+.life-dates {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.6;
+}
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.date-icon { font-size: 1.2rem; color: var(--gold); width: 20px; text-align: center; }
+
+.person-bio {
+    font-size: 1rem;
+    line-height: 1.7;
+    text-align: justify;
+    margin-bottom: 30px;
+}
+
+.sources-box {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(0,0,0,0.2);
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* Адаптив для телефонов: все в одну колонку */
 @media (max-width: 700px) {
-    .registry-header, .registry-row { grid-template-columns: 1fr; gap: 5px; text-align: center; }
-    .registry-header { display: none; } /* Скрываем шапку на телефоне */
-    .registry-row { border-bottom: 2px solid #eee; }
-    .person-layout.has-photo { grid-template-columns: 1fr; } /* Фото сверху на телефоне */
+    .person-layout-grid { grid-template-columns: 1fr; gap: 20px; }
+    .person-full-name { font-size: 1.8rem; }
 }
-@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }

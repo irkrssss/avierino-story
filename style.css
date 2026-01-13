@@ -115,7 +115,7 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     50% { transform: translateY(10px); } 
 }
 
-/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ НА ОБЛОЖКЕ */
+/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
 .hero-lang-switcher {
     position: absolute;
     top: 40px;
@@ -139,21 +139,9 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     letter-spacing: 1px;
 }
 
-.hero-lang-btn:hover {
-    color: #fff;
-    transform: translateY(-2px);
-}
-
-.hero-lang-btn.active {
-    color: var(--gold); 
-    opacity: 1;
-    pointer-events: none;
-    border-bottom: 1px solid var(--gold);
-}
-
-.hero-sep {
-    color: rgba(255, 255, 255, 0.3);
-}
+.hero-lang-btn:hover { color: #fff; transform: translateY(-2px); }
+.hero-lang-btn.active { color: var(--gold); opacity: 1; pointer-events: none; border-bottom: 1px solid var(--gold); }
+.hero-sep { color: rgba(255, 255, 255, 0.3); }
 
 
 /* =========================================
@@ -216,9 +204,6 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     border: 3px double var(--ink); 
     pointer-events: none; opacity: 0.6; 
 }
-.corner { position: absolute; width: 15px; height: 15px; background: var(--ink); z-index: 2; }
-.list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
-.list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
 
 /* Гравюра (левая страница) */
 .engraving-container {
@@ -233,7 +218,6 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .img-caption {
     margin-top: 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--slate-light); text-align: center;
 }
-.engraving-placeholder { width: 100%; height: 100%; border: 1px dashed var(--slate-light); display: flex; align-items: center; justify-content: center; color: var(--slate-light); font-style: italic; opacity: 0.7; background: rgba(61, 83, 105, 0.03); }
 
 /* Правая страница (текст) */
 .center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
@@ -241,193 +225,197 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 8px 10px 0 0; }
 
 .author-text-body p {
-    font-size: 0.92rem;      
-    line-height: 1.6;        
-    margin-bottom: 0;        
-    text-indent: 30px;       
-    text-align: justify;     
-    text-justify: inter-word;
-    opacity: 0.9;
+    font-size: 0.92rem; line-height: 1.6; margin-bottom: 0;        
+    text-indent: 30px; text-align: justify; text-justify: inter-word; opacity: 0.9;
 }
 .author-text-body p:first-of-type { text-indent: 0; }
-
 .ornament-divider { text-align: center; color: var(--gold); font-size: 0.8rem; margin: 30px 0; opacity: 0.6; }
-
-.acknowledgments-box { padding: 10px 0; margin-top: 10px; position: relative; text-align: center; }
-.ack-item { margin-bottom: 20px; }
-.ack-item:last-child { margin-bottom: 0; }
-.ack-label { display: block; color: var(--ink); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; opacity: 0.6; }
-.ack-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; line-height: 1.5; color: var(--ink); margin: 0; text-indent: 0; }
 
 
 /* =========================================
-   5. КАРТА (ВЕКТОРНАЯ АНИМАЦИЯ)
+   5. КАРТА (ВЕКТОРНАЯ ИСТОРИЯ)
    ========================================= */
 .map-wrapper {
     display: flex;
     position: relative;
-    background: var(--dark-bg); /* Темный фон для контейнера */
+    background: var(--dark-bg);
 }
 
-/* Левая часть (Липкая карта) */
 .map-sticky {
     width: 60%;
     height: 100vh;
     position: sticky;
     top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: #0b1116; /* Глубокий черный для моря */
-}
-
-.map-container {
-    width: 100%;
-    height: 100%;
     display: flex; align-items: center; justify-content: center;
-}
-
-/* Сама векторная карта */
-.map-svg-vector {
-    width: 100%;
-    height: 100%;
-    max-height: 90vh; /* Чтобы не была слишком гигантской */
-    /* Карта должна быть темной */
+    overflow: hidden;
     background: #0b1116;
 }
 
-/* Стилизация элементов карты */
-.map-base-layer path {
-    fill: #1e2a36; /* Цвет суши (темно-серый) */
-    stroke: #3d5369; /* Цвет границ (синеватый) */
-    stroke-width: 0.5;
+.map-container {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
 }
 
-/* Линии маршрутов */
+.map-svg-vector {
+    width: 100%; height: 100%;
+    max-height: 95vh;
+    background: #0b1116;
+}
+
+.map-base-layer path {
+    fill: #1e2a36; stroke: #3d5369; stroke-width: 0.5px;
+}
+
 .route-path {
-    fill: none;
-    stroke: var(--gold); /* ЗОЛОТО! */
-    stroke-width: 1.5px;
+    fill: none; stroke: var(--gold); stroke-width: 1.5px;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 3px rgba(192, 160, 98, 0.7)); /* Свечение */
+    filter: drop-shadow(0 0 3px rgba(192, 160, 98, 0.7));
     opacity: 0.8;
 }
-.main-route { stroke-width: 2.5px; opacity: 1; } /* Главная линия толще */
-.secondary-route { stroke-width: 1px; opacity: 0.6; } /* Побочные тоньше */
+.main-route { stroke-width: 2.5px; opacity: 1; }
+.secondary-route { stroke-width: 1px; opacity: 0.6; }
 
-/* Города (Точки) */
 .city-dot {
-    fill: var(--paper); /* Светлые точки */
-    stroke: var(--gold);
-    stroke-width: 1px;
-    transition: 0.3s;
-    opacity: 0; /* Скрыты по умолчанию */
+    fill: var(--paper); stroke: var(--gold); stroke-width: 1px;
+    transition: 0.3s; opacity: 0;
 }
-.city-dot.origin { fill: var(--gold); } /* Хиос золотой */
-.city-dot.hub { fill: var(--gold); stroke-width: 2px; } /* Таганрог большой золотой */
+.city-dot.origin { fill: var(--gold); }
+.city-dot.hub { fill: var(--gold); stroke-width: 2px; r: 6px; }
 
-/* Подписи городов */
 .city-label {
-    font-family: 'Lato', sans-serif;
-    font-size: 10px;
-    fill: var(--paper);
-    opacity: 0; /* Скрыты по умолчанию */
-    pointer-events: none;
-    text-shadow: 0 1px 2px #000;
+    font-family: 'Lato', sans-serif; font-size: 10px; fill: var(--paper);
+    opacity: 0; pointer-events: none; text-shadow: 0 1px 2px #000; font-weight: bold;
 }
 
-/* Правая часть (Текст с шагами) */
 .map-content {
     width: 40%;
     background: rgba(247, 245, 240, 0.96);
     box-shadow: -5px 0 20px rgba(0,0,0,0.2);
     z-index: 20;
+    position: relative;
 }
 
 .step {
-    min-height: 90vh; /* Высота шага */
+    min-height: 90vh;
     display: flex; flex-direction: column; justify-content: center;
     padding: 40px;
 }
 
 .step-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
+    background: #fff; padding: 30px; border-radius: 8px;
     box-shadow: 0 10px 30px rgba(61, 83, 105, 0.1);
     border-left: 4px solid var(--gold);
 }
 .step-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
-@media (max-width: 900px) {
-    .map-wrapper { flex-direction: column; }
-    .map-sticky { width: 100%; height: 50vh; position: relative; top: unset; }
-    .map-svg-vector { max-height: none; }
-    .map-content { width: 100%; }
-    .step { min-height: 60vh; padding: 20px; }
-}
+
 /* =========================================
-   6. PDF КНИГА (ДЛЯ "ПОКОЛЕННОЙ РОСПИСИ")
+   6. ПЕРСОНАЛИИ (РЕЕСТР + ПОИСК)
+   ========================================= */
+.registry-section {
+    padding: 80px 20px;
+    background: #fff;
+    position: relative;
+    z-index: 5;
+    padding-bottom: 100px; /* Отступ снизу */
+}
+
+.registry-controls {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 20px; margin-bottom: 40px; text-align: center;
+}
+
+.search-input {
+    padding: 18px 30px;
+    width: 100%; max-width: 600px;
+    border: 2px solid rgba(107, 127, 145, 0.3);
+    background: #fff; font-family: 'Lato', sans-serif; font-size: 1.1rem;
+    border-radius: 50px; outline: none; transition: 0.3s;
+}
+.search-input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(192, 160, 98, 0.25); }
+
+.rows-selector {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.95rem; color: var(--slate-light);
+}
+
+.items-select {
+    padding: 8px 15px;
+    border: 1px solid var(--slate-light); border-radius: 4px;
+    background: #fff; color: var(--ink);
+    font-family: 'Lato', sans-serif; font-weight: bold; cursor: pointer; outline: none;
+}
+.items-select:focus { border-color: var(--gold); }
+
+.registry-container { max-width: 800px; margin: 0 auto; }
+
+/* Карточка человека в списке */
+.registry-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff; padding: 20px 30px;
+    margin-bottom: 15px; border-radius: 8px;
+    border: 1px solid rgba(61, 83, 105, 0.1);
+    transition: all 0.3s ease; cursor: pointer;
+    position: relative; overflow: hidden;
+}
+
+.registry-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(61, 83, 105, 0.1);
+    border-color: var(--gold);
+}
+
+.registry-row::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--gold); opacity: 0; transition: 0.3s;
+}
+.registry-row:hover::before { opacity: 1; }
+
+.reg-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); font-weight: 700; }
+.reg-dates {
+    font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--slate-light);
+    background: rgba(61, 83, 105, 0.05); padding: 5px 12px; border-radius: 20px;
+}
+
+/* Пагинация */
+.pagination-wrapper { display: flex; justify-content: center; gap: 10px; margin-top: 40px; }
+.page-btn {
+    background: #fff; border: 1px solid var(--slate-light); color: var(--ink);
+    padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: 'Lato'; transition: 0.2s;
+}
+.page-btn:hover { border-color: var(--gold); color: var(--gold); }
+.page-btn:disabled { opacity: 0.3; cursor: default; border-color: #ddd; }
+
+
+/* =========================================
+   7. PDF КНИГА (РОДОСЛОВНАЯ)
    ========================================= */
 .history-book-section {
-    padding: 60px 20px 100px 20px;
+    padding: 80px 20px 100px 20px;
     background: var(--paper);
     text-align: center;
+    position: relative; z-index: 6;
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.05);
 }
 
 .flipbook-container {
-    width: 100%;
-    max-width: 1200px;
-    height: 80vh; 
-    min-height: 600px;
+    width: 100%; max-width: 1200px; height: 80vh; min-height: 600px;
     margin: 40px auto 0 auto;
-    box-shadow: 0 20px 50px rgba(61, 83, 105, 0.2);
-    z-index: 1;
+    box-shadow: 0 20px 50px rgba(61, 83, 105, 0.2); z-index: 1;
 }
-
-
-/* =========================================
-   7. МЕТОДОЛОГИЯ И ИСТОЧНИКИ (GRID)
-   ========================================= */
-.sources-section {
-    background-color: #fff;
-    padding: 80px 20px;
-    color: var(--ink);
-    border-top: 1px solid rgba(0,0,0,0.05);
-}
-.sources-container { max-width: 1000px; margin: 0 auto; }
-.sources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; text-align: left; }
-
-.col-title {
-    font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ink);
-    border-bottom: 1px solid var(--gold); padding-bottom: 15px; margin-bottom: 25px; display: block;
-}
-
-.methodology-list { list-style: none; padding: 0; margin: 0; }
-.methodology-list li { margin-bottom: 25px; }
-.methodology-list strong { display: block; color: var(--gold); font-size: 0.95rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-.methodology-list p { margin: 0; font-size: 0.9rem; line-height: 1.5; opacity: 0.9; }
-
-.sources-list-clean { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; color: var(--ink); }
-.sources-list-clean li { margin-bottom: 12px; border-bottom: 1px dashed rgba(61, 83, 105, 0.1); padding-bottom: 5px; }
-.sources-list-clean li:last-child { border: none; }
 
 
 /* =========================================
    8. ПОДДЕРЖКА
    ========================================= */
 .support-section-clean {
-    background-color: #FAFAFA;
-    padding: 60px 20px;
+    background-color: #FAFAFA; padding: 60px 20px;
     border-top: 1px solid rgba(0,0,0,0.05);
 }
 .support-wrapper { max-width: 800px; margin: 0 auto; text-align: center; }
 .support-section-clean h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 20px; }
 .support-text p { font-size: 0.9rem; line-height: 1.6; color: var(--ink); max-width: 600px; margin: 0 auto 15px auto; opacity: 0.9; }
-.support-label { margin: 30px 0 15px 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: var(--slate-light); }
-.support-buttons-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.support-buttons-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;}
 .btn-clean-dark {
     background-color: var(--ink); color: #fff; padding: 12px 25px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; min-width: 200px;
     box-shadow: 0 10px 20px rgba(61, 83, 105, 0.2); transition: transform 0.2s, box-shadow 0.2s;
@@ -439,10 +427,8 @@ a:hover { color: var(--gold); border-color: var(--gold); }
    9. ПОДВАЛ
    ========================================= */
 .site-footer-clean {
-    background-color: var(--dark-bg);
-    color: rgba(255,255,255,0.7);
-    padding: 80px 40px 30px 40px;
-    font-size: 0.95rem;
+    background-color: var(--dark-bg); color: rgba(255,255,255,0.7);
+    padding: 80px 40px 30px 40px; font-size: 0.95rem;
 }
 .footer-grid {
     max-width: 1100px; margin: 0 auto;
@@ -460,106 +446,8 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   10. УЛУЧШЕННЫЙ РЕЕСТР
+   10. МОДАЛЬНОЕ ОКНО
    ========================================= */
-.registry-controls { text-align: center; margin-bottom: 30px; }
-
-/* ПОИСК (БОЛЬШОЙ) */
-.search-input {
-    padding: 20px 30px; /* Больше отступы */
-    width: 100%; 
-    max-width: 600px;   /* Шире */
-    border: 2px solid rgba(107, 127, 145, 0.3); 
-    background: #fff;
-    font-family: 'Lato', sans-serif; 
-    font-size: 1.1rem;  /* Крупнее текст */
-    border-radius: 50px; /* Круглые края */
-    outline: none; 
-    transition: 0.3s;
-}
-.search-input:focus { 
-    border-color: var(--gold); 
-    box-shadow: 0 0 15px rgba(192, 160, 98, 0.25); 
-}
-
-.registry-container {
-    max-width: 800px; margin: 0 auto;
-    background: transparent; box-shadow: none;
-}
-
-/* Скрываем старую шапку таблицы */
-.registry-header { display: none; }
-
-/* Карточка человека в списке */
-.registry-row {
-    display: flex; justify-content: space-between; align-items: center;
-    background: #fff; padding: 20px 30px;
-    margin-bottom: 15px; border-radius: 8px;
-    border: 1px solid rgba(61, 83, 105, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer; position: relative; overflow: hidden;
-}
-
-.registry-row:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(61, 83, 105, 0.1);
-    border-color: var(--gold);
-}
-
-/* Золотая полоска слева при наведении */
-.registry-row::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px; background: var(--gold);
-    opacity: 0; transition: 0.3s;
-}
-.registry-row:hover::before { opacity: 1; }
-
-.reg-name {
-    font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); font-weight: 700;
-}
-.reg-dates {
-    font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--slate-light);
-    background: rgba(61, 83, 105, 0.05); padding: 5px 12px; border-radius: 20px;
-}
-
-/* --- ПАГИНАЦИЯ --- */
-.pagination-wrapper {
-    display: flex; justify-content: center; gap: 10px; margin-top: 40px;
-}
-.page-btn {
-    background: #fff; border: 1px solid var(--slate-light); color: var(--ink);
-    padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: 'Lato'; transition: 0.2s;
-}
-.page-btn:hover { border-color: var(--gold); color: var(--gold); }
-.page-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; pointer-events: none; }
-.page-btn:disabled { opacity: 0.3; cursor: default; border-color: #ddd; }
-
-
-/* --- ССЫЛКИ НА РОДСТВЕННИКОВ ВНУТРИ МОДАЛКИ --- */
-
-/* Строка с родственником (чтобы каждый был с новой строки) */
-.relatives-line {
-    margin-bottom: 8px; /* Отступ между именами */
-    line-height: 1.4;
-}
-
-/* Сама ссылка (Имя) */
-.relative-link {
-    color: var(--gold);
-    font-weight: 700;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(192, 160, 98, 0.3); /* Тонкое подчеркивание */
-    transition: 0.2s;
-}
-
-.relative-link:hover {
-    color: var(--ink); /* При наведении темнеет */
-    border-bottom-color: var(--ink);
-    background-color: rgba(192, 160, 98, 0.1);
-}
-
-
-/* --- МОДАЛЬНОЕ ОКНО (ОСНОВА) --- */
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(21, 32, 43, 0.9); z-index: 2000;
@@ -567,151 +455,76 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     backdrop-filter: blur(5px);
 }
 .modal-overlay.active { display: flex; animation: fadeIn 0.3s; }
-
 .modal-card {
     background: var(--paper); width: 90%; max-width: 900px;
-    max-height: 90vh; overflow-y: auto;
-    position: relative; padding: 40px;
+    max-height: 90vh; overflow-y: auto; position: relative; padding: 40px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid var(--gold);
 }
 .close-modal {
     position: absolute; top: 15px; right: 20px;
-    font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--ink);
-    z-index: 10;
+    font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--ink); z-index: 10;
 }
 @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 
-
-/* --- ВНУТРЕННОСТИ КАРТОЧКИ (GRID) --- */
-.person-layout-grid {
-    display: grid;
-    grid-template-columns: 250px 1fr; /* Левая колонка 250px, правая - остальное */
-    gap: 40px;
-}
-
-.person-left-col {
-    display: flex; flex-direction: column; gap: 20px;
-}
-.person-right-col {
-    /* Автоматическая ширина */
-}
-
-/* Стили элементов */
-.person-img {
-    width: 100%; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
+.person-layout-grid { display: grid; grid-template-columns: 250px 1fr; gap: 40px; }
+.person-left-col { display: flex; flex-direction: column; gap: 20px; }
+.person-img { width: 100%; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 .relatives-box {
-    background: rgba(61, 83, 105, 0.05);
-    padding: 15px; border-radius: 4px; font-size: 0.9rem; border-left: 2px solid var(--gold);
+    background: rgba(61, 83, 105, 0.05); padding: 15px; border-radius: 4px; font-size: 0.9rem; border-left: 2px solid var(--gold);
 }
+.relatives-line { margin-bottom: 8px; line-height: 1.4; }
+.relative-link {
+    color: var(--gold); font-weight: 700; cursor: pointer;
+    border-bottom: 1px solid rgba(192, 160, 98, 0.3); transition: 0.2s;
+}
+.relative-link:hover { color: var(--ink); border-bottom-color: var(--ink); background-color: rgba(192, 160, 98, 0.1); }
 
 .person-full-name {
     font-family: 'Playfair Display', serif; font-size: 2.2rem; line-height: 1.1;
     color: var(--ink); margin-top: 0; margin-bottom: 20px;
     border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;
 }
-
-.life-dates {
-    margin-bottom: 30px; font-size: 1rem; color: var(--ink); line-height: 1.6;
-}
+.life-dates { margin-bottom: 30px; font-size: 1rem; color: var(--ink); line-height: 1.6; }
 .date-row { display: flex; align-items: center; gap: 10px; }
 .date-icon { font-size: 1.2rem; color: var(--gold); width: 20px; text-align: center; }
-
-.person-bio {
-    font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 30px;
-}
-
-.sources-box {
-    margin-top: 40px; padding-top: 20px; border-top: 1px dashed rgba(0,0,0,0.2);
-    font-size: 0.85rem; opacity: 0.7;
-}
+.person-bio { font-size: 1rem; line-height: 1.7; text-align: justify; margin-bottom: 30px; }
+.sources-box { margin-top: 40px; padding-top: 20px; border-top: 1px dashed rgba(0,0,0,0.2); font-size: 0.85rem; opacity: 0.7; }
 
 
 /* =========================================
-   11. MOBILE / ADAPTIVE (ВСЕ МЕДИА-ЗАПРОСЫ ВНИЗУ)
+   11. МОБИЛЬНАЯ ВЕРСИЯ (ADAPTIVE) - ВСЕГДА ВНИЗУ
    ========================================= */
 @media (max-width: 900px) {
+    /* Карта */
+    .map-wrapper { flex-direction: column; }
+    .map-sticky { width: 100%; height: 50vh; position: relative; top: unset; }
+    .map-svg-vector { max-height: none; }
+    .map-content { width: 100%; }
+    .step { min-height: 50vh; padding: 20px; }
+    
+    /* Реестр: из строки в колонку */
+    .registry-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    
     /* HTML Книга */
     .book-spread { flex-direction: column; box-shadow: none; margin-top: 0; }
     .book-page { width: 100%; max-width: 100%; flex: auto; min-height: auto; border: none; border-bottom: 10px solid #eee; }
     .page-left, .page-right { background: var(--paper); }
-    
-    /* Текст на телефоне */
     .author-text-body p { text-align: left; text-indent: 20px; }
-
-    /* Карта */
-    .map-wrapper { flex-direction: column; height: auto; }
-    .map-sticky, .map-content { width: 100%; } .map-sticky { height: 50vh; position: relative; }
-    .map-float-wrapper { float: none; width: 100%; margin: 0 0 20px 0; }
     
     /* PDF Книга */
     .flipbook-container { height: 60vh; min-height: 400px; }
     .section-subtitle { display: none; }
 
-    /* Сетки */
-    .footer-grid, .sources-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
-    
-    /* Кнопки */
+    /* Модалка на телефоне */
+    .person-layout-grid { grid-template-columns: 1fr; gap: 20px; }
+    .person-full-name { font-size: 1.8rem; }
+    .modal-card { padding: 20px; width: 95%; }
+
+    /* Футер */
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
     .support-buttons-row { flex-direction: column; align-items: center; }
     .btn-clean-dark { width: 100%; min-width: unset; }
     .site-footer-clean { padding: 60px 20px 30px 20px; }
     
-    /* Языки на телефоне */
-    .hero-lang-switcher {
-        top: 20px;
-        right: 20px;
-        gap: 10px;
-    }
+    .hero-lang-switcher { top: 20px; right: 20px; gap: 10px; }
 }
-
-/* Мобильная версия для реестра и карточек (до 700px) */
-@media (max-width: 700px) {
-    /* Таблица реестра */
-    .registry-header { display: none; }
-    
-    /* На телефоне перестраиваем строку в колонку (Имя сверху, дата снизу) */
-    .registry-row { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 8px; 
-    }
-    
-    /* Карточка человека */
-    .person-layout-grid { grid-template-columns: 1fr; gap: 20px; }
-    .person-full-name { font-size: 1.8rem; }
-    .modal-card { padding: 20px; width: 95%; }
-}
-/* --- ВЫБОР КОЛИЧЕСТВА СТРОК --- */
-.registry-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.rows-selector {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    color: var(--slate-light);
-    font-family: 'Lato', sans-serif;
-}
-
-.items-select {
-    padding: 8px 15px;
-    border: 1px solid var(--slate-light);
-    border-radius: 4px;
-    background: #fff;
-    color: var(--ink);
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-    outline: none;
-    transition: 0.3s;
-}
-
-.items-select:hover { border-color: var(--gold); }
-.items-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(192, 160, 98, 0.1); }

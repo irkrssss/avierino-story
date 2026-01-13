@@ -159,7 +159,35 @@
              data-duration="800">
         </div>
     </section>
+<section class="registry-section" id="registry">
+    <div class="section-title-wrapper">
+        <h2 class="section-main-title">Семейный реестр</h2>
+        <div class="section-subtitle">Поиск по персоналиям</div>
+    </div>
 
+    <div class="registry-controls">
+        <input type="text" id="registrySearch" placeholder="Введите фамилию или имя..." class="search-input">
+    </div>
+
+    <div class="registry-container">
+        <div class="registry-header">
+            <span>Имя</span>
+            <span>Даты</span>
+            <span>Город</span>
+        </div>
+        <div id="registryList" class="registry-list">
+            </div>
+    </div>
+</section>
+
+<div id="personModal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        
+        <div class="modal-content" id="modalContent">
+            </div>
+    </div>
+</div>
     <section class="sources-section" id="sources">
         <div class="sources-container">
             

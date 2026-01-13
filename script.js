@@ -14,15 +14,12 @@ function setupPath(selector) {
         });
     });
 }
-
 setupPath(".route-path");
 
 
 // ==============================================
-// АНИМАЦИЯ МАРШРУТОВ (ПО ШАГАМ)
+// АНИМАЦИЯ КАРТЫ (ПО ШАГАМ)
 // ==============================================
-
-// ШАГ 1
 gsap.to(".path-1", {
     strokeDashoffset: 0, ease: "none",
     scrollTrigger: { trigger: ".step-1", start: "top center", end: "bottom center", scrub: 1 },
@@ -32,7 +29,6 @@ gsap.to(".path-1", {
     }
 });
 
-// ШАГ 2
 gsap.to([".path-2a", ".path-2b"], {
     strokeDashoffset: 0, ease: "none",
     scrollTrigger: { trigger: ".step-2", start: "top center", end: "bottom center", scrub: 1 },
@@ -41,7 +37,6 @@ gsap.to([".path-2a", ".path-2b"], {
     }
 });
 
-// ШАГ 3
 ScrollTrigger.create({
     trigger: ".step-3", start: "top center",
     onEnter: () => {
@@ -69,28 +64,4 @@ animatedBlocks.forEach(block => {
     });
 });
 
-
-// ==============================================
-// !!! ВАЖНО: ПРИНУДИТЕЛЬНЫЙ ЗАПУСК КНИГИ !!!
-// ==============================================
-// Если книга не появляется сама, мы запускаем её вручную через jQuery
-jQuery(document).ready(function($) {
-    
-    var bookElement = $("#family-book");
-    var source = bookElement.attr("data-source");
-
-    if(source) {
-        // Запускаем dFlip
-        bookElement.flipBook({
-            pdf: source,
-            template: {
-                html: "https://cdn.jsdelivr.net/npm/dflip/templates/default-book-view.html",
-                styles: [
-                    "https://cdn.jsdelivr.net/npm/dflip/css/short-white-book-view.css",
-                    "https://cdn.jsdelivr.net/npm/dflip/css/white-book-view.css"
-                ],
-                script: "https://cdn.jsdelivr.net/npm/dflip/js/default-book-view.js"
-            }
-        });
-    }
-});
+// БОЛЬШЕ НИЧЕГО ВНИЗУ БЫТЬ НЕ ДОЛЖНО!

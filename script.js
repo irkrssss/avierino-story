@@ -64,4 +64,29 @@ animatedBlocks.forEach(block => {
     });
 });
 
-// БОЛЬШЕ НИЧЕГО ВНИЗУ БЫТЬ НЕ ДОЛЖНО!
+
+// ==============================================
+// !!! ВАЖНО: ЗАПУСК КНИГИ !!!
+// ==============================================
+jQuery(document).ready(function($) {
+    
+    var bookElement = $("#family-book");
+    
+    // Берем ссылку на PDF прямо из HTML (атрибут data-source)
+    var source = bookElement.attr("data-source");
+
+    // Если ссылка есть, запускаем книгу
+    if(source) {
+        bookElement.flipBook({
+            pdf: source,
+            template: {
+                html: "https://cdn.jsdelivr.net/npm/dflip/templates/default-book-view.html",
+                styles: [
+                    "https://cdn.jsdelivr.net/npm/dflip/css/short-white-book-view.css",
+                    "https://cdn.jsdelivr.net/npm/dflip/css/white-book-view.css"
+                ],
+                script: "https://cdn.jsdelivr.net/npm/dflip/js/default-book-view.js"
+            }
+        });
+    }
+});

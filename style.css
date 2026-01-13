@@ -378,9 +378,9 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .footer-bottom { text-align: center; padding-top: 30px; font-size: 0.8rem; opacity: 0.4; }
 
 
-/* =========================================
-   10. MOBILE / ADAPTIVE
-   ========================================= */
+/* ... весь ваш код выше ... */
+
+/* 10. MOBILE / ADAPTIVE */
 @media (max-width: 900px) {
     /* HTML Книга */
     .book-spread { flex-direction: column; box-shadow: none; margin-top: 0; }
@@ -413,4 +413,4 @@ a:hover { color: var(--gold); border-color: var(--gold); }
         right: 20px;
         gap: 10px;
     }
-
+}

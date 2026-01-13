@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avierino Dynasty | History of the Settlers</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip/css/dflip.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip/css/themify-icons.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+    <section class="hero-section" id="home">
+        <h1 class="hero-title">Avierino<br>Dynasty</h1>
+        <p class="hero-subtitle">History of the settlers: from Chios to Russia</p>
+        <div class="scroll-indicator">Scroll down ↓</div>
+    </section>
+
+    <nav class="sticky-nav">
+        <span class="nav-logo">Avierino</span>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#map">Map</a>
+            <a href="#history">Genealogy</a>
+            <a href="#sources">Research</a>
+            <a href="#support" style="color: var(--gold);">Support</a>
+            <a href="#footer">Authors</a>
+
+            <div class="lang-switcher">
+                <a href="index.html" class="lang-btn">RU</a>
+                <span class="separator">|</span>
+                <span class="lang-btn active">EN</span>
+                <span class="separator">|</span>
+                <a href="el.html" class="lang-btn">EL</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="book-spread-section" id="about">
+        <div class="book-spread">
+            <div class="book-page page-left">
+                <div class="corner list-tl"></div><div class="corner list-tr"></div>
+                <div class="corner list-bl"></div><div class="corner list-br"></div>
+                
+                <div class="engraving-placeholder">
+                    <span>Engraving of Taganrog<br>will be here</span>
+                </div>
+            </div>
+
+            <div class="book-page page-right">
+                <div class="corner list-tl"></div><div class="corner list-tr"></div>
+                <div class="corner list-bl"></div><div class="corner list-br"></div>
+                
+                <div class="page-content center-content">
+                    <span class="chapter-label">Preface</span>
+                    <h2>From Authors</h2>
+                    
+                    <div class="author-text-body">
+                        <p><span class="drop-cap">I</span>nitially, this project was conceived as a personal initiative — an attempt to restore lost connections and fill gaps in the history of one family.</p>
+                        
+                        <p>But as we delved deeper into archives, the geography of our search expanded rapidly: Chios, Izmir, Istanbul, Warsaw, Rostov-on-Don, St. Petersburg. What started as a private family tree grew into a full-scale historical research.</p>
+                        
+                        <p>The fate of the Avierino dynasty is a mirror of the era. We study the path of Greeks who, following Catherine II's Manifesto, left the island of Chios to start a new life in the Russian Empire. They went to build a new life in southern Russia, turning Taganrog and Odessa into prosperous ports.</p>
+
+                        <p>If you find intersections with your family history while reading, or if you are interested in information from the documents — please write to us. We are open to dialogue.</p>
+                    </div>
+
+                    <div class="ornament-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+                    <div class="acknowledgments-box">
+                        <div class="ack-item">
+                            <strong class="ack-label">Acknowledgments</strong>
+                            <p class="ack-text">
+                                The project would not have been possible without the help of caring people. We thank the archive staff who helped us find needles in the haystack of time.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-wrapper" id="map">
+        <div class="map-sticky">
+            <div class="map-visual">
+                <svg class="map-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    
+                    <path class="route-path path-1" d="M 20,85 L 25,82 L 35,65" />
+                    <path class="route-path path-2a" d="M 35,65 L 30,35 L 55,25" />
+                    <path class="route-path path-2b" d="M 35,65 L 60,40 L 75,30" />
+
+                    <text x="20" y="85" class="city-dot" data-city="chios" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="20" y="90" class="city-label">Chios</text>
+                    
+                    <text x="25" y="82" class="city-dot" text-anchor="middle" dominant-baseline="middle" style="font-size: 2px;">★</text>
+                    
+                    <text x="35" y="65" class="city-dot" data-city="istanbul" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="40" y="65" class="city-label">Constantinople</text>
+                    
+                    <text x="30" y="35" class="city-dot" data-city="odessa" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="18" y="35" class="city-label">Odessa</text>
+                    
+                    <text x="60" y="40" class="city-dot" data-city="kerch" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="63" y="45" class="city-label">Kerch</text>
+                    
+                    <text x="55" y="25" class="city-dot" data-city="mariupol" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="55" y="20" class="city-label">Mariupol</text>
+                    
+                    <text x="75" y="30" class="city-dot" data-city="taganrog" text-anchor="middle" dominant-baseline="middle">★</text>
+                    <text x="78" y="30" class="city-label">Taganrog</text>
+                </svg>
+
+                <div class="map-overlay-text">DYNASTY ROUTE</div>
+            </div>
+        </div>
+
+        <div class="map-content">
+            <div class="step step-1">
+                <h3>The Exodus</h3>
+                <p><strong>Chios — Izmir — Constantinople</strong></p>
+                <p>The family leaves their native island. First stops are the trading ports of the Ottoman Empire, where the Avierinos establish connections.</p>
+            </div>
+            <div class="step step-2">
+                <h3>The Fork</h3>
+                <p>From Constantinople, paths diverge. Part of the family goes to <strong>Odessa</strong>, others go through Crimea to the Sea of Azov.</p>
+            </div>
+            <div class="step step-3">
+                <h3>New Land</h3>
+                <p>Final destinations: <strong>Mariupol and Taganrog</strong>. Here, on the shores of the Sea of Azov, the family puts down new roots.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-book-section" id="history">
+        <div class="section-title-wrapper">
+             <h2 class="section-main-title">Genealogy</h2>
+             <div class="section-subtitle">Flip the book by pulling the page edge</div>
+        </div>
+
+        <div class="flipbook-container" id="family-book"
+             data-source="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+             data-fit-view="true"
+             data-webgl="true"
+             data-hard="false"
+             data-duration="800">
+        </div>
+    </section>
+
+    <section class="sources-section" id="sources">
+        <div class="sources-container">
+            
+            <div class="sources-grid">
+                <div class="sources-col">
+                    <h3 class="col-title">Methodology</h3>
+                    <ul class="methodology-list">
+                        <li>
+                            <strong>01. Data Collection</strong>
+                            <p>Searching for documents in state archives, libraries, and private collections in Greece, Turkey, and Russia.</p>
+                        </li>
+                        <li>
+                            <strong>02. Validation</strong>
+                            <p>Cross-checking facts: verifying birth dates with parish registers, tombstones, and indirect sources.</p>
+                        </li>
+                        <li>
+                            <strong>03. Digitization</strong>
+                            <p>High-resolution scanning of fragile documents and digital restoration of photographs.</p>
+                        </li>
+                        <li>
+                            <strong>04. Systematization</strong>
+                            <p>Building a coherent family tree and geo-referencing events to the historical map.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sources-col">
+                    <h3 class="col-title">Sources</h3>
+                    <p style="margin-bottom: 20px; opacity: 0.8;">List of main archival funds and documents used in the work:</p>
+                    
+                    <ul class="sources-list-clean">
+                        <li>• Parish registers of Chios Island (XVII–XVIII c.)</li>
+                        <li>• Documents of the Russian Empire Consulate in Smyrna</li>
+                        <li>• Records of the Holy Trinity Church (Warsaw)</li>
+                        <li>• Census records (Revizskie skazki) of Taganrog (1811–1858)</li>
+                        <li>• Family photo archives of the Avierino dynasty</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="support-section-clean" id="support">
+        <div class="support-wrapper">
+            <h2>Support Independent Research</h2>
+            
+            <div class="support-text">
+                <p>«Archive Rats» is an independent research project. We work without state support or grants. If you consider our work on digitizing archives and preserving memory important, you can support us. All funds go towards our work and the development of the digital platform.</p>
+            </div>
+
+            <div class="support-label">Ways to support:</div>
+
+            <div class="support-buttons-row">
+                <a href="https://buymeacoffee.com/archiverats" target="_blank" class="btn-clean-dark">
+                    ☕ Buy Me a Coffee
+                </a>
+
+                <a href="https://boosty.to/archiverats/donate" target="_blank" class="btn-clean-dark">
+                    🧡 Boosty (RU Cards)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer-clean" id="footer">
+        
+        <div class="footer-grid">
+            
+            <div class="footer-col">
+                <h3>About Authors</h3>
+                <p><strong>Archive Rats</strong> — an independent Digital Heritage project.</p>
+                <p>The "Avierino Dynasty" project is part of our work on preserving digital memory.</p>
+                <div class="location-tag">
+                    📍 Belgrade, Serbia
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p>If you want to supplement the project with information from family archives or have any questions, please write to us:</p>
+                
+                <a href="mailto:irkrssss@gmail.com" class="btn-gold-action">
+                    Send Email
+                </a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 "Avierino Dynasty" Project | All rights reserved
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dflip/js/dflip.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

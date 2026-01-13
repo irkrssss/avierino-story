@@ -36,14 +36,14 @@
 
     <nav class="sticky-nav">
         <span class="nav-logo">Авьерино</span>
-        <div class="nav-links">
-            <a href="#about">О проекте</a>
-            <a href="#map">Карта</a>
-            <a href="#history">Поколенная роспись</a>
-            <a href="#sources">Исследование</a>
-            <a href="#support" style="color: var(--gold);">Поддержать</a>
-            <a href="#footer">Об авторах</a>
-        </div>
+       <div class="nav-links">
+    <a href="#about">О проекте</a>
+    <a href="#map">Карта</a>
+    <a href="#registry">Персоналии</a>
+    <a href="#genealogy">Поколенная роспись</a>
+    <a href="#support">Поддержать проект</a>
+    <a href="#footer">Об авторах</a>
+</div>
     </nav>
 
     <section class="book-spread-section" id="about">
@@ -145,7 +145,42 @@
         </div>
     </section>
 
-    <section class="history-book-section" id="history">
+   
+<section class="registry-section" id="registry">
+    <div class="section-title-wrapper">
+        <h2 class="section-main-title">Персоналии</h2>
+        <div class="section-subtitle">Реестр династии Авьерино</div>
+    </div>
+
+    <div class="registry-controls">
+        <input type="text" id="registrySearch" placeholder="Поиск по фамилии, имени или городу..." class="search-input">
+        
+        <div class="rows-selector">
+            <span>Показывать по:</span>
+            <select id="itemsPerPageSelect" class="items-select">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="100">Все</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="registry-container">
+        <div id="registryList" class="registry-list">
+            </div>
+    </div>
+
+    <div class="pagination-wrapper" id="paginationControls"></div>
+</section>
+
+<div id="personModal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="close-modal" onclick="closeModal()">×</button>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+     <section class="history-book-section" id="history">
         <div class="section-title-wrapper">
              <h2 class="section-main-title">Поколенная роспись</h2>
              <div class="section-subtitle">Листайте книгу, потянув за край страницы</div>
@@ -159,79 +194,7 @@
              data-duration="800">
         </div>
     </section>
-<section class="registry-section" id="registry">
-    <div class="section-title-wrapper">
-        <h2 class="section-main-title">Семейный реестр</h2>
-        <div class="section-subtitle">Поиск по персоналиям</div>
-    </div>
 
-    <div class="registry-controls">
-        <input type="text" id="registrySearch" placeholder="Введите фамилию или имя..." class="search-input">
-    </div>
-
-    <div class="registry-container">
-        <div class="registry-header">
-            <span>Имя</span>
-            <span>Даты</span>
-            <span>Город</span>
-        </div>
-        <div id="registryList" class="registry-list">
-    </div>
-
-<div class="pagination-wrapper" id="paginationControls">
-    </div>
-    </div>
-</section>
-
-<div id="personModal" class="modal-overlay">
-    <div class="modal-card">
-        <button class="close-modal" onclick="closeModal()">×</button>
-        
-        <div class="modal-content" id="modalContent">
-            </div>
-    </div>
-</div>
-    <section class="sources-section" id="sources">
-        <div class="sources-container">
-            
-            <div class="sources-grid">
-                <div class="sources-col">
-                    <h3 class="col-title">Методология</h3>
-                    <ul class="methodology-list">
-                        <li>
-                            <strong>01. Архивный поиск и сбор данных</strong>
-                            <p>Комплексная работа с первоисточниками в архивах трех стран (Греция, Турция, Россия). Выявление и атрибуция документов XVIII–XIX вв.</p>
-                        </li>
-                        <li>
-                            <strong>02. Критика источников и верификация</strong>
-                            <p>Перекрестный анализ данных (cross-referencing) для устранения хронологических противоречий. Решение проблем ономастики при транслитерации имен между греческим, турецким и русским языками.</p>
-                        </li>
-                        <li>
-                            <strong>03. Цифровая консервация</strong>
-                            <p>Оцифровка ветхих бумажных носителей и фотоматериалов в высоком разрешении для создания страхового фонда и обеспечения цифровой доступности (Digital Accessibility).</p>
-                        </li>
-                        <li>
-                            <strong>04. Структурирование и визуализация</strong>
-                            <p>Преобразование неструктурированных архивных данных в интерактивные генеалогические графы и геопространственная визуализация (Mapping) маршрутов миграции.</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="sources-col">
-                    <h3 class="col-title">Источники</h3>
-                    <p style="margin-bottom: 20px; opacity: 0.8;">Список основных архивных фондов и документов, использованных в работе:</p>
-                    
-                    <ul class="sources-list-clean">
-                        <li>• Метрические книги острова Хиос (XVII–XVIII вв.)</li>
-                        <li>• Документы консульства Российской Империи в Смирне</li>
-                        <li>• Записи церкви Св. Троицы (Варшава)</li>
-                        <li>• Ревизские сказки Таганрогского градоначальства (1811–1858 гг.)</li>
-                        <li>• Семейные фотоархивы династии Авьерино</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="support-section-clean" id="support">
         <div class="support-wrapper">

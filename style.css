@@ -379,3 +379,57 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     .btn-clean-dark { width: 100%; min-width: unset; }
     .site-footer-clean { padding: 60px 20px 30px 20px; }
 }
+/* =========================================
+   ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ
+   ========================================= */
+.lang-switcher {
+    margin-left: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-left: 1px solid rgba(61, 83, 105, 0.2); /* Тонкая линия-разделитель */
+    padding-left: 20px;
+}
+
+.lang-btn {
+    background: none;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    cursor: pointer;
+    padding: 2px 0;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.lang-btn:hover {
+    color: var(--gold);
+    opacity: 1;
+}
+
+/* Активный язык (выделен и не нажимается) */
+.lang-btn.active {
+    color: var(--gold);
+    opacity: 1;
+    border-bottom: 1px solid var(--gold);
+    pointer-events: none; /* Нельзя кликнуть на активный язык */
+    cursor: default;
+}
+
+.separator {
+    color: var(--ink);
+    opacity: 0.3;
+    font-size: 0.7rem;
+}
+
+/* На телефоне убираем левую границу */
+@media (max-width: 900px) {
+    .lang-switcher {
+        margin-left: 10px;
+        padding-left: 10px;
+        border: none;
+    }
+}

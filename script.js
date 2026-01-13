@@ -294,4 +294,4 @@ document.getElementById('personModal').addEventListener('click', (e) => {
     if (e.target === document.getElementById('personModal')) {
         closeModal();
     }
-});
+}); 

@@ -123,65 +123,80 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   4. СТАТИЧНАЯ КНИГА (ДЛЯ "ОТ АВТОРОВ")
+   СТИЛИ ДЛЯ СЕКЦИИ "ОТ АВТОРОВ" (Typography)
    ========================================= */
-.book-spread-section {
-    padding: 60px 20px;
-    background: var(--paper);
-    display: flex;
-    justify-content: center;
+
+/* Основной текст (Классическая книжная верстка) */
+.author-text-body p {
+    font-size: 0.92rem;      
+    line-height: 1.6;        
+    margin-bottom: 0;        /* Убрали интервал между абзацами */
+    text-indent: 30px;       /* Красная строка (отступ в начале) */
+    text-align: justify;     
+    text-justify: inter-word;
+    opacity: 0.9;
 }
 
-/* Сама книга (Разворот) */
-.book-spread {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin: 0 auto;
-    max-width: 1200px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(61, 83, 105, 0.15);
+/* Для первого абзаца с Буквицей отступ не нужен, иначе будет дырка */
+.author-text-body p:first-of-type {
+    text-indent: 0;
+}
+
+/* Декоративный разделитель */
+.ornament-divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin: 30px 0;
+    opacity: 0.6;
+}
+
+/* Блок благодарностей (Без рамки) */
+.acknowledgments-box {
+    /* border: none; */      /* Рамку убрали */
+    /* background: none; */  /* Фон тоже убираем для чистоты */
+    padding: 10px 0;         /* Убираем лишние внутренние отступы */
+    margin-top: 10px;
     position: relative;
-    z-index: 2;
+    text-align: center;      /* Выравниваем по центру для торжественности */
 }
 
-/* Страница */
-.book-page {
-    flex: 0 0 50%; width: 50%; max-width: 50%;
-    background-color: #F9F7F1;
-    padding: 60px 50px; 
-    position: relative;
-    border: 1px solid #D8D4C5; 
-    min-height: 600px; /* Высота для текстовой книги */
+/* Элемент внутри благодарностей */
+.ack-item {
+    margin-bottom: 20px;
+}
+.ack-item:last-child { margin-bottom: 0; }
+
+/* Заголовок "Благодарности" */
+.ack-label {
+    display: block;
+    color: var(--ink);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    opacity: 0.6;
 }
 
-/* Градиенты сгиба */
-.page-left { 
-    border-right: 1px solid #C8C4B5; 
-    background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); 
+/* Текст благодарности */
+.ack-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;       /* Крупнее основного текста */
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+    text-indent: 0;          /* Тут красная строка не нужна */
 }
-.page-right { 
-    border-left: none; 
-    background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); 
+
+/* Адаптив: на телефоне выключку убираем */
+@media (max-width: 600px) {
+    .author-text-body p {
+        text-align: left;
+        text-indent: 20px;
+    }
 }
-
-/* Декор страниц */
-.book-page::before { 
-    content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; 
-    border: 3px double var(--ink); 
-    pointer-events: none; opacity: 0.6; 
-}
-.corner { position: absolute; width: 15px; height: 15px; background: var(--ink); z-index: 2; }
-.list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
-.list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
-
-/* Типографика внутри книги */
-.center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
-.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
-.drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 8px 10px 0 0; }
-.engraving-placeholder { width: 100%; height: 100%; border: 1px dashed var(--slate-light); display: flex; align-items: center; justify-content: center; color: var(--slate-light); font-style: italic; opacity: 0.7; background: rgba(61, 83, 105, 0.03); }
-
-
 /* =========================================
    5. КАРТА (ЗВЕЗДЫ)
    ========================================= */

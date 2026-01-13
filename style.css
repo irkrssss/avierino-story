@@ -414,36 +414,77 @@ a:hover { color: var(--gold); border-color: var(--gold); }
         gap: 10px;
     }
 }
-/* --- РЕЕСТР --- */
-.registry-controls {
-    text-align: center; margin-bottom: 40px;
-}
-.search-input {
-    padding: 15px 25px; width: 100%; max-width: 400px;
-    border: 1px solid var(--slate-light); background: #fff;
-    font-family: 'Lato', sans-serif; font-size: 1rem;
-    border-radius: 4px; outline: none; transition: 0.3s;
-}
-.search-input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(192, 160, 98, 0.2); }
+/* --- УЛУЧШЕННЫЙ РЕЕСТР --- */
+.registry-controls { text-align: center; margin-bottom: 30px; }
 
 .registry-container {
-    max-width: 900px; margin: 0 auto; background: #fff;
-    box-shadow: 0 10px 30px rgba(61, 83, 105, 0.1);
+    max-width: 800px; margin: 0 auto;
+    background: transparent; box-shadow: none; /* Убираем общую тень */
 }
-.registry-header {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    padding: 20px; background: var(--dark-bg); color: #fff;
-    font-weight: bold; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem;
-}
+
+/* Скрываем старую шапку таблицы, она больше не нужна для этого дизайна */
+.registry-header { display: none; }
+
+/* Карточка человека в списке */
 .registry-row {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.05);
-    cursor: pointer; transition: 0.2s;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff; padding: 20px 30px;
+    margin-bottom: 15px; border-radius: 8px;
+    border: 1px solid rgba(61, 83, 105, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer; position: relative; overflow: hidden;
 }
-.registry-row:hover { background-color: #F9F7F1; padding-left: 25px; }
-.registry-row span { align-self: center; }
 
+.registry-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(61, 83, 105, 0.1);
+    border-color: var(--gold);
+}
 
+/* Золотая полоска слева при наведении */
+.registry-row::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--gold);
+    opacity: 0; transition: 0.3s;
+}
+.registry-row:hover::before { opacity: 1; }
+
+.reg-name {
+    font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); font-weight: 700;
+}
+.reg-dates {
+    font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--slate-light);
+    background: rgba(61, 83, 105, 0.05); padding: 5px 12px; border-radius: 20px;
+}
+
+/* --- ПАГИНАЦИЯ --- */
+.pagination-wrapper {
+    display: flex; justify-content: center; gap: 10px; margin-top: 40px;
+}
+.page-btn {
+    background: #fff; border: 1px solid var(--slate-light); color: var(--ink);
+    padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: 'Lato'; transition: 0.2s;
+}
+.page-btn:hover { border-color: var(--gold); color: var(--gold); }
+.page-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; pointer-events: none; }
+.page-btn:disabled { opacity: 0.3; cursor: default; border-color: #ddd; }
+
+/* --- ССЫЛКИ НА РОДСТВЕННИКОВ ВНУТРИ МОДАЛКИ --- */
+.relative-link {
+    color: var(--gold);
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px dotted var(--gold);
+    transition: 0.2s;
+    margin-left: 5px;
+}
+.relative-link:hover {
+    color: var(--ink);
+    border-bottom-style: solid;
+    background-color: rgba(192, 160, 98, 0.1);
+}
+
+/* Остальные стили модального окна (.modal-overlay, .modal-card и т.д.) оставь как были */
 /* --- МОДАЛЬНОЕ ОКНО (ОСНОВА) - ЭТОГО НЕ БЫЛО --- */
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;

@@ -230,7 +230,23 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 }
 .map-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
 .route-path { fill: none; stroke: var(--gold); stroke-width: 0.8px; stroke-dasharray: 1000; stroke-dashoffset: 1000; stroke-linecap: round; opacity: 0.8; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
-.city-dot { fill: var(--paper); stroke: var(--ink); stroke-width: 0.5px; opacity: 0; transition: opacity 0.5s ease, transform 0.3s; }
+/* ЗВЕЗДЫ НА КАРТЕ */
+.city-dot {
+    fill: var(--paper);       /* Цвет звезды (светлый) */
+    font-size: 3px;           /* Размер звезды в координатах карты */
+    font-family: sans-serif;  /* Стандартный шрифт для символа */
+    cursor: default;
+    
+    opacity: 0;               /* Изначально скрыты (для анимации) */
+    transition: opacity 0.5s ease;
+    
+    /* Важно для анимации GSAP (чтобы увеличивалась от центра) */
+    transform-box: fill-box;
+    transform-origin: center;
+    
+    /* Добавим легкое свечение для эффекта созвездия */
+    filter: drop-shadow(0 0 1px #fff); 
+}
 .city-label { fill: var(--paper); font-family: 'Playfair Display', serif; font-size: 3px; opacity: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
 
 .map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(21, 32, 43, 0.8); }

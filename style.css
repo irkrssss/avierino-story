@@ -2,13 +2,22 @@
    1. ДИЗАЙН-СИСТЕМА (Slate Blue & Gold)
    ========================================= */
 :root {
+    /* ФОН: Теплый алебастр */
     --paper: #F7F5F0; 
+    
+    /* ТЕКСТ: Грифельный Синий */
     --ink: #3d5369;   
+    
+    /* АКЦЕНТ: Античное Золото */
     --gold: #C0A062;
+    
+    /* ВТОРИЧНЫЙ: Светлый серо-синий */
     --slate-light: #6B7F91;
+    
+    /* ТЕМНЫЙ ФОН: Глубокая ночь */
     --dark-bg: #15202B; 
 
-    /* Для PDF плеера */
+    /* Настройки для dFlip (PDF плеер) */
     --dflip-color: var(--gold) !important; 
     --dflip-bg-color: var(--dark-bg) !important;
 
@@ -61,7 +70,7 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   2. ОБЛОЖКА (Blue Edition)
+   2. ОБЛОЖКА (HERO) И ЯЗЫКИ
    ========================================= */
 .hero-section {
     height: 100vh;
@@ -106,6 +115,46 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     50% { transform: translateY(10px); } 
 }
 
+/* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ НА ОБЛОЖКЕ */
+.hero-lang-switcher {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    z-index: 20;
+    display: flex;
+    gap: 15px;
+}
+
+.hero-lang-btn {
+    background: none;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-lang-btn:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.hero-lang-btn.active {
+    color: var(--gold); 
+    opacity: 1;
+    pointer-events: none;
+    border-bottom: 1px solid var(--gold);
+}
+
+.hero-sep {
+    color: rgba(255, 255, 255, 0.3);
+}
+
 
 /* =========================================
    3. НАВИГАЦИЯ
@@ -123,7 +172,7 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   4. СТАТИЧНАЯ КНИГА (ДЛЯ "ОТ АВТОРОВ")
+   4. СТАТИЧНАЯ КНИГА (ОТ АВТОРОВ)
    ========================================= */
 .book-spread-section {
     padding: 60px 20px;
@@ -171,64 +220,44 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .list-tl { top: 20px; left: 20px; } .list-tr { top: 20px; right: 20px; }
 .list-bl { bottom: 20px; left: 20px; } .list-br { bottom: 20px; right: 20px; }
 
+/* Гравюра (левая страница) */
+.engraving-container {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.engraving-img {
+    max-width: 100%; max-height: 70%; width: auto; object-fit: contain;
+    filter: sepia(30%) contrast(0.9); 
+    border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.img-caption {
+    margin-top: 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--slate-light); text-align: center;
+}
+.engraving-placeholder { width: 100%; height: 100%; border: 1px dashed var(--slate-light); display: flex; align-items: center; justify-content: center; color: var(--slate-light); font-style: italic; opacity: 0.7; background: rgba(61, 83, 105, 0.03); }
+
+/* Правая страница (текст) */
 .center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
 .chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
 .drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 8px 10px 0 0; }
-.engraving-placeholder { width: 100%; height: 100%; border: 1px dashed var(--slate-light); display: flex; align-items: center; justify-content: center; color: var(--slate-light); font-style: italic; opacity: 0.7; background: rgba(61, 83, 105, 0.03); }
 
-/* --- ТИПОГРАФИКА ДЛЯ "ОТ АВТОРОВ" --- */
 .author-text-body p {
     font-size: 0.92rem;      
     line-height: 1.6;        
-    margin-bottom: 0;        /* Убрали интервал между абзацами */
-    text-indent: 30px;       /* Красная строка */
+    margin-bottom: 0;        
+    text-indent: 30px;       
     text-align: justify;     
     text-justify: inter-word;
     opacity: 0.9;
 }
-.author-text-body p:first-of-type {
-    text-indent: 0;          /* Первый абзац без отступа (из-за буквицы) */
-}
+.author-text-body p:first-of-type { text-indent: 0; }
 
-.ornament-divider {
-    text-align: center;
-    color: var(--gold);
-    font-size: 0.8rem;
-    margin: 30px 0;
-    opacity: 0.6;
-}
+.ornament-divider { text-align: center; color: var(--gold); font-size: 0.8rem; margin: 30px 0; opacity: 0.6; }
 
-/* БЛАГОДАРНОСТИ (ЛЕГКИЙ СТИЛЬ) */
-.acknowledgments-box {
-    padding: 10px 0;
-    margin-top: 10px;
-    position: relative;
-    text-align: center;
-}
-
+.acknowledgments-box { padding: 10px 0; margin-top: 10px; position: relative; text-align: center; }
 .ack-item { margin-bottom: 20px; }
 .ack-item:last-child { margin-bottom: 0; }
-
-.ack-label {
-    display: block;
-    color: var(--ink);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    opacity: 0.6;
-}
-
-.ack-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;      
-    font-style: italic;
-    line-height: 1.5;
-    color: var(--ink);
-    margin: 0;
-    text-indent: 0;
-}
+.ack-label { display: block; color: var(--ink); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; opacity: 0.6; }
+.ack-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; line-height: 1.5; color: var(--ink); margin: 0; text-indent: 0; }
 
 
 /* =========================================
@@ -246,7 +275,6 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .map-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
 .route-path { fill: none; stroke: var(--gold); stroke-width: 0.8px; stroke-dasharray: 1000; stroke-dashoffset: 1000; stroke-linecap: round; opacity: 0.8; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
 
-/* Звезды */
 .city-dot {
     fill: var(--paper); font-size: 3px; font-family: sans-serif; cursor: default;
     opacity: 0; transition: opacity 0.5s ease;
@@ -354,12 +382,12 @@ a:hover { color: var(--gold); border-color: var(--gold); }
    10. MOBILE / ADAPTIVE
    ========================================= */
 @media (max-width: 900px) {
-    /* HTML Книга (От авторов) */
+    /* HTML Книга */
     .book-spread { flex-direction: column; box-shadow: none; margin-top: 0; }
     .book-page { width: 100%; max-width: 100%; flex: auto; min-height: auto; border: none; border-bottom: 10px solid #eee; }
     .page-left, .page-right { background: var(--paper); }
     
-    /* Отключаем красную строку на телефоне */
+    /* Текст на телефоне */
     .author-text-body p { text-align: left; text-indent: 20px; }
 
     /* Карта */
@@ -371,153 +399,18 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     .flipbook-container { height: 60vh; min-height: 400px; }
     .section-subtitle { display: none; }
 
-    /* Сетки подвала и методологии */
+    /* Сетки */
     .footer-grid, .sources-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
     
     /* Кнопки */
     .support-buttons-row { flex-direction: column; align-items: center; }
     .btn-clean-dark { width: 100%; min-width: unset; }
     .site-footer-clean { padding: 60px 20px 30px 20px; }
-}
-/* =========================================
-   ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ
-   ========================================= */
-.lang-switcher {
-    margin-left: 30px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    border-left: 1px solid rgba(61, 83, 105, 0.2); /* Тонкая линия-разделитель */
-    padding-left: 20px;
-}
-
-.lang-btn {
-    background: none;
-    border: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--ink);
-    text-decoration: none; /* Убираем подчеркивание ссылок */
-    cursor: pointer;
-    padding: 2px 0;
-    opacity: 0.6;
-    transition: 0.3s;
-}
-
-.lang-btn:hover {
-    color: var(--gold);
-    opacity: 1;
-}
-
-/* Активный язык (выделен и не нажимается) */
-.lang-btn.active {
-    color: var(--gold);
-    opacity: 1;
-    border-bottom: 1px solid var(--gold);
-    pointer-events: none; /* Нельзя кликнуть на активный язык */
-    cursor: default;
-}
-
-.separator {
-    color: var(--ink);
-    opacity: 0.3;
-    font-size: 0.7rem;
-}
-
-/* На телефоне убираем левую границу */
-@media (max-width: 900px) {
-    .lang-switcher {
-        margin-left: 10px;
-        padding-left: 10px;
-        border: none;
-    }
-}
-/* =========================================
-   ЯЗЫКИ НА ОБЛОЖКЕ (HERO)
-   ========================================= */
-.hero-lang-switcher {
-    position: absolute;
-    top: 40px;
-    right: 50px;
-    z-index: 20; /* Чтобы было поверх затемнения фона */
-    display: flex;
-    gap: 15px; /* Расстояние между языками */
-}
-
-.hero-lang-btn {
-    background: none;
-    border: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.6); /* Полупрозрачный белый */
-    text-decoration: none;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.hero-lang-btn:hover {
-    color: #fff; /* При наведении белеет */
-    transform: translateY(-2px);
-}
-
-/* Активный язык - Золотой */
-.hero-lang-btn.active {
-    color: var(--gold); 
-    opacity: 1;
-    pointer-events: none;
-    border-bottom: 1px solid var(--gold);
-}
-
-/* Разделитель (палочка) */
-.hero-sep {
-    color: rgba(255, 255, 255, 0.3);
-}
-
-/* Адаптив для мобильных */
-@media (max-width: 768px) {
+    
+    /* Языки на телефоне */
     .hero-lang-switcher {
         top: 20px;
         right: 20px;
         gap: 10px;
     }
-}
-/* =========================================
-   СТИЛИ ДЛЯ ГРАВЮРЫ (ЛЕВАЯ СТРАНИЦА)
-   ========================================= */
-
-/* Контейнер центрирует картинку на странице */
-.engraving-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Сама картинка */
-.engraving-img {
-    max-width: 100%;
-    max-height: 70%; /* Ограничиваем высоту, чтобы влезла подпись */
-    width: auto;
-    object-fit: contain; /* Сохраняем пропорции */
-    
-    /* Эффекты для "старины" */
-    filter: sepia(30%) contrast(0.9); 
-    border: 5px solid #fff; /* Белая рамка */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Тень */
-}
-
-/* Подпись под картинкой */
-.img-caption {
-    margin-top: 20px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--slate-light);
-    text-align: center;
 }

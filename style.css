@@ -261,32 +261,113 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   5. КАРТА (ЗВЕЗДЫ)
+   5. КАРТА (ВЕКТОРНАЯ АНИМАЦИЯ)
    ========================================= */
-.map-wrapper { display: flex; height: 300vh; background: #0b1116; }
-.map-sticky { width: 50%; height: 100vh; position: sticky; top: 0; background: var(--dark-bg); color: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.map-visual { 
-    width: 100%; height: 100%; 
-    background: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Black_Sea_map.png') no-repeat center center; 
-    background-size: cover; 
-    opacity: 0.6; 
-    filter: sepia(20%) hue-rotate(170deg) saturate(30%) contrast(1.1); 
+.map-wrapper {
+    display: flex;
+    position: relative;
+    background: var(--dark-bg); /* Темный фон для контейнера */
 }
-.map-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
-.route-path { fill: none; stroke: var(--gold); stroke-width: 0.8px; stroke-dasharray: 1000; stroke-dashoffset: 1000; stroke-linecap: round; opacity: 0.8; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); }
 
+/* Левая часть (Липкая карта) */
+.map-sticky {
+    width: 60%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #0b1116; /* Глубокий черный для моря */
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Сама векторная карта */
+.map-svg-vector {
+    width: 100%;
+    height: 100%;
+    max-height: 90vh; /* Чтобы не была слишком гигантской */
+    /* Карта должна быть темной */
+    background: #0b1116;
+}
+
+/* Стилизация элементов карты */
+.map-base-layer path {
+    fill: #1e2a36; /* Цвет суши (темно-серый) */
+    stroke: #3d5369; /* Цвет границ (синеватый) */
+    stroke-width: 0.5;
+}
+
+/* Линии маршрутов */
+.route-path {
+    fill: none;
+    stroke: var(--gold); /* ЗОЛОТО! */
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 3px rgba(192, 160, 98, 0.7)); /* Свечение */
+    opacity: 0.8;
+}
+.main-route { stroke-width: 2.5px; opacity: 1; } /* Главная линия толще */
+.secondary-route { stroke-width: 1px; opacity: 0.6; } /* Побочные тоньше */
+
+/* Города (Точки) */
 .city-dot {
-    fill: var(--paper); font-size: 3px; font-family: sans-serif; cursor: default;
-    opacity: 0; transition: opacity 0.5s ease;
-    transform-box: fill-box; transform-origin: center;
-    filter: drop-shadow(0 0 1px #fff); 
+    fill: var(--paper); /* Светлые точки */
+    stroke: var(--gold);
+    stroke-width: 1px;
+    transition: 0.3s;
+    opacity: 0; /* Скрыты по умолчанию */
 }
-.city-label { fill: var(--paper); font-family: 'Playfair Display', serif; font-size: 3px; opacity: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
-.map-overlay-text { position: absolute; font-family: 'Playfair Display'; font-size: 1.5rem; letter-spacing: 4px; color: var(--paper); border: 1px solid var(--gold); padding: 15px 30px; background: rgba(21, 32, 43, 0.8); }
-.map-content { width: 50%; background: var(--paper); z-index: 2; }
-.step { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.city-dot.origin { fill: var(--gold); } /* Хиос золотой */
+.city-dot.hub { fill: var(--gold); stroke-width: 2px; } /* Таганрог большой золотой */
 
+/* Подписи городов */
+.city-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    fill: var(--paper);
+    opacity: 0; /* Скрыты по умолчанию */
+    pointer-events: none;
+    text-shadow: 0 1px 2px #000;
+}
 
+/* Правая часть (Текст с шагами) */
+.map-content {
+    width: 40%;
+    background: rgba(247, 245, 240, 0.96);
+    box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+    z-index: 20;
+}
+
+.step {
+    min-height: 90vh; /* Высота шага */
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 40px;
+}
+
+.step-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(61, 83, 105, 0.1);
+    border-left: 4px solid var(--gold);
+}
+.step-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+
+/* МОБИЛЬНАЯ ВЕРСИЯ */
+@media (max-width: 900px) {
+    .map-wrapper { flex-direction: column; }
+    .map-sticky { width: 100%; height: 50vh; position: relative; top: unset; }
+    .map-svg-vector { max-height: none; }
+    .map-content { width: 100%; }
+    .step { min-height: 60vh; padding: 20px; }
+}
 /* =========================================
    6. PDF КНИГА (ДЛЯ "ПОКОЛЕННОЙ РОСПИСИ")
    ========================================= */

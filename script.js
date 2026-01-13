@@ -139,15 +139,13 @@ document.getElementById('registrySearch').addEventListener('input', (e) => {
     renderRegistry(filtered);
 });
 
-// 4. Открытие модального окна (УМНАЯ ФУНКЦИЯ)
+// 4. Открытие модального окна (ОБНОВЛЕННАЯ ВЕРСИЯ)
 function openModal(person) {
     const modal = document.getElementById('personModal');
     const content = document.getElementById('modalContent');
     
-    // Проверяем, есть ли фото, чтобы выбрать стиль сетки
     const layoutClass = person.photo ? 'person-layout has-photo' : 'person-layout';
     
-    // Формируем HTML динамически. Используем тернарные операторы (условие ? да : нет)
     let html = `
         <div class="${layoutClass}">
             ${person.photo ? `<div><img src="${person.photo}" class="person-img" alt="${person.name}"></div>` : ''}
@@ -155,22 +153,34 @@ function openModal(person) {
             <div class="person-info">
                 <h3 class="person-name">${person.name}</h3>
                 <span class="person-dates">${person.dates || ''}</span>
-                
-                ${person.location ? `<p><strong>Место:</strong> ${person.location}</p>` : ''}
+                ${person.location ? `<p style="margin-bottom:15px;"><strong>📍 ${person.location}</strong></p>` : ''}
                 
                 ${person.bio ? `
-                    <span class="person-bio-label">Биография</span>
-                    <p style="margin-top:10px; text-align:justify;">${person.bio}</p>
+                    <div style="margin-top:20px;">
+                        <span class="person-bio-label">Биография</span>
+                        <p style="margin-top:5px; text-align:justify;">${person.bio}</p>
+                    </div>
                 ` : ''}
-                
-                ${!person.bio && !person.photo ? '<p style="opacity:0.5; margin-top:20px;">Дополнительная информация отсутствует.</p>' : ''}
+
+                ${person.relatives ? `
+                    <div style="margin-top:20px; padding:15px; background:rgba(192, 160, 98, 0.1); border-radius:4px;">
+                        <strong style="color:var(--ink); font-size:0.9rem;">Родственные связи:</strong>
+                        <p style="margin:5px 0 0 0; font-size:0.9rem;">${person.relatives}</p>
+                    </div>
+                ` : ''}
+
+                ${person.sources ? `
+                    <div style="margin-top:20px; font-size:0.85rem; opacity:0.7;">
+                        <strong>Источники:</strong> ${person.sources}
+                    </div>
+                ` : ''}
             </div>
         </div>
     `;
 
     content.innerHTML = html;
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
+    document.body.style.overflow = 'hidden'; 
 }
 
 // 5. Закрытие модального окна

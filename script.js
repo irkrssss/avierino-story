@@ -2,27 +2,17 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==============================================
-// НАСТРОЙКА ЛИНИЙ (Анимация карты)
+// АНИМАЦИЯ КАРТЫ И ЛИНИЙ
 // ==============================================
 function setupPath(selector) {
     const paths = document.querySelectorAll(selector);
     paths.forEach(path => {
         const length = path.getTotalLength();
-        gsap.set(path, {
-            strokeDasharray: length,
-            strokeDashoffset: length
-        });
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
     });
 }
-// Проверяем, есть ли элементы на странице перед запуском, чтобы избежать ошибок
-if(document.querySelector(".route-path")) {
-    setupPath(".route-path");
-}
+if(document.querySelector(".route-path")) setupPath(".route-path");
 
-// ==============================================
-// АНИМАЦИЯ КАРТЫ (ПО ШАГАМ)
-// ==============================================
-// Оборачиваем в проверку, чтобы скрипт не падал, если элементов нет
 if(document.querySelector(".path-1")) {
     gsap.to(".path-1", {
         strokeDashoffset: 0, ease: "none",
@@ -32,7 +22,6 @@ if(document.querySelector(".path-1")) {
             gsap.to(".city-label", { opacity: 1, duration: 0.5, stagger: 0.1 });
         }
     });
-
     gsap.to([".path-2a", ".path-2b"], {
         strokeDashoffset: 0, ease: "none",
         scrollTrigger: { trigger: ".step-2", start: "top center", end: "bottom center", scrub: 1 },
@@ -40,7 +29,6 @@ if(document.querySelector(".path-1")) {
             gsap.to(".city-dot[data-city='istanbul']", { opacity: 1, scale: 1.5, duration: 0.3 });
         }
     });
-
     ScrollTrigger.create({
         trigger: ".step-3", start: "top center",
         onEnter: () => {
@@ -50,107 +38,91 @@ if(document.querySelector(".path-1")) {
     });
 }
 
-// ==============================================
-// ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ
-// ==============================================
+// Плавное появление блоков
 const animatedBlocks = document.querySelectorAll(".book-spread, .flipbook-container");
-
 animatedBlocks.forEach(block => {
     gsap.from(block, {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        scrollTrigger: {
-            trigger: block,
-            start: "top 85%", 
-            toggleActions: "play none none reverse"
-        }
+        opacity: 0, y: 50, duration: 1,
+        scrollTrigger: { trigger: block, start: "top 85%", toggleActions: "play none none reverse" }
     });
 });
 
-// ==============================================
-// ЗАПУСК КНИГИ (ИСПРАВЛЕНО)
-// ==============================================
+// Запуск книги (Flipbook)
 jQuery(document).ready(function($) {
-    
     var bookElement = $("#family-book");
     var source = bookElement.attr("data-source");
-
-    // Запускаем только если элемент существует и есть ссылка
     if(bookElement.length > 0 && source) {
-        
-        // Опции для dFlip
-        var options = {
-            height: '100%',
-            duration: 800,
-            webgl: false // Отключаем 3D для стабильности (особенно локально)
-        };
-
-        bookElement.flipBook(source, options);
+        bookElement.flipBook(source, { height: '100%', duration: 800, webgl: false });
     }
 });
+
+
 // ==============================================
-// РЕЕСТР ПЕРСОНАЛИЙ (С ПАГИНАЦИЕЙ И ССЫЛКАМИ)
+// РЕЕСТР ПЕРСОНАЛИЙ (ФИНАЛ)
 // ==============================================
 
-let allPeopleData = [];  // Все данные
-let filteredData = [];   // Данные после поиска
-let currentPage = 1;     // Текущая страница
-const itemsPerPage = 10; // Сколько показывать на странице
+let allPeopleData = [];
+let filteredData = [];
+let currentPage = 1;
+let itemsPerPage = 5; // По умолчанию 5
 
-// 1. Загрузка данных
+// 1. Загрузка
 fetch('people.json')
     .then(response => response.json())
     .then(data => {
         allPeopleData = data;
-        filteredData = data; // Сначала показываем всех
-        renderPage(1);       // Рисуем 1 страницу
+        filteredData = data;
+        renderPage(1);
     })
-    .catch(error => console.error('Ошибка загрузки JSON:', error));
+    .catch(error => console.error('Ошибка JSON:', error));
 
-// 2. Функция отрисовки страницы
+// 2. Обработка выбора количества (5/10/20)
+const selectElement = document.getElementById('itemsPerPageSelect');
+if (selectElement) {
+    selectElement.addEventListener('change', (e) => {
+        itemsPerPage = parseInt(e.target.value);
+        currentPage = 1; // Сброс на начало
+        renderPage(1);
+    });
+}
+
+// 3. Отрисовка страницы
 function renderPage(page) {
     const list = document.getElementById('registryList');
     const pagination = document.getElementById('paginationControls');
+    
+    if(!list) return;
     list.innerHTML = '';
     pagination.innerHTML = '';
 
-    // Если список пуст
     if (filteredData.length === 0) {
         list.innerHTML = '<div style="padding:20px; text-align:center; opacity:0.6;">Ничего не найдено</div>';
         return;
     }
 
-    // Вычисляем, кого показывать (slice)
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const pageItems = filteredData.slice(startIndex, endIndex);
 
-    // Рисуем список
     pageItems.forEach(person => {
         const row = document.createElement('div');
         row.className = 'registry-row';
         row.onclick = () => openModal(person);
-        
-        row.innerHTML = `
-            <span class="reg-name">${person.name}</span>
-            <span class="reg-dates">${person.dates || ''}</span>
-        `;
+        row.innerHTML = `<span class="reg-name">${person.name}</span><span class="reg-dates">${person.dates || ''}</span>`;
         list.appendChild(row);
     });
 
-    // Рисуем пагинацию
     renderPagination(filteredData.length, page);
 }
 
-// 3. Рисуем кнопки страниц
+// 4. Пагинация
 function renderPagination(totalItems, currentPage) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const container = document.getElementById('paginationControls');
     
-    if (totalPages <= 1) return; // Если страница одна, кнопки не нужны
+    if (totalPages <= 1) return;
 
-    // Кнопка "Назад"
+    // Кнопка Назад
     const prevBtn = document.createElement('button');
     prevBtn.className = 'page-btn';
     prevBtn.innerText = '←';
@@ -158,14 +130,13 @@ function renderPagination(totalItems, currentPage) {
     prevBtn.onclick = () => changePage(currentPage - 1);
     container.appendChild(prevBtn);
 
-    // Номера страниц (простая версия)
-    // Если страниц много, можно показать только текущую "Стр 1 из 5"
+    // Инфо
     const info = document.createElement('span');
-    info.style.cssText = 'align-self:center; font-size:0.9rem; color:var(--slate-light); font-family:Lato;';
+    info.style.cssText = 'align-self:center; font-size:0.9rem; color:var(--slate-light); font-family:Lato; margin:0 10px;';
     info.innerText = `Стр. ${currentPage} из ${totalPages}`;
     container.appendChild(info);
 
-    // Кнопка "Вперед"
+    // Кнопка Вперед
     const nextBtn = document.createElement('button');
     nextBtn.className = 'page-btn';
     nextBtn.innerText = '→';
@@ -177,111 +148,62 @@ function renderPagination(totalItems, currentPage) {
 function changePage(newPage) {
     currentPage = newPage;
     renderPage(newPage);
-    // Плавный скролл к началу списка
-    document.getElementById('registry').scrollIntoView({ behavior: 'smooth' });
+    // Скролл чуть выше реестра
+    const section = document.getElementById('registry');
+    if(section) {
+        const y = section.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    }
 }
 
-// 4. Поиск
+// 5. Поиск
 document.getElementById('registrySearch').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase();
     filteredData = allPeopleData.filter(p => 
         p.name.toLowerCase().includes(term) || 
         (p.location && p.location.toLowerCase().includes(term))
     );
-    currentPage = 1; // При поиске сбрасываем на 1 страницу
+    currentPage = 1;
     renderPage(1);
 });
 
-// 5. Обработка ссылок на родственников (НОВАЯ ВЕРСИЯ: Имя = Ссылка)
+// 6. Форматирование ссылок и Модалка
 function formatRelatives(text) {
     if (!text) return '';
-    
-    // Разбиваем текст на строки по символу переноса \n
-    // Это гарантирует, что каждый родственник будет с новой строки
-    const lines = text.split('\n');
-
-    return lines.map(line => {
-        // Проверяем, есть ли в строке (id=...)
-        // Regex ищет: "Любой текст" (группа 1) + " (id=Число)" (группа 2)
+    return text.split('\n').map(line => {
         const match = line.match(/(.*?)\s*\(id=(\d+)\)/i);
-        
         if (match) {
-            const name = match[1].trim(); // Имя (например, "жена Параскева...")
-            const id = match[2];          // ID (например, "2")
-            
-            // Возвращаем кликабельное имя
-            return `<div class="relatives-line">
-                        <span class="relative-link" onclick="openRelative(${id})">${name}</span>
-                    </div>`;
-        } else {
-            // Если ID нет, просто возвращаем текст (не кликабельный)
-            // Но обязательно в div, чтобы был перенос строки
-            if (line.trim() === '') return ''; // Пропускаем пустые строки
-            return `<div class="relatives-line">${line}</div>`;
+            return `<div class="relatives-line"><span class="relative-link" onclick="openRelative(${match[2]})">${match[1].trim()}</span></div>`;
         }
-    }).join(''); // Собираем всё обратно в одну кучу HTML
+        return line.trim() ? `<div class="relatives-line">${line}</div>` : '';
+    }).join('');
 }
 
-// Глобальная функция для открытия родственника
 window.openRelative = function(id) {
-    // Ищем человека по ID
-    // Обрати внимание: id в JSON число, а из HTML приходит строка, поэтому == (не ===)
-    const relative = allPeopleData.find(p => p.id == id);
-    if (relative) {
-        openModal(relative); // Просто открываем модалку с новым человеком
-    } else {
-        alert('Карточка родственника пока не создана.');
-    }
+    const person = allPeopleData.find(p => p.id == id);
+    if (person) openModal(person);
 };
 
-// 6. Открытие модального окна
 function openModal(person) {
     const modal = document.getElementById('personModal');
     const content = document.getElementById('modalContent');
     
-    // Формируем HTML
-    let html = `
+    content.innerHTML = `
         <div class="person-layout-grid">
             <div class="person-left-col">
                 ${person.photo ? `<img src="${person.photo}" class="person-img" alt="${person.name}">` : ''}
-                
-                ${person.relatives ? `
-                    <div class="relatives-box">
-                        <strong style="display:block; margin-bottom:5px; color:var(--slate-light); text-transform:uppercase; font-size:0.75rem;">Родственные связи:</strong>
-                        ${formatRelatives(person.relatives)}
-                    </div>
-                ` : ''}
+                ${person.relatives ? `<div class="relatives-box"><strong style="display:block;margin-bottom:5px;color:var(--slate-light);font-size:0.75rem;">РОДСТВЕННЫЕ СВЯЗИ:</strong>${formatRelatives(person.relatives)}</div>` : ''}
             </div>
-
             <div class="person-right-col">
                 <h2 class="person-full-name">${person.name}</h2>
-
-                ${(person.birth || person.death) ? `
-                    <div class="life-dates">
-                        ${person.birth ? `<div class="date-row"><span class="date-icon">★</span> <span>${person.birth}</span></div>` : ''}
-                        ${person.death ? `<div class="date-row"><span class="date-icon">✝</span> <span>${person.death}</span></div>` : ''}
-                    </div>
-                ` : ''}
-
-                ${person.bio ? `
-                    <div class="person-bio">${person.bio}</div>
-                ` : '<p style="opacity:0.5; font-style:italic;">Информация о биографии отсутствует.</p>'}
-                
-                ${person.sources ? `
-                    <div class="sources-box">
-                        <strong>🕮 Источники:</strong><br>
-                        ${person.sources.replace(/\n/g, '<br>')}
-                    </div>
-                ` : ''}
+                ${(person.birth || person.death) ? `<div class="life-dates">${person.birth ? `<div class="date-row"><span class="date-icon">★</span> ${person.birth}</div>` : ''}${person.death ? `<div class="date-row"><span class="date-icon">✝</span> ${person.death}</div>` : ''}</div>` : ''}
+                ${person.bio ? `<div class="person-bio">${person.bio}</div>` : '<p style="opacity:0.5;">Биография отсутствует.</p>'}
+                ${person.sources ? `<div class="sources-box"><strong>🕮 Источники:</strong><br>${person.sources.replace(/\n/g, '<br>')}</div>` : ''}
             </div>
         </div>
     `;
-
-    content.innerHTML = html;
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; 
-    
-    // Прокручиваем модальное окно наверх (важно при переходе между родственниками)
+    document.body.style.overflow = 'hidden';
     document.querySelector('.modal-card').scrollTop = 0;
 }
 
@@ -291,7 +213,5 @@ function closeModal() {
 }
 
 document.getElementById('personModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('personModal')) {
-        closeModal();
-    }
-}); 
+    if (e.target === document.getElementById('personModal')) closeModal();
+});

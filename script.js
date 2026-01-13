@@ -2,41 +2,91 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==============================================
-// АНИМАЦИЯ КАРТЫ И ЛИНИЙ
+// АНИМАЦИЯ ВЕКТОРНОЙ КАРТЫ (SCROLLYTELLING)
 // ==============================================
-function setupPath(selector) {
-    const paths = document.querySelectorAll(selector);
+
+// 1. Подготовка линий (прячем их перед стартом)
+function preparePaths() {
+    // Ищем все линии внутри групп stages
+    const paths = document.querySelectorAll(".routes-group .route-path");
     paths.forEach(path => {
         const length = path.getTotalLength();
+        // Прячем линию за счет смещения пунктира
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
     });
 }
-if(document.querySelector(".route-path")) setupPath(".route-path");
 
-if(document.querySelector(".path-1")) {
-    gsap.to(".path-1", {
-        strokeDashoffset: 0, ease: "none",
-        scrollTrigger: { trigger: ".step-1", start: "top center", end: "bottom center", scrub: 1 },
-        onStart: () => {
-            gsap.to(".city-dot[data-city='chios']", { opacity: 1, duration: 0.5 });
-            gsap.to(".city-label", { opacity: 1, duration: 0.5, stagger: 0.1 });
+// Запускаем анимацию, только если карта есть на странице
+if(document.querySelector(".map-svg-vector")) {
+    preparePaths();
+
+    // --- ШАГ 1: Хиос (Старт) ---
+    // Появляется точка и подпись Хиоса
+    gsap.to([".city-dot[data-city='chios']", ".city-label:contains('Хиос')"], {
+        opacity: 1, scale: 1.2,
+        duration: 0.5,
+        scrollTrigger: {
+            trigger: ".step-1", start: "top center", end: "center center",
+            toggleActions: "play reverse play reverse"
         }
     });
-    gsap.to([".path-2a", ".path-2b"], {
-        strokeDashoffset: 0, ease: "none",
-        scrollTrigger: { trigger: ".step-2", start: "top center", end: "bottom center", scrub: 1 },
-        onStart: () => {
-            gsap.to(".city-dot[data-city='istanbul']", { opacity: 1, scale: 1.5, duration: 0.3 });
+
+    // --- ШАГ 2: Исход (Линии из Хиоса) ---
+    // Рисуются все линии группы stage-1
+    gsap.to(".stage-1 .route-path", {
+        strokeDashoffset: 0,
+        scrollTrigger: {
+            trigger: ".step-2", start: "top center", end: "bottom center",
+            scrub: 1.5 // Плавное рисование по скроллу
         }
     });
-    ScrollTrigger.create({
-        trigger: ".step-3", start: "top center",
-        onEnter: () => {
-            gsap.to(".city-dot[data-city='odessa'], .city-dot[data-city='kerch'], .city-dot[data-city='mariupol'], .city-dot[data-city='taganrog']", 
-            { opacity: 1, scale: 1.2, duration: 0.5, stagger: 0.1 });
+    // Появляются города, куда приходят линии (Стамбул, Одесса)
+    gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']"], {
+        opacity: 1, duration: 0.5, delay: 0.2,
+        scrollTrigger: { trigger: ".step-2", start: "center center" }
+    });
+
+
+    // --- ШАГ 3: Таганрог (Фокус) ---
+    // Точка Таганрога становится большой и яркой
+    gsap.to(".city-dot[data-city='taganrog']", {
+        opacity: 1, scale: 2.5,
+        duration: 0.8, ease: "back.out(1.7)",
+        scrollTrigger: {
+            trigger: ".step-3", start: "top center",
+            toggleActions: "play reverse play reverse"
         }
+    });
+    gsap.to(".city-label:contains('Таганрог')", { opacity: 1, scrollTrigger: { trigger: ".step-3", start: "top center" } });
+
+
+    // --- ШАГ 4: В столицы ---
+    gsap.to(".stage-2 .route-path", {
+        strokeDashoffset: 0,
+        scrollTrigger: { trigger: ".step-4", start: "top center", end: "bottom center", scrub: 1.5 }
+    });
+    // Появляются Москва и Петербург
+    gsap.to([".city-dot[data-city='moscow']", ".city-dot[data-city='spb']"], {
+        opacity: 1,
+        scrollTrigger: { trigger: ".step-4", start: "center center" }
+    });
+
+    // --- ШАГ 5: Эмиграция ---
+    gsap.to(".stage-3 .route-path", {
+        strokeDashoffset: 0,
+        scrollTrigger: { trigger: ".step-5", start: "top center", end: "bottom center", scrub: 1.5 }
+    });
+    // Появляются европейские города
+    gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']"], {
+        opacity: 1, stagger: 0.1,
+        scrollTrigger: { trigger: ".step-5", start: "center center" }
     });
 }
+
+// Вспомогательная функция для поиска текста в GSAP (чтобы работало :contains)
+jQuery.expr[':'].contains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
 
 // Плавное появление блоков
 const animatedBlocks = document.querySelectorAll(".book-spread, .flipbook-container");

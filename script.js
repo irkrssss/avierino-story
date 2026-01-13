@@ -25,7 +25,6 @@ setupPath(".route-path");
 // ==============================================
 
 // ШАГ 1: Хиос -> Константинополь
-// Когда скроллим первый текстовый блок (.step-1)
 gsap.to(".path-1", {
     strokeDashoffset: 0, // Рисуем линию до конца
     ease: "none",
@@ -43,7 +42,6 @@ gsap.to(".path-1", {
 });
 
 // ШАГ 2: Разветвление (Ветки на Одессу и Керчь)
-// Когда скроллим второй текстовый блок (.step-2)
 gsap.to([".path-2a", ".path-2b"], {
     strokeDashoffset: 0,
     ease: "none",
@@ -54,13 +52,12 @@ gsap.to([".path-2a", ".path-2b"], {
         scrub: 1
     },
     onStart: () => {
-        // Подсвечиваем Константинополь, когда дошли до него
+        // Подсвечиваем Константинополь (и увеличиваем звезду)
         gsap.to(".city-dot[data-city='istanbul']", { opacity: 1, scale: 1.5, duration: 0.3 });
     }
 });
 
 // ШАГ 3: Финал (Таганрог и Мариуполь)
-// Когда доходим до третьего блока
 ScrollTrigger.create({
     trigger: ".step-3",
     start: "top center",
@@ -73,19 +70,20 @@ ScrollTrigger.create({
 
 
 // ==============================================
-// ДОПОЛНИТЕЛЬНО: Плавное появление книг
+// ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ (КНИГИ И PDF)
 // ==============================================
-const books = document.querySelectorAll(".book-spread");
+// Мы добавили сюда .flipbook-container, чтобы PDF тоже появлялся плавно
+const animatedBlocks = document.querySelectorAll(".book-spread, .flipbook-container");
 
-books.forEach(book => {
-    gsap.from(book, {
+animatedBlocks.forEach(block => {
+    gsap.from(block, {
         opacity: 0,
-        y: 50, // Книга выезжает снизу
+        y: 50, // Блок выезжает снизу
         duration: 1,
         scrollTrigger: {
-            trigger: book,
-            start: "top 85%", // Анимация начнется, когда верх книги появится внизу экрана
-            toggleActions: "play none none reverse" // Появляется один раз (или исчезает при скролле вверх)
+            trigger: block,
+            start: "top 85%", // Анимация начнется, когда верх блока появится внизу экрана
+            toggleActions: "play none none reverse"
         }
     });
 });

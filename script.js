@@ -1,14 +1,13 @@
-// 1. Регистрируем плагин
+// 1. Регистрируем плагин GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 // ==============================================
-// НАСТРОЙКА ЛИНИЙ (Чтобы они рисовались честно)
+// НАСТРОЙКА ЛИНИЙ (Анимация карты)
 // ==============================================
 function setupPath(selector) {
     const paths = document.querySelectorAll(selector);
     paths.forEach(path => {
         const length = path.getTotalLength();
-        // Скрываем линию: отступ равен длине линии
         gsap.set(path, {
             strokeDasharray: length,
             strokeDashoffset: length
@@ -16,53 +15,36 @@ function setupPath(selector) {
     });
 }
 
-// Подготавливаем все наши маршруты перед стартом
 setupPath(".route-path");
 
 
 // ==============================================
-// АНИМАЦИЯ КАРТЫ (ПО ШАГАМ)
+// АНИМАЦИЯ МАРШРУТОВ (ПО ШАГАМ)
 // ==============================================
 
-// ШАГ 1: Хиос -> Константинополь
+// ШАГ 1
 gsap.to(".path-1", {
-    strokeDashoffset: 0, // Рисуем линию до конца
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".step-1",
-        start: "top center",   // Начинаем, когда текст доехал до центра
-        end: "bottom center",  // Заканчиваем, когда текст уехал
-        scrub: 1               // Плавная привязка к скроллу
-    },
+    strokeDashoffset: 0, ease: "none",
+    scrollTrigger: { trigger: ".step-1", start: "top center", end: "bottom center", scrub: 1 },
     onStart: () => {
-        // Показываем точку Хиоса и подписи при старте
         gsap.to(".city-dot[data-city='chios']", { opacity: 1, duration: 0.5 });
         gsap.to(".city-label", { opacity: 1, duration: 0.5, stagger: 0.1 });
     }
 });
 
-// ШАГ 2: Разветвление (Ветки на Одессу и Керчь)
+// ШАГ 2
 gsap.to([".path-2a", ".path-2b"], {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-        trigger: ".step-2",
-        start: "top center",
-        end: "bottom center",
-        scrub: 1
-    },
+    strokeDashoffset: 0, ease: "none",
+    scrollTrigger: { trigger: ".step-2", start: "top center", end: "bottom center", scrub: 1 },
     onStart: () => {
-        // Подсвечиваем Константинополь (и увеличиваем звезду)
         gsap.to(".city-dot[data-city='istanbul']", { opacity: 1, scale: 1.5, duration: 0.3 });
     }
 });
 
-// ШАГ 3: Финал (Таганрог и Мариуполь)
+// ШАГ 3
 ScrollTrigger.create({
-    trigger: ".step-3",
-    start: "top center",
+    trigger: ".step-3", start: "top center",
     onEnter: () => {
-        // Зажигаем финальные города
         gsap.to(".city-dot[data-city='odessa'], .city-dot[data-city='kerch'], .city-dot[data-city='mariupol'], .city-dot[data-city='taganrog']", 
         { opacity: 1, scale: 1.2, duration: 0.5, stagger: 0.1 });
     }
@@ -70,20 +52,45 @@ ScrollTrigger.create({
 
 
 // ==============================================
-// ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ (КНИГИ И PDF)
+// ПЛАВНОЕ ПОЯВЛЕНИЕ БЛОКОВ
 // ==============================================
-// Мы добавили сюда .flipbook-container, чтобы PDF тоже появлялся плавно
 const animatedBlocks = document.querySelectorAll(".book-spread, .flipbook-container");
 
 animatedBlocks.forEach(block => {
     gsap.from(block, {
         opacity: 0,
-        y: 50, // Блок выезжает снизу
+        y: 50,
         duration: 1,
         scrollTrigger: {
             trigger: block,
-            start: "top 85%", // Анимация начнется, когда верх блока появится внизу экрана
+            start: "top 85%", 
             toggleActions: "play none none reverse"
         }
     });
+});
+
+
+// ==============================================
+// !!! ВАЖНО: ПРИНУДИТЕЛЬНЫЙ ЗАПУСК КНИГИ !!!
+// ==============================================
+// Если книга не появляется сама, мы запускаем её вручную через jQuery
+jQuery(document).ready(function($) {
+    
+    var bookElement = $("#family-book");
+    var source = bookElement.attr("data-source");
+
+    if(source) {
+        // Запускаем dFlip
+        bookElement.flipBook({
+            pdf: source,
+            template: {
+                html: "https://cdn.jsdelivr.net/npm/dflip/templates/default-book-view.html",
+                styles: [
+                    "https://cdn.jsdelivr.net/npm/dflip/css/short-white-book-view.css",
+                    "https://cdn.jsdelivr.net/npm/dflip/css/white-book-view.css"
+                ],
+                script: "https://cdn.jsdelivr.net/npm/dflip/js/default-book-view.js"
+            }
+        });
+    }
 });

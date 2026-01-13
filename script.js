@@ -139,42 +139,50 @@ document.getElementById('registrySearch').addEventListener('input', (e) => {
     renderRegistry(filtered);
 });
 
-// 4. Открытие модального окна (ОБНОВЛЕННАЯ ВЕРСИЯ)
+// 4. Открытие модального окна (НОВЫЙ МАКЕТ)
 function openModal(person) {
     const modal = document.getElementById('personModal');
     const content = document.getElementById('modalContent');
     
-    const layoutClass = person.photo ? 'person-layout has-photo' : 'person-layout';
-    
+    // Формируем HTML
     let html = `
-        <div class="${layoutClass}">
-            ${person.photo ? `<div><img src="${person.photo}" class="person-img" alt="${person.name}"></div>` : ''}
+        <div class="person-layout-grid">
             
-            <div class="person-info">
-                <h3 class="person-name">${person.name}</h3>
-                <span class="person-dates">${person.dates || ''}</span>
-                ${person.location ? `<p style="margin-bottom:15px;"><strong>📍 ${person.location}</strong></p>` : ''}
+            <div class="person-left-col">
+                ${person.photo ? `<img src="${person.photo}" class="person-img" alt="${person.name}">` : ''}
                 
-                ${person.bio ? `
-                    <div style="margin-top:20px;">
-                        <span class="person-bio-label">Биография</span>
-                        <p style="margin-top:5px; text-align:justify;">${person.bio}</p>
-                    </div>
-                ` : ''}
-
                 ${person.relatives ? `
-                    <div style="margin-top:20px; padding:15px; background:rgba(192, 160, 98, 0.1); border-radius:4px;">
-                        <strong style="color:var(--ink); font-size:0.9rem;">Родственные связи:</strong>
-                        <p style="margin:5px 0 0 0; font-size:0.9rem;">${person.relatives}</p>
-                    </div>
-                ` : ''}
-
-                ${person.sources ? `
-                    <div style="margin-top:20px; font-size:0.85rem; opacity:0.7;">
-                        <strong>Источники:</strong> ${person.sources}
+                    <div class="relatives-box">
+                        <strong style="display:block; margin-bottom:5px; color:var(--slate-light); text-transform:uppercase; font-size:0.75rem;">Родственные связи:</strong>
+                        ${person.relatives}
                     </div>
                 ` : ''}
             </div>
+
+            <div class="person-right-col">
+                <h2 class="person-full-name">${person.name}</h2>
+
+                ${(person.birth || person.death) ? `
+                    <div class="life-dates">
+                        ${person.birth ? `<div class="date-row"><span class="date-icon">★</span> <span>${person.birth}</span></div>` : ''}
+                        ${person.death ? `<div class="date-row"><span class="date-icon">✝</span> <span>${person.death}</span></div>` : ''}
+                    </div>
+                ` : ''}
+
+                ${person.bio ? `
+                    <div class="person-bio">
+                        ${person.bio}
+                    </div>
+                ` : '<p style="opacity:0.5; font-style:italic;">Информация о биографии отсутствует.</p>'}
+                
+                ${person.sources ? `
+                    <div class="sources-box">
+                        <strong>🕮 Источники:</strong><br>
+                        ${person.sources.replace(/\n/g, '<br>')}
+                    </div>
+                ` : ''}
+            </div>
+
         </div>
     `;
 

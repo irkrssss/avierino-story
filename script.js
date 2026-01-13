@@ -89,3 +89,99 @@ jQuery(document).ready(function($) {
         bookElement.flipBook(source, options);
     }
 });
+// ==============================================
+// РЕЕСТР ПЕРСОНАЛИЙ
+// ==============================================
+
+let peopleData = []; // Сюда загрузим данные
+
+// 1. Загрузка данных
+fetch('people.json')
+    .then(response => response.json())
+    .then(data => {
+        peopleData = data;
+        renderRegistry(peopleData); // Рисуем список сразу
+    })
+    .catch(error => console.error('Ошибка загрузки JSON:', error));
+
+// 2. Функция отрисовки списка
+function renderRegistry(data) {
+    const list = document.getElementById('registryList');
+    list.innerHTML = ''; // Очищаем текущий список
+
+    if (data.length === 0) {
+        list.innerHTML = '<div style="padding:20px; text-align:center;">Ничего не найдено</div>';
+        return;
+    }
+
+    data.forEach(person => {
+        const row = document.createElement('div');
+        row.className = 'registry-row';
+        // По клику открываем модалку с этим человеком
+        row.onclick = () => openModal(person);
+        
+        row.innerHTML = `
+            <span style="font-weight:bold; color:var(--ink);">${person.name}</span>
+            <span style="color:var(--slate-light);">${person.dates || ''}</span>
+            <span style="font-style:italic;">${person.location || ''}</span>
+        `;
+        list.appendChild(row);
+    });
+}
+
+// 3. Поиск (фильтрация)
+document.getElementById('registrySearch').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = peopleData.filter(p => 
+        p.name.toLowerCase().includes(term) || 
+        (p.location && p.location.toLowerCase().includes(term))
+    );
+    renderRegistry(filtered);
+});
+
+// 4. Открытие модального окна (УМНАЯ ФУНКЦИЯ)
+function openModal(person) {
+    const modal = document.getElementById('personModal');
+    const content = document.getElementById('modalContent');
+    
+    // Проверяем, есть ли фото, чтобы выбрать стиль сетки
+    const layoutClass = person.photo ? 'person-layout has-photo' : 'person-layout';
+    
+    // Формируем HTML динамически. Используем тернарные операторы (условие ? да : нет)
+    let html = `
+        <div class="${layoutClass}">
+            ${person.photo ? `<div><img src="${person.photo}" class="person-img" alt="${person.name}"></div>` : ''}
+            
+            <div class="person-info">
+                <h3 class="person-name">${person.name}</h3>
+                <span class="person-dates">${person.dates || ''}</span>
+                
+                ${person.location ? `<p><strong>Место:</strong> ${person.location}</p>` : ''}
+                
+                ${person.bio ? `
+                    <span class="person-bio-label">Биография</span>
+                    <p style="margin-top:10px; text-align:justify;">${person.bio}</p>
+                ` : ''}
+                
+                ${!person.bio && !person.photo ? '<p style="opacity:0.5; margin-top:20px;">Дополнительная информация отсутствует.</p>' : ''}
+            </div>
+        </div>
+    `;
+
+    content.innerHTML = html;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
+}
+
+// 5. Закрытие модального окна
+function closeModal() {
+    document.getElementById('personModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Закрытие по клику на затемненный фон
+document.getElementById('personModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('personModal')) {
+        closeModal();
+    }
+});

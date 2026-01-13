@@ -49,7 +49,7 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 .hero-section {
     height: 100vh;
     background-color: #3d5369; 
-    background: linear-gradient(rgba(61, 83, 105, 0.85), rgba(61, 83, 105, 0.95)), 
+    background: linear-gradient(rgba(61, 83, 105, 0.6), rgba(61, 83, 105, 0.8)), 
                 url('https://github.com/irkrssss/avierino-story/blob/main/sea.png?raw=true') center/cover fixed;
     display: flex;
     flex-direction: column;

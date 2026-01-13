@@ -94,56 +94,45 @@
         </div>
     </section>
 
-    <section class="map-wrapper" id="map">
-        <div class="map-sticky">
-            <div class="map-visual">
-                <svg class="map-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    
-                    <path class="route-path path-1" d="M 20,85 L 25,82 L 35,65" />
-                    <path class="route-path path-2a" d="M 35,65 L 30,35 L 55,25" />
-                    <path class="route-path path-2b" d="M 35,65 L 60,40 L 75,30" />
+    <div class="map-wrapper" id="map">
+    
+    <div class="map-sticky">
+        <div class="map-container">
+            
+            <svg class="map-svg-vector" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+                
+                <g class="map-base-layer">
+                    <path d="M999,799 H1 V1 h998 V799 z M 200,500 Q 250,450 300,480 T 400,420 T 480,380 Q 500,300 550,250 T 650,150 L 750,100 L 950,120 V 600 Q 900,650 850,620 T 750,680 Q 700,700 650,650 L 600,620 Q 550,600 520,630 T 450,680 Q 400,720 350,680 T 250,700 L 100,750 V 600 L 150,550 Z M 680,550 Q 690,540 710,550 T 700,580 T 670,570 Z" fill="#1e2a36" stroke="none"/>
+                    <path d="M 450,680 Q 520,630 550,600 T 600,620 L 650,650 Q 680,600 720,580 L 750,560 Q 760,530 740,510 T 700,520 L 680,540 Q 660,520 680,480 T 720,420 Q 740,390 760,410 T 790,430 L 820,400 L 850,380 Q 800,300 700,350 T 600,400 T 500,450 Q 450,500 400,520 T 300,550 Q 250,600 350,650 Z M 740,510 Q 760,500 780,510 T 790,480 T 760,460 T 730,480 Z M 810,415 Q 820,410 830,415 T 825,430 T 805,425 Z" fill="#15202B" stroke="#3d5369" stroke-width="1"/>
+                </g>
 
-                    <text x="20" y="85" class="city-dot" data-city="chios" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="20" y="90" class="city-label">Хиос</text>
-                    
-                    <text x="25" y="82" class="city-dot" text-anchor="middle" dominant-baseline="middle" style="font-size: 2px;">★</text>
-                    
-                    <text x="35" y="65" class="city-dot" data-city="istanbul" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="40" y="65" class="city-label">Константинополь</text>
-                    
-                    <text x="30" y="35" class="city-dot" data-city="odessa" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="18" y="35" class="city-label">Одесса</text>
-                    
-                    <text x="60" y="40" class="city-dot" data-city="kerch" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="63" y="45" class="city-label">Керчь</text>
-                    
-                    <text x="55" y="25" class="city-dot" data-city="mariupol" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="55" y="20" class="city-label">Мариуполь</text>
-                    
-                    <text x="75" y="30" class="city-dot" data-city="taganrog" text-anchor="middle" dominant-baseline="middle">★</text>
-                    <text x="78" y="30" class="city-label">Таганрог</text>
-                </svg>
+                <g class="routes-group stage-1">
+                    <path d="M 695,565 Q 750,550 780,500 T 820,422" class="route-path main-route" />
+                    <path d="M 695,565 Q 710,500 730,460" class="route-path secondary-route" />
+                    <path d="M 695,565 L 740,520" class="route-path secondary-route" />
+                    <path d="M 695,565 Q 700,650 720,700" class="route-path secondary-route" />
+                </g>
 
-                <div class="map-overlay-text">МАРШРУТ ДИНАСТИИ</div>
-            </div>
-        </div>
+                <g class="routes-group stage-2">
+                    <path d="M 820,422 Q 830,350 840,280" class="route-path" />
+                    <path d="M 820,422 Q 800,300 780,210" class="route-path" />
+                </g>
 
-        <div class="map-content">
-            <div class="step step-1">
-                <h3>Исход</h3>
-                <p><strong>Хиос — Измир — Константинополь</strong></p>
-                <p>Семья покидает родной остров. Первые остановки — торговые порты Османской империи, где Авьерино налаживают связи.</p>
-            </div>
-            <div class="step step-2">
-                <h3>Разветвление</h3>
-                <p>Из Константинополя пути расходятся. Часть семьи отправляется в <strong>Одессу</strong>, другая — через Крым в Азовское море.</p>
-            </div>
-            <div class="step step-3">
-                <h3>Новая земля</h3>
-                <p>Финальные точки маршрута: <strong>Мариуполь и Таганрог</strong>. Здесь, на берегах Азовского моря, семья пускает новые корни.</p>
-            </div>
-        </div>
-    </section>
+                <g class="routes-group stage-3">
+                    <path d="M 820,422 Q 700,450 510,460" class="route-path" />
+                    <path d="M 840,280 Q 750,300 680,330" class="route-path" />
+                    <path d="M 780,210 Q 600,250 430,390" class="route-path" />
+                </g>
+
+                <g class="cities-layer">
+                    <circle cx="695" cy="565" r="4" class="city-dot origin" data-city="chios" />
+                    <text x="685" y="560" class="city-label" text-anchor="end">Хиос</text>
+                    
+                    <circle cx="820" cy="422" r="6" class="city-dot hub" data-city="taganrog" />
+                    <text x="835" y="425" class="city-label">Таганрог</text>
+
+                    <circle cx="740" cy="520" r="3" class="city-dot" data-city="istanbul" /><text x="750" y="520" class="city-label">Стамбул</text>
+                    <circle cx
 
    
 <section class="registry-section" id="registry">

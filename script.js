@@ -2,27 +2,32 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==============================================
+// ВАЖНО: Настройка для поиска текста (ставим в самое начало)
+// ==============================================
+jQuery.expr[':'].contains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
+
+// ==============================================
 // АНИМАЦИЯ ВЕКТОРНОЙ КАРТЫ (SCROLLYTELLING)
 // ==============================================
 
-// 1. Подготовка линий (прячем их перед стартом)
+// Подготовка линий (прячем их перед стартом)
 function preparePaths() {
-    // Ищем все линии внутри групп stages
     const paths = document.querySelectorAll(".routes-group .route-path");
     paths.forEach(path => {
         const length = path.getTotalLength();
-        // Прячем линию за счет смещения пунктира
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
     });
 }
 
-// Запускаем анимацию, только если карта есть на странице
+// Запускаем только если карта есть на странице
 if(document.querySelector(".map-svg-vector")) {
     preparePaths();
 
     // --- ШАГ 1: Хиос (Старт) ---
-    // Появляется точка и подпись Хиоса
-    gsap.to([".city-dot[data-city='chios']", ".city-label:contains('Хиос')"], {
+    // Используем jQuery() для поиска текста, чтобы избежать ошибки
+    gsap.to([".city-dot[data-city='chios']", jQuery(".city-label:contains('Хиос')")], {
         opacity: 1, scale: 1.2,
         duration: 0.5,
         scrollTrigger: {
@@ -31,24 +36,23 @@ if(document.querySelector(".map-svg-vector")) {
         }
     });
 
-    // --- ШАГ 2: Исход (Линии из Хиоса) ---
-    // Рисуются все линии группы stage-1
+    // --- ШАГ 2: Исход ---
     gsap.to(".stage-1 .route-path", {
         strokeDashoffset: 0,
         scrollTrigger: {
             trigger: ".step-2", start: "top center", end: "bottom center",
-            scrub: 1.5 // Плавное рисование по скроллу
+            scrub: 1.5
         }
     });
-    // Появляются города, куда приходят линии (Стамбул, Одесса)
-    gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']"], {
+    
+    // Стамбул и Одесса (используем jQuery для безопасности)
+    gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']", jQuery(".city-label:contains('Стамбул')"), jQuery(".city-label:contains('Одесса')")], {
         opacity: 1, duration: 0.5, delay: 0.2,
         scrollTrigger: { trigger: ".step-2", start: "center center" }
     });
 
 
-    // --- ШАГ 3: Таганрог (Фокус) ---
-    // Точка Таганрога становится большой и яркой
+    // --- ШАГ 3: Таганрог ---
     gsap.to(".city-dot[data-city='taganrog']", {
         opacity: 1, scale: 2.5,
         duration: 0.8, ease: "back.out(1.7)",
@@ -57,7 +61,11 @@ if(document.querySelector(".map-svg-vector")) {
             toggleActions: "play reverse play reverse"
         }
     });
-    gsap.to(".city-label:contains('Таганрог')", { opacity: 1, scrollTrigger: { trigger: ".step-3", start: "top center" } });
+    // Показываем подпись Таганрога
+    gsap.to(jQuery(".city-label:contains('Таганрог')"), { 
+        opacity: 1, 
+        scrollTrigger: { trigger: ".step-3", start: "top center" } 
+    });
 
 
     // --- ШАГ 4: В столицы ---
@@ -65,8 +73,8 @@ if(document.querySelector(".map-svg-vector")) {
         strokeDashoffset: 0,
         scrollTrigger: { trigger: ".step-4", start: "top center", end: "bottom center", scrub: 1.5 }
     });
-    // Появляются Москва и Петербург
-    gsap.to([".city-dot[data-city='moscow']", ".city-dot[data-city='spb']"], {
+    // Москва и СПБ
+    gsap.to([".city-dot[data-city='moscow']", ".city-dot[data-city='spb']", jQuery(".city-label:contains('Москва')"), jQuery(".city-label:contains('Петербург')")], {
         opacity: 1,
         scrollTrigger: { trigger: ".step-4", start: "center center" }
     });
@@ -76,19 +84,14 @@ if(document.querySelector(".map-svg-vector")) {
         strokeDashoffset: 0,
         scrollTrigger: { trigger: ".step-5", start: "top center", end: "bottom center", scrub: 1.5 }
     });
-    // Появляются европейские города
-    gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']"], {
+    // Европа
+    gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']", jQuery(".city-label:contains('Женева')"), jQuery(".city-label:contains('Париж')"), jQuery(".city-label:contains('Варшава')")], {
         opacity: 1, stagger: 0.1,
         scrollTrigger: { trigger: ".step-5", start: "center center" }
     });
 }
 
-// Вспомогательная функция для поиска текста в GSAP (чтобы работало :contains)
-jQuery.expr[':'].contains = function(a, i, m) {
-  return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-};
-
-// Плавное появление блоков
+// Плавное появление блоков (Книга)
 const animatedBlocks = document.querySelectorAll(".book-spread, .flipbook-container");
 animatedBlocks.forEach(block => {
     gsap.from(block, {
@@ -97,7 +100,7 @@ animatedBlocks.forEach(block => {
     });
 });
 
-// Запуск книги (Flipbook)
+// Запуск dFlip (Книга)
 jQuery(document).ready(function($) {
     var bookElement = $("#family-book");
     var source = bookElement.attr("data-source");
@@ -108,35 +111,38 @@ jQuery(document).ready(function($) {
 
 
 // ==============================================
-// РЕЕСТР ПЕРСОНАЛИЙ (ФИНАЛ)
+// РЕЕСТР ПЕРСОНАЛИЙ
 // ==============================================
 
 let allPeopleData = [];
 let filteredData = [];
 let currentPage = 1;
-let itemsPerPage = 5; // По умолчанию 5
+let itemsPerPage = 5;
 
-// 1. Загрузка
+// Загрузка
 fetch('people.json')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return response.json();
+    })
     .then(data => {
         allPeopleData = data;
         filteredData = data;
         renderPage(1);
     })
-    .catch(error => console.error('Ошибка JSON:', error));
+    .catch(error => console.error('Ошибка загрузки people.json. Если вы открываете сайт локально, используйте локальный сервер.', error));
 
-// 2. Обработка выбора количества (5/10/20)
+// Выбор количества
 const selectElement = document.getElementById('itemsPerPageSelect');
 if (selectElement) {
     selectElement.addEventListener('change', (e) => {
         itemsPerPage = parseInt(e.target.value);
-        currentPage = 1; // Сброс на начало
+        currentPage = 1; 
         renderPage(1);
     });
 }
 
-// 3. Отрисовка страницы
+// Отрисовка
 function renderPage(page) {
     const list = document.getElementById('registryList');
     const pagination = document.getElementById('paginationControls');
@@ -165,14 +171,13 @@ function renderPage(page) {
     renderPagination(filteredData.length, page);
 }
 
-// 4. Пагинация
+// Пагинация
 function renderPagination(totalItems, currentPage) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const container = document.getElementById('paginationControls');
     
     if (totalPages <= 1) return;
 
-    // Кнопка Назад
     const prevBtn = document.createElement('button');
     prevBtn.className = 'page-btn';
     prevBtn.innerText = '←';
@@ -180,13 +185,11 @@ function renderPagination(totalItems, currentPage) {
     prevBtn.onclick = () => changePage(currentPage - 1);
     container.appendChild(prevBtn);
 
-    // Инфо
     const info = document.createElement('span');
     info.style.cssText = 'align-self:center; font-size:0.9rem; color:var(--slate-light); font-family:Lato; margin:0 10px;';
     info.innerText = `Стр. ${currentPage} из ${totalPages}`;
     container.appendChild(info);
 
-    // Кнопка Вперед
     const nextBtn = document.createElement('button');
     nextBtn.className = 'page-btn';
     nextBtn.innerText = '→';
@@ -198,7 +201,6 @@ function renderPagination(totalItems, currentPage) {
 function changePage(newPage) {
     currentPage = newPage;
     renderPage(newPage);
-    // Скролл чуть выше реестра
     const section = document.getElementById('registry');
     if(section) {
         const y = section.getBoundingClientRect().top + window.scrollY - 100;
@@ -206,18 +208,21 @@ function changePage(newPage) {
     }
 }
 
-// 5. Поиск
-document.getElementById('registrySearch').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    filteredData = allPeopleData.filter(p => 
-        p.name.toLowerCase().includes(term) || 
-        (p.location && p.location.toLowerCase().includes(term))
-    );
-    currentPage = 1;
-    renderPage(1);
-});
+// Поиск
+const searchInput = document.getElementById('registrySearch');
+if(searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        filteredData = allPeopleData.filter(p => 
+            p.name.toLowerCase().includes(term) || 
+            (p.location && p.location.toLowerCase().includes(term))
+        );
+        currentPage = 1;
+        renderPage(1);
+    });
+}
 
-// 6. Форматирование ссылок и Модалка
+// Ссылки на родню
 function formatRelatives(text) {
     if (!text) return '';
     return text.split('\n').map(line => {
@@ -234,6 +239,7 @@ window.openRelative = function(id) {
     if (person) openModal(person);
 };
 
+// Модальное окно
 function openModal(person) {
     const modal = document.getElementById('personModal');
     const content = document.getElementById('modalContent');

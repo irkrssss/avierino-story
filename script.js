@@ -192,14 +192,34 @@ document.getElementById('registrySearch').addEventListener('input', (e) => {
     renderPage(1);
 });
 
-// 5. Обработка ссылок на родственников (МАГИЯ REGEX)
+// 5. Обработка ссылок на родственников (НОВАЯ ВЕРСИЯ: Имя = Ссылка)
 function formatRelatives(text) {
     if (!text) return '';
-    // Ищем паттерн "(id=123)" или "id=123" и заменяем на ссылку
-    // \d+ означает "любое число"
-    return text.replace(/\(id=(\d+)\)/gi, (match, id) => {
-        return `<span class="relative-link" onclick="openRelative(${id})">➜ перейти</span>`;
-    });
+    
+    // Разбиваем текст на строки по символу переноса \n
+    // Это гарантирует, что каждый родственник будет с новой строки
+    const lines = text.split('\n');
+
+    return lines.map(line => {
+        // Проверяем, есть ли в строке (id=...)
+        // Regex ищет: "Любой текст" (группа 1) + " (id=Число)" (группа 2)
+        const match = line.match(/(.*?)\s*\(id=(\d+)\)/i);
+        
+        if (match) {
+            const name = match[1].trim(); // Имя (например, "жена Параскева...")
+            const id = match[2];          // ID (например, "2")
+            
+            // Возвращаем кликабельное имя
+            return `<div class="relatives-line">
+                        <span class="relative-link" onclick="openRelative(${id})">${name}</span>
+                    </div>`;
+        } else {
+            // Если ID нет, просто возвращаем текст (не кликабельный)
+            // Но обязательно в div, чтобы был перенос строки
+            if (line.trim() === '') return ''; // Пропускаем пустые строки
+            return `<div class="relatives-line">${line}</div>`;
+        }
+    }).join(''); // Собираем всё обратно в одну кучу HTML
 }
 
 // Глобальная функция для открытия родственника

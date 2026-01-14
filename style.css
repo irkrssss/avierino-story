@@ -520,7 +520,14 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 }
 .footer-col h3 { color: #fff; font-family: 'Lato', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; opacity: 0.9; }
 .footer-col p { color: rgba(255,255,255,0.7); margin-bottom: 15px; line-height: 1.6; }
-.location-tag { margin-top: 30px; color: var(--gold); font-weight: bold; font-size: 0.9rem; }
+
+/* ⚡ ОБНОВЛЕННЫЙ СТИЛЬ ДЛЯ ГОРОДА */
+.location-tag { 
+    margin-top: 30px; 
+    color: rgba(255,255,255,0.4); /* Тусклый цвет */
+    font-size: 0.85rem; 
+}
+
 .btn-gold-action {
     display: inline-block; margin-top: 15px; background-color: rgba(255,255,255,0.1); color: #fff; padding: 12px 25px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s;
 }

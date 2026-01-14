@@ -170,11 +170,19 @@
     <section class="registry-section" id="registry">
         <div class="section-title-wrapper">
             <h2 class="section-main-title">Персоналии</h2>
-            <div class="section-subtitle">Реестр династии Авьерино</div>
-        </div>
+            </div>
 
         <div class="registry-controls">
             <input type="text" id="registrySearch" placeholder="Поиск по фамилии, имени или городу..." class="search-input">
+        </div>
+
+        <div class="registry-container">
+            <div id="registryList" class="registry-list">
+                </div>
+        </div>
+
+        <div class="registry-footer-controls">
+            
             <div class="rows-selector">
                 <span>Показывать по:</span>
                 <select id="itemsPerPageSelect" class="items-select">
@@ -184,14 +192,10 @@
                     <option value="100">Все</option>
                 </select>
             </div>
-        </div>
 
-        <div class="registry-container">
-            <div id="registryList" class="registry-list">
-                </div>
+            <div class="pagination-wrapper" id="paginationControls"></div>
+            
         </div>
-
-        <div class="pagination-wrapper" id="paginationControls"></div>
     </section>
 
     <section class="history-book-section" id="genealogy">

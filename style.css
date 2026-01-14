@@ -317,12 +317,13 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     background: #fff;
     position: relative;
     z-index: 5;
-    padding-bottom: 100px; /* Отступ снизу */
+    padding-bottom: 100px;
 }
 
+/* Верхняя часть: Поиск */
 .registry-controls {
     display: flex; flex-direction: column; align-items: center;
-    gap: 20px; margin-bottom: 40px; text-align: center;
+    margin-bottom: 40px; text-align: center;
 }
 
 .search-input {
@@ -334,20 +335,61 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 }
 .search-input:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(192, 160, 98, 0.25); }
 
-.rows-selector {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.95rem; color: var(--slate-light);
+/* Список людей */
+.registry-container { max-width: 800px; margin: 0 auto; }
+
+.registry-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #fff; padding: 20px 30px;
+    margin-bottom: 15px; border-radius: 8px;
+    border: 1px solid rgba(61, 83, 105, 0.1);
+    transition: all 0.3s ease; cursor: pointer;
+    position: relative; overflow: hidden;
+}
+.registry-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(61, 83, 105, 0.1);
+    border-color: var(--gold);
+}
+.registry-row::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--gold); opacity: 0; transition: 0.3s;
+}
+.registry-row:hover::before { opacity: 1; }
+
+.reg-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); font-weight: 700; }
+.reg-dates {
+    font-family: 'Lato', sans-serif; font-size: 0.9rem; color: var(--slate-light);
+    background: rgba(61, 83, 105, 0.05); padding: 5px 12px; border-radius: 20px;
 }
 
+/* НИЖНЯЯ ПАНЕЛЬ (Селектор + Пагинация) */
+.registry-footer-controls {
+    max-width: 800px; margin: 40px auto 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+
+/* Селектор количества */
+.rows-selector {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; color: var(--slate-light);
+}
 .items-select {
-    padding: 8px 15px;
+    padding: 6px 12px;
     border: 1px solid var(--slate-light); border-radius: 4px;
     background: #fff; color: var(--ink);
-    font-family: 'Lato', sans-serif; font-weight: bold; cursor: pointer; outline: none;
+    font-family: 'Lato', sans-serif; cursor: pointer; outline: none;
 }
 .items-select:focus { border-color: var(--gold); }
 
-.registry-container { max-width: 800px; margin: 0 auto; }
+/* Кнопки страниц */
+.pagination-wrapper { display: flex; justify-content: center; gap: 10px; }
+.page-btn {
+    background: #fff; border: 1px solid var(--slate-light); color: var(--ink);
+    padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: 'Lato'; transition: 0.2s;
+}
+.page-btn:hover { border-color: var(--gold); color: var(--gold); }
+.page-btn:disabled { opacity: 0.3; cursor: default; border-color: #ddd; }
 
 /* Карточка человека в списке */
 .registry-row {

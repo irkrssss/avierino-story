@@ -160,34 +160,41 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   4. СТАТИЧНАЯ КНИГА (ОТ АВТОРОВ)
+   4. СТАТИЧНАЯ КНИГА (ОТ АВТОРОВ) — АДАПТИВНАЯ
    ========================================= */
 .book-spread-section {
     padding: 60px 20px;
     background: var(--paper);
     display: flex;
     justify-content: center;
+    align-items: center; /* Центрируем книгу по вертикали */
+    min-height: 80vh;    /* Секция занимает большую часть экрана */
 }
 
 .book-spread {
     display: flex;
     justify-content: center;
-    gap: 0;
-    margin: 0 auto;
-    max-width: 1200px;
     width: 100%;
+    max-width: 1200px;
+    /* ⚡ ГЛАВНОЕ: Задаем пропорцию разворота (3 к 2) */
+    aspect-ratio: 3 / 2;
     box-shadow: 0 20px 60px rgba(61, 83, 105, 0.15);
     position: relative;
     z-index: 2;
 }
 
 .book-page {
-    flex: 0 0 50%; width: 50%; max-width: 50%;
+    flex: 1;             /* Растягиваем страницы равномерно */
+    width: 50%; 
     background-color: #F9F7F1;
-    padding: 60px 50px; 
+    padding: 5% 6%;      /* Отступы в процентах, чтобы масштабировались */
     position: relative;
     border: 1px solid #D8D4C5; 
-    min-height: 600px; 
+    /* Убрали фиксированную height/min-height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;    /* Обрезаем всё лишнее */
 }
 
 .page-left { 
@@ -199,11 +206,17 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     background: linear-gradient(to left, #F9F7F1 95%, #EFE8D5 100%); 
 }
 
+/* Рамка внутри страницы */
 .book-page::before { 
-    content: ""; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; 
+    content: ""; position: absolute; 
+    top: 3%; left: 3%; right: 3%; bottom: 3%; 
     border: 3px double var(--ink); 
     pointer-events: none; opacity: 0.6; 
 }
+/* Уголки */
+.corner { position: absolute; width: 1.5%; height: 1.5%; background: var(--ink); z-index: 2; min-width: 10px; min-height: 10px; }
+.list-tl { top: 3%; left: 3%; } .list-tr { top: 3%; right: 3%; }
+.list-bl { bottom: 3%; left: 3%; } .list-br { bottom: 3%; right: 3%; }
 
 /* Гравюра (левая страница) */
 .engraving-container {
@@ -211,27 +224,50 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 .engraving-img {
-    max-width: 100%; max-height: 70%; width: auto; object-fit: contain;
+    max-width: 100%; max-height: 80%; width: auto; height: auto; 
+    object-fit: contain;
     filter: sepia(30%) contrast(0.9); 
-    border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .img-caption {
-    margin-top: 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--slate-light); text-align: center;
+    margin-top: 2vh; /* Отступ зависит от высоты экрана */
+    font-family: 'Playfair Display', serif; font-style: italic; 
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem); /* Умный размер шрифта */
+    color: var(--slate-light); text-align: center;
 }
 
 /* Правая страница (текст) */
-.center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
-.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 15px; font-weight: bold; }
-.drop-cap { float: left; font-size: 3.8rem; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 8px 10px 0 0; }
-
-.author-text-body p {
-    font-size: 0.92rem; line-height: 1.6; margin-bottom: 0;        
-    text-indent: 30px; text-align: justify; text-justify: inter-word; opacity: 0.9;
+.page-content {
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    /* Если текст не влезет в пропорцию, появится скролл */
+    overflow-y: auto; 
+    padding-right: 5px; /* Место для скроллбара */
 }
-.author-text-body p:first-of-type { text-indent: 0; }
-.ornament-divider { text-align: center; color: var(--gold); font-size: 0.8rem; margin: 30px 0; opacity: 0.6; }
 
+/* Стилизация скроллбара (тонкий и незаметный) */
+.page-content::-webkit-scrollbar { width: 4px; }
+.page-content::-webkit-scrollbar-thumb { background-color: var(--gold); border-radius: 4px; }
+.page-content::-webkit-scrollbar-track { background: transparent; }
 
+.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 10px; font-weight: bold; }
+
+/* Умный размер текста (clamp: мин, идеал, макс) */
+.author-text-body p {
+    font-size: clamp(0.8rem, 1.1vw, 1rem);      
+    line-height: 1.5;        
+    margin-bottom: 0.8em;        
+    text-indent: 1.5em;       
+    text-align: justify;     
+    opacity: 0.9;
+}
+.drop-cap { float: left; font-size: 3.2em; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 4px 6px 0 0; }
+
+.ornament-divider { text-align: center; color: var(--gold); font-size: 0.8rem; margin: 2vh 0; opacity: 0.6; }
+
+.acknowledgments-box { margin-top: auto; padding-top: 10px; text-align: center; border-top: 1px dashed rgba(0,0,0,0.1); }
+.ack-label { display: block; color: var(--ink); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; opacity: 0.6; margin-bottom: 5px;}
+.ack-text { font-family: 'Playfair Display', serif; font-size: clamp(0.8rem, 1.2vw, 1rem); font-style: italic; color: var(--ink); margin: 0; text-indent: 0; }
 /* =========================================
    5. КАРТА (ВЕКТОРНАЯ ИСТОРИЯ)
    ========================================= */

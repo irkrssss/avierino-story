@@ -232,12 +232,13 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     color: var(--slate-light); text-align: center;
 }
 
-/* Правая страница (Текстовый блок) */
+/* Правая страница (Текстовый блок) - КОМПАКТНАЯ ВЕРСИЯ */
 .page-content {
     height: 100%;
     display: flex; 
     flex-direction: column; 
-    justify-content: space-between; /* Равномерно распределяет заголовок, текст и подвал */
+    /* justify-content: space-between; <--- Убрали, чтобы не растягивало, если текста мало */
+    padding: 10px 0; /* Небольшой отступ сверху/снизу внутри страницы */
 }
 
 /* ЗАГОЛОВКИ */
@@ -246,71 +247,77 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     color: var(--gold); 
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    font-size: 0.7rem; 
+    font-size: 0.65rem; 
     font-weight: bold; 
     margin-bottom: 5px;
 }
 
 .page-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 2.2vw, 1.8rem); /* Адаптивный размер */
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
     color: var(--ink);
-    margin: 0 0 15px 0;
-    line-height: 1.1;
+    margin: 0 0 10px 0; /* Уменьшили отступ снизу */
+    line-height: 1;
     font-weight: 700;
 }
 
 /* ТИПОГРАФИКА ТЕКСТА */
 .author-text-body {
-    flex-grow: 1; /* Занимает всё свободное место */
+    flex-grow: 1; 
 }
 
 .author-text-body p {
     font-family: 'Lato', sans-serif;
-    /* Шрифт меняется от 12px до 14.5px */
-    font-size: clamp(0.75rem, 1vw, 0.9rem); 
-    line-height: 1.55; /* Оптимальный интерлиньяж */
-    margin-bottom: 0.8em;        
-    text-align: justify; /* Книжная выключка */
-    hyphens: auto;       /* Переносы слов */
+    /* Шрифт чуть меньше: от 11px до 13.5px */
+    font-size: clamp(0.7rem, 0.9vw, 0.85rem); 
+    line-height: 1.45; /* Чуть плотнее строки */
+    margin-bottom: 6px; /* Минимальный отступ между абзацами */
+    text-align: justify;
+    hyphens: auto;
     color: rgba(61, 83, 105, 0.95);
 }
 
 .author-text-body p:last-child { margin-bottom: 0; }
 
+/* Жирный текст внутри абзаца (вместо подзаголовка) */
+.text-highlight {
+    font-weight: 700;
+    color: var(--ink);
+}
+
 /* Буквица (Drop Cap) */
 .drop-cap { 
     float: left; 
-    font-size: 3.8em; 
-    line-height: 0.75; 
+    font-size: 3.2em; /* Чуть меньше */
+    line-height: 0.8; 
     font-family: 'Playfair Display'; 
     color: var(--ink); 
-    padding: 6px 8px 0 0; 
+    padding: 4px 6px 0 0; 
     font-weight: 400;
 }
 
-/* Разделитель и Благодарности (прижаты к низу) */
+/* Разделитель и Благодарности */
 .ornament-divider { 
     text-align: center; color: var(--gold); 
-    font-size: 0.8rem; margin: 10px 0; opacity: 0.6; 
+    font-size: 0.7rem; margin: 8px 0; opacity: 0.6; /* Уменьшили отступы */
 }
 
 .acknowledgments-box { 
     text-align: center; 
-    padding-top: 10px;
+    padding-top: 5px;
     border-top: 1px dashed rgba(61, 83, 105, 0.15);
 }
 
 .ack-item .ack-label { 
     display: block; color: var(--ink); 
-    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; 
-    font-weight: bold; opacity: 0.7; margin-bottom: 3px;
+    font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; 
+    font-weight: bold; opacity: 0.7; margin-bottom: 2px;
 }
 .ack-item .ack-text { 
     font-family: 'Playfair Display', serif; 
-    font-size: clamp(0.75rem, 1.1vw, 0.9rem); 
+    font-size: clamp(0.7rem, 1vw, 0.85rem); 
     font-style: italic; color: var(--ink); 
-    margin: 0; line-height: 1.4;
+    margin: 0; line-height: 1.3;
 }
 /* =========================================
    5. КАРТА (ВЕКТОРНАЯ ИСТОРИЯ)

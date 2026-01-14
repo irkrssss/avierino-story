@@ -160,46 +160,42 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 
 
 /* =========================================
-   4. СТАТИЧНАЯ КНИГА (ОТ АВТОРОВ) — АДАПТИВНАЯ
+   4. СТАТИЧНАЯ КНИГА (ОТ АВТОРОВ) — ТИПОГРАФСКАЯ ВЕРСТКА
    ========================================= */
 .book-spread-section {
     padding: 60px 20px;
     background: var(--paper);
     display: flex;
     justify-content: center;
-    align-items: center; /* Центрируем книгу по вертикали */
-    min-height: 80vh;    /* Секция занимает большую часть экрана */
+    align-items: center;
+    min-height: 80vh;
 }
 
 .book-spread {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-width: 1200px;
-    /* ⚡ ГЛАВНОЕ: Задаем пропорцию разворота (3 к 2) */
-    aspect-ratio: 3 / 2;
+    max-width: 1100px; /* Чуть компактнее по ширине */
+    aspect-ratio: 3 / 2; /* Строгая пропорция книги */
     box-shadow: 0 20px 60px rgba(61, 83, 105, 0.15);
     position: relative;
     z-index: 2;
 }
 
 .book-page {
-    flex: 1;             /* Растягиваем страницы равномерно */
-    width: 50%; 
+    flex: 1;
+    width: 50%;
     background-color: #F9F7F1;
-    padding: 5% 6%;      /* Отступы в процентах, чтобы масштабировались */
+    padding: 4% 5%; /* Поля чуть меньше, чтобы влез текст */
     position: relative;
-    border: 1px solid #D8D4C5; 
-    /* Убрали фиксированную height/min-height */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;    /* Обрезаем всё лишнее */
+    border: 1px solid #D8D4C5;
+    overflow: hidden; /* Обрезаем всё, что вылезает (на всякий случай) */
 }
 
 .page-left { 
     border-right: 1px solid #C8C4B5; 
     background: linear-gradient(to right, #F9F7F1 95%, #EFE8D5 100%); 
+    display: flex; align-items: center; justify-content: center;
 }
 .page-right { 
     border-left: none; 
@@ -209,14 +205,14 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 /* Рамка внутри страницы */
 .book-page::before { 
     content: ""; position: absolute; 
-    top: 3%; left: 3%; right: 3%; bottom: 3%; 
+    top: 15px; left: 15px; right: 15px; bottom: 15px; 
     border: 3px double var(--ink); 
     pointer-events: none; opacity: 0.6; 
 }
 /* Уголки */
-.corner { position: absolute; width: 1.5%; height: 1.5%; background: var(--ink); z-index: 2; min-width: 10px; min-height: 10px; }
-.list-tl { top: 3%; left: 3%; } .list-tr { top: 3%; right: 3%; }
-.list-bl { bottom: 3%; left: 3%; } .list-br { bottom: 3%; right: 3%; }
+.corner { position: absolute; width: 12px; height: 12px; background: var(--ink); z-index: 2; }
+.list-tl { top: 15px; left: 15px; } .list-tr { top: 15px; right: 15px; }
+.list-bl { bottom: 15px; left: 15px; } .list-br { bottom: 15px; right: 15px; }
 
 /* Гравюра (левая страница) */
 .engraving-container {
@@ -224,50 +220,98 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
 .engraving-img {
-    max-width: 100%; max-height: 80%; width: auto; height: auto; 
+    max-width: 90%; max-height: 80%; width: auto; height: auto; 
     object-fit: contain;
     filter: sepia(30%) contrast(0.9); 
     border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .img-caption {
-    margin-top: 2vh; /* Отступ зависит от высоты экрана */
+    margin-top: 15px;
     font-family: 'Playfair Display', serif; font-style: italic; 
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem); /* Умный размер шрифта */
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem); 
     color: var(--slate-light); text-align: center;
 }
 
-/* Правая страница (текст) */
+/* Правая страница (Текстовый блок) */
 .page-content {
     height: 100%;
-    display: flex; flex-direction: column; justify-content: center;
-    /* Если текст не влезет в пропорцию, появится скролл */
-    overflow-y: auto; 
-    padding-right: 5px; /* Место для скроллбара */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; /* Равномерно распределяет заголовок, текст и подвал */
 }
 
-/* Стилизация скроллбара (тонкий и незаметный) */
-.page-content::-webkit-scrollbar { width: 4px; }
-.page-content::-webkit-scrollbar-thumb { background-color: var(--gold); border-radius: 4px; }
-.page-content::-webkit-scrollbar-track { background: transparent; }
+/* ЗАГОЛОВКИ */
+.chapter-label { 
+    display: block; 
+    color: var(--gold); 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    font-size: 0.7rem; 
+    font-weight: bold; 
+    margin-bottom: 5px;
+}
 
-.chapter-label { display: block; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-bottom: 10px; font-weight: bold; }
+.page-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem); /* Адаптивный размер */
+    color: var(--ink);
+    margin: 0 0 15px 0;
+    line-height: 1.1;
+    font-weight: 700;
+}
 
-/* Умный размер текста (clamp: мин, идеал, макс) */
+/* ТИПОГРАФИКА ТЕКСТА */
+.author-text-body {
+    flex-grow: 1; /* Занимает всё свободное место */
+}
+
 .author-text-body p {
-    font-size: clamp(0.8rem, 1.1vw, 1rem);      
-    line-height: 1.5;        
+    font-family: 'Lato', sans-serif;
+    /* Шрифт меняется от 12px до 14.5px */
+    font-size: clamp(0.75rem, 1vw, 0.9rem); 
+    line-height: 1.55; /* Оптимальный интерлиньяж */
     margin-bottom: 0.8em;        
-    text-indent: 1.5em;       
-    text-align: justify;     
-    opacity: 0.9;
+    text-align: justify; /* Книжная выключка */
+    hyphens: auto;       /* Переносы слов */
+    color: rgba(61, 83, 105, 0.95);
 }
-.drop-cap { float: left; font-size: 3.2em; line-height: 0.8; font-family: 'Playfair Display'; color: var(--ink); padding: 4px 6px 0 0; }
 
-.ornament-divider { text-align: center; color: var(--gold); font-size: 0.8rem; margin: 2vh 0; opacity: 0.6; }
+.author-text-body p:last-child { margin-bottom: 0; }
 
-.acknowledgments-box { margin-top: auto; padding-top: 10px; text-align: center; border-top: 1px dashed rgba(0,0,0,0.1); }
-.ack-label { display: block; color: var(--ink); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; opacity: 0.6; margin-bottom: 5px;}
-.ack-text { font-family: 'Playfair Display', serif; font-size: clamp(0.8rem, 1.2vw, 1rem); font-style: italic; color: var(--ink); margin: 0; text-indent: 0; }
+/* Буквица (Drop Cap) */
+.drop-cap { 
+    float: left; 
+    font-size: 3.8em; 
+    line-height: 0.75; 
+    font-family: 'Playfair Display'; 
+    color: var(--ink); 
+    padding: 6px 8px 0 0; 
+    font-weight: 400;
+}
+
+/* Разделитель и Благодарности (прижаты к низу) */
+.ornament-divider { 
+    text-align: center; color: var(--gold); 
+    font-size: 0.8rem; margin: 10px 0; opacity: 0.6; 
+}
+
+.acknowledgments-box { 
+    text-align: center; 
+    padding-top: 10px;
+    border-top: 1px dashed rgba(61, 83, 105, 0.15);
+}
+
+.ack-item .ack-label { 
+    display: block; color: var(--ink); 
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; 
+    font-weight: bold; opacity: 0.7; margin-bottom: 3px;
+}
+.ack-item .ack-text { 
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem); 
+    font-style: italic; color: var(--ink); 
+    margin: 0; line-height: 1.4;
+}
 /* =========================================
    5. КАРТА (ВЕКТОРНАЯ ИСТОРИЯ)
    ========================================= */
@@ -655,4 +699,71 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     .site-footer-clean { padding: 60px 20px 30px 20px; }
     
     .hero-lang-switcher { top: 20px; right: 20px; gap: 10px; }
+}
+/* =========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ КНИГИ "ОТ АВТОРОВ"
+   ========================================= */
+@media (max-width: 900px) {
+    
+    .book-spread-section {
+        min-height: auto; /* Убираем обязательную высоту */
+        padding: 40px 15px;
+    }
+
+    .book-spread {
+        flex-direction: column; /* Страницы в столбик */
+        aspect-ratio: auto;     /* Отключаем пропорцию 3:2 */
+        width: 100%;
+        box-shadow: none;       /* Убираем тень "парящей книги" */
+    }
+
+    .book-page {
+        width: 100%;            /* Страница на всю ширину экрана */
+        min-height: auto;
+        border: none;
+        /* Добавляем серый разделитель между страницами */
+        border-bottom: 8px solid #E0E0E0; 
+        padding: 40px 20px;
+    }
+
+    /* Убираем градиент переплета, делаем ровный фон */
+    .page-left, .page-right {
+        background: #F9F7F1; 
+    }
+
+    /* Адаптация рамки */
+    .book-page::before {
+        top: 10px; left: 10px; right: 10px; bottom: 10px;
+    }
+    
+    /* Скрываем уголки на телефоне, чтобы не мешали */
+    .corner { display: none; }
+
+    /* Картинка (Гравюра) */
+    .engraving-img {
+        max-height: 250px; /* Ограничиваем высоту, чтобы не занимала весь экран */
+        margin-bottom: 20px;
+    }
+
+    /* Текст */
+    .page-content {
+        display: block; /* Убираем сложный флекс */
+    }
+
+    .author-text-body p {
+        /* На узком экране Justify делает дыры в тексте, лучше по левому краю */
+        text-align: left; 
+        text-indent: 20px;
+        font-size: 1rem; /* Читаемый размер для телефона */
+    }
+
+    .drop-cap {
+        font-size: 3.5rem; /* Чуть меньше буквица */
+    }
+    
+    /* Заголовок покрупнее, чтобы удобно читать */
+    .page-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
 }

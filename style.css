@@ -313,17 +313,17 @@ a:hover { color: var(--gold); border-color: var(--gold); }
    6. ПЕРСОНАЛИИ (РЕЕСТР + ПОИСК)
    ========================================= */
 .registry-section {
-    padding: 80px 20px;
+    padding: 40px 20px 80px 20px; /* ⚡ Было 80px сверху, стало 40px. Убрали пустоту */
     background: #fff;
     position: relative;
     z-index: 5;
-    padding-bottom: 100px;
 }
 
 /* Верхняя часть: Поиск */
 .registry-controls {
     display: flex; flex-direction: column; align-items: center;
-    margin-bottom: 40px; text-align: center;
+    margin-bottom: 30px; /* Чуть уменьшили отступ до таблицы */
+    text-align: center;
 }
 
 .search-input {
@@ -363,16 +363,21 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     background: rgba(61, 83, 105, 0.05); padding: 5px 12px; border-radius: 20px;
 }
 
-/* НИЖНЯЯ ПАНЕЛЬ (Селектор + Пагинация) */
+/* ⚡ НИЖНЯЯ ПАНЕЛЬ (НОВАЯ РАСКЛАДКА) */
 .registry-footer-controls {
-    max-width: 800px; margin: 40px auto 0 auto;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    max-width: 800px; margin: 30px auto 0 auto;
+    position: relative; /* Важно для центровки пагинации */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Прижимаем селектор влево */
+    min-height: 40px;
 }
 
-/* Селектор количества */
+/* Селектор количества (Слева) */
 .rows-selector {
     display: flex; align-items: center; gap: 10px;
     font-size: 0.9rem; color: var(--slate-light);
+    z-index: 2; /* Чтобы был кликабельным */
 }
 .items-select {
     padding: 6px 12px;
@@ -382,14 +387,35 @@ a:hover { color: var(--gold); border-color: var(--gold); }
 }
 .items-select:focus { border-color: var(--gold); }
 
-/* Кнопки страниц */
-.pagination-wrapper { display: flex; justify-content: center; gap: 10px; }
+/* Кнопки страниц (Строго по центру) */
+.pagination-wrapper {
+    position: absolute; /* Абсолютное позиционирование */
+    left: 50%;
+    transform: translateX(-50%); /* Сдвигаем ровно на центр */
+    display: flex; justify-content: center; gap: 10px;
+    width: max-content;
+    z-index: 1;
+}
+
 .page-btn {
     background: #fff; border: 1px solid var(--slate-light); color: var(--ink);
     padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: 'Lato'; transition: 0.2s;
 }
 .page-btn:hover { border-color: var(--gold); color: var(--gold); }
 .page-btn:disabled { opacity: 0.3; cursor: default; border-color: #ddd; }
+
+/* ⚡ МОБИЛЬНАЯ ВЕРСИЯ (Возвращаем колонку, чтобы всё влезло) */
+@media (max-width: 700px) {
+    .registry-footer-controls {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+    }
+    .pagination-wrapper {
+        position: static; /* Отключаем абсолют на телефоне */
+        transform: none;
+    }
+}
 
 /* Карточка человека в списке */
 .registry-row {

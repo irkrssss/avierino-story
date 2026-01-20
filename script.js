@@ -2,7 +2,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
 // ==============================================
-// ВАЖНО: Настройка для поиска текста (ставим в самое начало)
+// ВАЖНО: Настройка для поиска текста (Case insensitive)
 // ==============================================
 jQuery.expr[':'].contains = function(a, i, m) {
   return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
@@ -12,7 +12,7 @@ jQuery.expr[':'].contains = function(a, i, m) {
 // АНИМАЦИЯ ВЕКТОРНОЙ КАРТЫ (SCROLLYTELLING)
 // ==============================================
 
-// Подготовка линий (прячем их перед стартом)
+// Подготовка линий
 function preparePaths() {
     const paths = document.querySelectorAll(".routes-group .route-path");
     paths.forEach(path => {
@@ -25,11 +25,9 @@ function preparePaths() {
 if(document.querySelector(".map-svg-vector")) {
     preparePaths();
 
-    // --- ШАГ 1: Хиос (Старт) ---
-    // Используем jQuery() для поиска текста, чтобы избежать ошибки
+    // --- ШАГ 1: Хиос ---
     gsap.to([".city-dot[data-city='chios']", jQuery(".city-label:contains('Хиос')")], {
-        opacity: 1, scale: 1.2,
-        duration: 0.5,
+        opacity: 1, scale: 1.2, duration: 0.5,
         scrollTrigger: {
             trigger: ".step-1", start: "top center", end: "center center",
             toggleActions: "play reverse play reverse"
@@ -40,40 +38,33 @@ if(document.querySelector(".map-svg-vector")) {
     gsap.to(".stage-1 .route-path", {
         strokeDashoffset: 0,
         scrollTrigger: {
-            trigger: ".step-2", start: "top center", end: "bottom center",
-            scrub: 1.5
+            trigger: ".step-2", start: "top center", end: "bottom center", scrub: 1.5
         }
     });
     
-    // Стамбул и Одесса (используем jQuery для безопасности)
     gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']", jQuery(".city-label:contains('Стамбул')"), jQuery(".city-label:contains('Одесса')")], {
         opacity: 1, duration: 0.5, delay: 0.2,
         scrollTrigger: { trigger: ".step-2", start: "center center" }
     });
 
-
     // --- ШАГ 3: Таганрог ---
     gsap.to(".city-dot[data-city='taganrog']", {
-        opacity: 1, scale: 2.5,
-        duration: 0.8, ease: "back.out(1.7)",
+        opacity: 1, scale: 2.5, duration: 0.8, ease: "back.out(1.7)",
         scrollTrigger: {
             trigger: ".step-3", start: "top center",
             toggleActions: "play reverse play reverse"
         }
     });
-    // Показываем подпись Таганрога
     gsap.to(jQuery(".city-label:contains('Таганрог')"), { 
         opacity: 1, 
         scrollTrigger: { trigger: ".step-3", start: "top center" } 
     });
-
 
     // --- ШАГ 4: В столицы ---
     gsap.to(".stage-2 .route-path", {
         strokeDashoffset: 0,
         scrollTrigger: { trigger: ".step-4", start: "top center", end: "bottom center", scrub: 1.5 }
     });
-    // Москва и СПБ
     gsap.to([".city-dot[data-city='moscow']", ".city-dot[data-city='spb']", jQuery(".city-label:contains('Москва')"), jQuery(".city-label:contains('Петербург')")], {
         opacity: 1,
         scrollTrigger: { trigger: ".step-4", start: "center center" }
@@ -84,7 +75,6 @@ if(document.querySelector(".map-svg-vector")) {
         strokeDashoffset: 0,
         scrollTrigger: { trigger: ".step-5", start: "top center", end: "bottom center", scrub: 1.5 }
     });
-    // Европа
     gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']", jQuery(".city-label:contains('Женева')"), jQuery(".city-label:contains('Париж')"), jQuery(".city-label:contains('Варшава')")], {
         opacity: 1, stagger: 0.1,
         scrollTrigger: { trigger: ".step-5", start: "center center" }
@@ -114,7 +104,7 @@ jQuery(document).ready(function($) {
 // РЕЕСТР ПЕРСОНАЛИЙ
 // ==============================================
 
-let allPeopleData = [];
+let allPeopleData = []; // Главная переменная с данными
 let filteredData = [];
 let currentPage = 1;
 let itemsPerPage = 5;
@@ -130,9 +120,9 @@ fetch('people.json')
         filteredData = data;
         renderPage(1);
     })
-    .catch(error => console.error('Ошибка загрузки people.json. Если вы открываете сайт локально, используйте локальный сервер.', error));
+    .catch(error => console.error('Ошибка загрузки people.json:', error));
 
-// Выбор количества
+// Выбор количества строк
 const selectElement = document.getElementById('itemsPerPageSelect');
 if (selectElement) {
     selectElement.addEventListener('change', (e) => {
@@ -142,7 +132,7 @@ if (selectElement) {
     });
 }
 
-// Отрисовка
+// Отрисовка списка
 function renderPage(page) {
     const list = document.getElementById('registryList');
     const pagination = document.getElementById('paginationControls');
@@ -163,8 +153,9 @@ function renderPage(page) {
     pageItems.forEach(person => {
         const row = document.createElement('div');
         row.className = 'registry-row';
-        row.onclick = () => openModal(person);
-        row.innerHTML = `<span class="reg-name">${person.name}</span><span class="reg-dates">${person.dates || ''}</span>`;
+        // ⚡ ВАЖНОЕ ИСПРАВЛЕНИЕ: Передаем person.id, а не весь объект
+        row.onclick = () => openModal(person.id); 
+        row.innerHTML = `<span class="reg-name">${person.name}</span><span class="reg-dates">${person.lifeDates || ''}</span>`;
         list.appendChild(row);
     });
 
@@ -215,7 +206,7 @@ if(searchInput) {
         const term = e.target.value.toLowerCase();
         filteredData = allPeopleData.filter(p => 
             p.name.toLowerCase().includes(term) || 
-            (p.location && p.location.toLowerCase().includes(term))
+            (p.birthPlace && p.birthPlace.toLowerCase().includes(term))
         );
         currentPage = 1;
         renderPage(1);
@@ -224,63 +215,51 @@ if(searchInput) {
 
 
 /* =========================================
-   ФУНКЦИЯ: ПРЕВРАЩЕНИЕ ТЕКСТА В ССЫЛКИ
-   (Ищет "id=123" и делает ссылку)
+   ФУНКЦИЯ: ОБРАБОТКА ССЫЛОК НА РОДСТВЕННИКОВ
    ========================================= */
 function formatRelatives(relativesText) {
     if (!relativesText) return "Нет данных";
 
-    // 1. Разбиваем список по точке с запятой ";"
     const list = relativesText.split(';');
 
-    // 2. Обрабатываем каждый кусочек
     return list.map(item => {
-        item = item.trim(); // Убираем лишние пробелы
-
-        // Регулярное выражение: ищем текст, а потом (id=ЧИСЛО...)
-        // match[1] — это текст (например, "Отец: Николай")
-        // match[2] — это само число ID (например, "12")
+        item = item.trim();
+        // Ищем (id=123)
         const match = item.match(/^(.*?)\s*\(id=(\d+).*?\)$/);
 
         if (match) {
             const cleanText = match[1]; 
             const linkId = match[2];
             
-            // Возвращаем кликабельную ссылку
             return `<div class="relatives-line">
                         <span class="relative-link" onclick="openModal(${linkId})">
                             ${cleanText} ➜
                         </span>
                     </div>`;
         } else {
-            // Если ID нет, возвращаем просто текст
             if(item === "") return "";
             return `<div class="relatives-line">${item}</div>`;
         }
-    }).join(''); // Собираем всё обратно в одну строку
+    }).join(''); 
 }
 
 /* =========================================
-   ОТКРЫТИЕ МОДАЛЬНОГО ОКНА
+   МОДАЛЬНОЕ ОКНО
    ========================================= */
 function openModal(id) {
-    // 1. Находим человека в базе (peopleData - это наш JSON)
-    const person = peopleData.find(p => p.id == id);
+    // ⚡ ИСПРАВЛЕНИЕ: Используем allPeopleData (а не peopleData)
+    const person = allPeopleData.find(p => p.id == id);
     if (!person) return;
 
-    // 2. Генерируем красивые ссылки для родственников
     const relativesHtml = formatRelatives(person.relatives);
 
-    // 3. Собираем содержимое окна
     const modalHtml = `
         <div class="person-layout-grid">
-            
             <div class="person-left-col">
                 ${person.image 
                     ? `<img src="${person.image}" alt="${person.name}" class="person-img">` 
                     : `<div class="person-img-placeholder">Нет фото</div>`
                 }
-
                 <div class="relatives-box">
                     <strong style="display:block; margin-bottom:10px; color:var(--ink);">Родственники:</strong>
                     ${relativesHtml}
@@ -289,7 +268,6 @@ function openModal(id) {
 
             <div class="person-right-col">
                 <h2 class="person-full-name">${person.name}</h2>
-                
                 <div class="life-dates">
                     <div class="date-row">
                         <span class="date-icon">🐣</span> 
@@ -302,11 +280,9 @@ function openModal(id) {
                         ${person.deathPlace ? `(${person.deathPlace})` : ""}
                     </div>
                 </div>
-
                 <div class="person-bio">
                     ${person.bio ? person.bio : "Биография уточняется..."}
                 </div>
-
                 ${person.sources ? `
                 <div class="sources-box">
                     <strong>Источники:</strong><br>
@@ -318,8 +294,20 @@ function openModal(id) {
         </div>
     `;
 
-    // 4. Вставляем в HTML и показываем
     document.getElementById('modalContent').innerHTML = modalHtml;
     document.getElementById('personModal').classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
+    document.body.style.overflow = 'hidden'; 
 }
+
+// Функция закрытия окна (обязательна!)
+function closeModal() {
+    document.getElementById('personModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Закрытие по клику на фон
+document.getElementById('personModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});

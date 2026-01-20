@@ -222,52 +222,104 @@ if(searchInput) {
     });
 }
 
-// Ссылки на родню
-function formatRelatives(text) {
-    if (!text) return '';
-    return text.split('\n').map(line => {
-        const match = line.match(/(.*?)\s*\(id=(\d+)\)/i);
+
+/* =========================================
+   ФУНКЦИЯ: ПРЕВРАЩЕНИЕ ТЕКСТА В ССЫЛКИ
+   (Ищет "id=123" и делает ссылку)
+   ========================================= */
+function formatRelatives(relativesText) {
+    if (!relativesText) return "Нет данных";
+
+    // 1. Разбиваем список по точке с запятой ";"
+    const list = relativesText.split(';');
+
+    // 2. Обрабатываем каждый кусочек
+    return list.map(item => {
+        item = item.trim(); // Убираем лишние пробелы
+
+        // Регулярное выражение: ищем текст, а потом (id=ЧИСЛО...)
+        // match[1] — это текст (например, "Отец: Николай")
+        // match[2] — это само число ID (например, "12")
+        const match = item.match(/^(.*?)\s*\(id=(\d+).*?\)$/);
+
         if (match) {
-            return `<div class="relatives-line"><span class="relative-link" onclick="openRelative(${match[2]})">${match[1].trim()}</span></div>`;
+            const cleanText = match[1]; 
+            const linkId = match[2];
+            
+            // Возвращаем кликабельную ссылку
+            return `<div class="relatives-line">
+                        <span class="relative-link" onclick="openModal(${linkId})">
+                            ${cleanText} ➜
+                        </span>
+                    </div>`;
+        } else {
+            // Если ID нет, возвращаем просто текст
+            if(item === "") return "";
+            return `<div class="relatives-line">${item}</div>`;
         }
-        return line.trim() ? `<div class="relatives-line">${line}</div>` : '';
-    }).join('');
+    }).join(''); // Собираем всё обратно в одну строку
 }
 
-window.openRelative = function(id) {
-    const person = allPeopleData.find(p => p.id == id);
-    if (person) openModal(person);
-};
+/* =========================================
+   ОТКРЫТИЕ МОДАЛЬНОГО ОКНА
+   ========================================= */
+function openModal(id) {
+    // 1. Находим человека в базе (peopleData - это наш JSON)
+    const person = peopleData.find(p => p.id == id);
+    if (!person) return;
 
-// Модальное окно
-function openModal(person) {
-    const modal = document.getElementById('personModal');
-    const content = document.getElementById('modalContent');
-    
-    content.innerHTML = `
+    // 2. Генерируем красивые ссылки для родственников
+    const relativesHtml = formatRelatives(person.relatives);
+
+    // 3. Собираем содержимое окна
+    const modalHtml = `
         <div class="person-layout-grid">
+            
             <div class="person-left-col">
-                ${person.photo ? `<img src="${person.photo}" class="person-img" alt="${person.name}">` : ''}
-                ${person.relatives ? `<div class="relatives-box"><strong style="display:block;margin-bottom:5px;color:var(--slate-light);font-size:0.75rem;">РОДСТВЕННЫЕ СВЯЗИ:</strong>${formatRelatives(person.relatives)}</div>` : ''}
+                ${person.image 
+                    ? `<img src="${person.image}" alt="${person.name}" class="person-img">` 
+                    : `<div class="person-img-placeholder">Нет фото</div>`
+                }
+
+                <div class="relatives-box">
+                    <strong style="display:block; margin-bottom:10px; color:var(--ink);">Родственники:</strong>
+                    ${relativesHtml}
+                </div>
             </div>
+
             <div class="person-right-col">
                 <h2 class="person-full-name">${person.name}</h2>
-                ${(person.birth || person.death) ? `<div class="life-dates">${person.birth ? `<div class="date-row"><span class="date-icon">★</span> ${person.birth}</div>` : ''}${person.death ? `<div class="date-row"><span class="date-icon">✝</span> ${person.death}</div>` : ''}</div>` : ''}
-                ${person.bio ? `<div class="person-bio">${person.bio}</div>` : '<p style="opacity:0.5;">Биография отсутствует.</p>'}
-                ${person.sources ? `<div class="sources-box"><strong>🕮 Источники:</strong><br>${person.sources.replace(/\n/g, '<br>')}</div>` : ''}
+                
+                <div class="life-dates">
+                    <div class="date-row">
+                        <span class="date-icon">🐣</span> 
+                        <strong>Рождение:</strong> ${person.birthDate || "?"} 
+                        ${person.birthPlace ? `(${person.birthPlace})` : ""}
+                    </div>
+                    <div class="date-row" style="margin-top:5px;">
+                        <span class="date-icon">✝️</span> 
+                        <strong>Смерть:</strong> ${person.deathDate || "—"} 
+                        ${person.deathPlace ? `(${person.deathPlace})` : ""}
+                    </div>
+                </div>
+
+                <div class="person-bio">
+                    ${person.bio ? person.bio : "Биография уточняется..."}
+                </div>
+
+                ${person.sources ? `
+                <div class="sources-box">
+                    <strong>Источники:</strong><br>
+                    <a href="${person.sources}" target="_blank" style="color:var(--gold); text-decoration:underline;">
+                        Перейти к архивному документу
+                    </a>
+                </div>` : ""}
             </div>
         </div>
     `;
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    document.querySelector('.modal-card').scrollTop = 0;
-}
 
-function closeModal() {
-    document.getElementById('personModal').classList.remove('active');
-    document.body.style.overflow = '';
+    // 4. Вставляем в HTML и показываем
+    document.getElementById('modalContent').innerHTML = modalHtml;
+    document.getElementById('personModal').classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
 }
-
-document.getElementById('personModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('personModal')) closeModal();
-});

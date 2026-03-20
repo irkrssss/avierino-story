@@ -30,7 +30,7 @@ if(document.querySelector(".map-svg-vector")) {
         opacity: 1, scale: 1.2, duration: 0.5,
         scrollTrigger: {
             trigger: ".step-1", start: "top center", end: "center center",
-            toggleActions: "play reverse play reverse"
+            toggleActions: "play none none reverse"
         }
     });
 
@@ -75,8 +75,7 @@ if(document.querySelector(".map-svg-vector")) {
         strokeDashoffset: 0,
         scrollTrigger: { trigger: ".step-5", start: "top center", end: "bottom center", scrub: 1.5 }
     });
-    gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']", jQuery(".city-label:contains('Женева')"), jQuery(".city-label:contains('Париж')"), jQuery(".city-label:contains('Варшава')")], {
-        opacity: 1, stagger: 0.1,
+  gsap.to([".city-dot[data-city='geneva']", ".city-dot[data-city='paris']", ".city-dot[data-city='warsaw']", ".city-dot[data-city='london']", jQuery(".city-label:contains('Женева')"), jQuery(".city-label:contains('Париж')"), jQuery(".city-label:contains('Варшава')"), jQuery(".city-label:contains('Лондон')")], {     opacity: 1, stagger: 0.1,
         scrollTrigger: { trigger: ".step-5", start: "center center" }
     });
 }

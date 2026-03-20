@@ -366,7 +366,13 @@ a:hover { color: var(--gold); border-color: var(--gold); }
     fill: var(--paper); stroke: var(--gold); stroke-width: 1px;
     transition: 0.3s; opacity: 0;
 }
-.city-dot.origin { fill: var(--gold); }
+.city-dot.origin { 
+    fill: var(--gold); 
+    opacity: 1 !important; 
+}
+.city-label.origin-label {
+    opacity: 1 !important;
+}
 .city-dot.hub { fill: var(--gold); stroke-width: 2px; r: 6px; }
 
 .city-label {

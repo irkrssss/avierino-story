@@ -95,48 +95,95 @@
     <div class="map-wrapper" id="map">
         <div class="map-sticky">
             <div class="map-container">
-                <svg class="map-svg-vector" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
-                    <g class="map-base-layer">
-                        <path d="M999,799 H1 V1 h998 V799 z M 200,500 Q 250,450 300,480 T 400,420 T 480,380 Q 500,300 550,250 T 650,150 L 750,100 L 950,120 V 600 Q 900,650 850,620 T 750,680 Q 700,700 650,650 L 600,620 Q 550,600 520,630 T 450,680 Q 400,720 350,680 T 250,700 L 100,750 V 600 L 150,550 Z M 680,550 Q 690,540 710,550 T 700,580 T 670,570 Z" fill="#1e2a36" stroke="none"/>
-                        <path d="M 450,680 Q 520,630 550,600 T 600,620 L 650,650 Q 680,600 720,580 L 750,560 Q 760,530 740,510 T 700,520 L 680,540 Q 660,520 680,480 T 720,420 Q 740,390 760,410 T 790,430 L 820,400 L 850,380 Q 800,300 700,350 T 600,400 T 500,450 Q 450,500 400,520 T 300,550 Q 250,600 350,650 Z M 740,510 Q 760,500 780,510 T 790,480 T 760,460 T 730,480 Z M 810,415 Q 820,410 830,415 T 825,430 T 805,425 Z" fill="#15202B" stroke="#3d5369" stroke-width="1"/>
-                    </g>
-                    <g class="routes-group stage-1">
-                        <path d="M 695,565 Q 750,550 780,500 T 820,422" class="route-path main-route" />
-                        <path d="M 695,565 Q 710,500 730,460" class="route-path secondary-route" />
-                        <path d="M 695,565 L 740,520" class="route-path secondary-route" />
-                        <path d="M 695,565 Q 700,650 760,700" class="route-path secondary-route" />
-                     
-                    </g>
-                    <g class="routes-group stage-2">
-                        <path d="M 820,422 Q 830,350 840,280" class="route-path" />
-                        <path d="M 820,422 Q 800,300 780,210" class="route-path" />
-                    </g>
-                    <g class="routes-group stage-3">
-<g class="routes-group stage-3">
-    <path d="M 820,422 Q 700,450 600,320" class="route-path" />
-    <path d="M 840,280 Q 750,300 600,320" class="route-path" />
-    <path d="M 780,210 Q 600,250 480,350" class="route-path" />
-    <path d="M 780,210 C 650,200 550,280 600,320" class="route-path" /> 
-    <path d="M 780,210 C 650,180 450,200 520,400" class="route-path" /> 
-    <path d="M 780,210 C 650,180 450,200 350,250" class="route-path" /> 
-    <path d="M 840,280 C 750,270 650,300 600,320" class="route-path" /> 
-    <path d="M 840,280 C 700,300 580,380 520,400" class="route-path" /> 
-    <path d="M 820,422 C 700,400 550,380 480,350" class="route-path" /> 
-    <path d="M 820,422 C 750,450 600,430 520,400" class="route-path" /> 
+    <svg class="map-svg-vector" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+        
+        <g class="map-base-layer">
+            <!-- 1. Твоя картинка из Фигмы (замени 'map-bg.jpg' на реальное название твоего файла) -->
+            <image href="/images/Image.jpg" x="0" y="0" width="1000" height="800" preserveAspectRatio="xMidYMid slice" />
+            
+            <!-- 2. Затемняющая маска (делает карту темной и контрастной) -->
+            <rect x="0" y="0" width="1000" height="800" fill="#15202B" style="mix-blend-mode: multiply; opacity: 0.9;" />
+            
+            <!-- 3. Тонирующая серо-синяя маска (красит все оттенки в стиль твоего сайта) -->
+            <rect x="0" y="0" width="1000" height="800" fill="#3d5369" style="mix-blend-mode: color; opacity: 0.8;" />
+        </g>
+
+<!-- ШАГ 1: Исход из Хиоса -->
+<g class="routes-group stage-1">
+    <!-- В Таганрог -->
+    <path d="M 671,680 Q 800,550 875,373" class="route-path main-route" />
+    <!-- В Одессу -->
+    <path d="M 671,680 Q 680,500 739,430" class="route-path secondary-route" />
+    <!-- В Стамбул -->
+    <path d="M 671,680 Q 680,620 723,592" class="route-path secondary-route" />
+    <!-- В Александрию -->
+    <path d="M 671,680 Q 720,720 744,799" class="route-path secondary-route" />
 </g>
-                    <g class="cities-layer">
-                        <circle cx="695" cy="565" r="4" class="city-dot origin" data-city="chios" /><text x="685" y="560" class="city-label origin-label" text-anchor="end">Хиос</text>
-                        <circle cx="820" cy="422" r="4" class="city-dot hub" data-city="taganrog" /><text x="835" y="425" class="city-label">Таганрог</text>
-                        <circle cx="740" cy="520" r="3" class="city-dot" data-city="istanbul" /><text x="750" y="520" class="city-label">Стамбул</text>
-                        <circle cx="730" cy="460" r="3" class="city-dot" data-city="odessa" /><text x="720" y="455" class="city-label" text-anchor="end">Одесса</text>
-                        <circle cx="840" cy="280" r="3" class="city-dot" data-city="moscow" /><text x="855" y="285" class="city-label">Москва</text>
-                        <circle cx="780" cy="210" r="3" class="city-dot" data-city="spb" /><text x="795" y="215" class="city-label">С-Петербург</text>
-                        <circle cx="350" cy="250" r="3" class="city-dot destination" data-city="london" /><text x="340" y="245" class="city-label" text-anchor="end">Лондон</text>
-<circle cx="480" cy="350" r="3" class="city-dot destination" data-city="paris" /><text x="470" y="345" class="city-label" text-anchor="end">Париж</text>
-<circle cx="520" cy="400" r="3" class="city-dot destination" data-city="geneva" /><text x="535" y="405" class="city-label">Женева</text>
-<circle cx="600" cy="320" r="3" class="city-dot destination" data-city="warsaw" /><text x="615" y="325" class="city-label">Варшава</text>
-                           <circle cx="760" cy="700" r="3" class="city-dot" data-city="alexandria" /><text x="775" y="705" class="city-label">Александрия</text>
-                    </g>
+
+<!-- ШАГ 2: Из Таганрога в столицы -->
+<g class="routes-group stage-2">
+    <!-- В Москву -->
+    <path d="M 875,373 Q 850,250 802,135" class="route-path" />
+    <!-- В С-Петербург -->
+    <path d="M 875,373 Q 750,200 680,34" class="route-path" />
+</g>
+
+<!-- ШАГ 3: Эмиграция в Европу -->
+<g class="routes-group stage-3">
+    <!-- Из СПб в Лондон -->
+    <path d="M 680,34 C 500,50 350,150 236,246" class="route-path emigrate-route" />
+    <!-- Из СПб в Париж -->
+    <path d="M 680,34 C 550,100 400,250 289,345" class="route-path emigrate-route" />
+    <!-- Из Москвы в Варшаву -->
+    <path d="M 802,135 C 700,150 650,250 564,269" class="route-path emigrate-route" />
+    <!-- Из Москвы в Женеву -->
+    <path d="M 802,135 C 600,200 450,350 317,417" class="route-path emigrate-route" />
+    <!-- Из Таганрога в Париж -->
+    <path d="M 875,373 C 650,300 450,350 289,345" class="route-path emigrate-route" />
+    <!-- Из Таганрога в Женеву -->
+    <path d="M 875,373 C 650,450 450,400 317,417" class="route-path emigrate-route" />
+</g>
+
+<!-- ТОЧКИ ГОРОДОВ И ПОДПИСИ -->
+<g class="cities-layer">
+    <!-- Исходная точка -->
+    <circle cx="671" cy="680" r="4" class="city-dot origin" data-city="chios" />
+    <text x="661" y="675" class="city-label origin-label" text-anchor="end">Хиос</text>
+
+    <!-- Хаб -->
+    <circle cx="875" cy="373" r="4" class="city-dot hub" data-city="taganrog" />
+    <text x="890" y="378" class="city-label">Таганрог</text>
+
+    <!-- Первая волна -->
+    <circle cx="723" cy="592" r="3" class="city-dot" data-city="istanbul" />
+    <text x="733" y="597" class="city-label">Стамбул</text>
+
+    <circle cx="739" cy="430" r="3" class="city-dot" data-city="odessa" />
+    <text x="729" y="425" class="city-label" text-anchor="end">Одесса</text>
+
+    <circle cx="744" cy="799" r="3" class="city-dot" data-city="alexandria" />
+    <text x="759" y="790" class="city-label">Александрия</text>
+
+    <!-- Вторая волна (Столицы) -->
+    <circle cx="802" cy="135" r="3" class="city-dot" data-city="moscow" />
+    <text x="817" y="140" class="city-label">Москва</text>
+
+    <circle cx="680" cy="34" r="3" class="city-dot" data-city="spb" />
+    <text x="695" y="39" class="city-label">С-Петербург</text>
+
+    <!-- Третья волна (Европа) -->
+    <circle cx="236" cy="246" r="3" class="city-dot destination" data-city="london" />
+    <text x="226" y="241" class="city-label" text-anchor="end">Лондон</text>
+
+    <circle cx="289" cy="345" r="3" class="city-dot destination" data-city="paris" />
+    <text x="279" y="340" class="city-label" text-anchor="end">Париж</text>
+
+    <circle cx="317" cy="417" r="3" class="city-dot destination" data-city="geneva" />
+    <text x="332" y="422" class="city-label">Женева</text>
+
+    <circle cx="564" cy="269" r="3" class="city-dot destination" data-city="warsaw" />
+    <text x="579" y="274" class="city-label">Варшава</text>
+</g>
                 </svg>
             </div>
         </div>

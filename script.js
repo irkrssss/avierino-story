@@ -42,10 +42,10 @@ if(document.querySelector(".map-svg-vector")) {
         }
     });
     
-    gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']", jQuery(".city-label:contains('Стамбул')"), jQuery(".city-label:contains('Одесса')")], {
-        opacity: 1, duration: 0.5, delay: 0.2,
-        scrollTrigger: { trigger: ".step-2", start: "center center" }
-    });
+gsap.to([".city-dot[data-city='istanbul']", ".city-dot[data-city='odessa']", ".city-dot[data-city='alexandria']", jQuery(".city-label:contains('Стамбул')"), jQuery(".city-label:contains('Одесса')"), jQuery(".city-label:contains('Александрия')")], {
+    opacity: 1, duration: 0.5, delay: 0.2,
+    scrollTrigger: { trigger: ".step-2", start: "center center" }
+});
 
     // --- ШАГ 3: Таганрог ---
     gsap.to(".city-dot[data-city='taganrog']", {
